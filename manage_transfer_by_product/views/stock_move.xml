@@ -66,7 +66,19 @@
 	<menuitem id="manage_transfer_by_product_menu"
 		name="Stock Move" parent="stock.menu_stock_warehouse_mgmt"
 		sequence="6" action="manage_transfer_by_product_action" />
-		
+
+        <record id="action_check_availability" model="ir.actions.server">
+            <field name="name">Check Availability</field>
+            <field name="model_id" ref="stock.model_stock_move"/>
+            <field name="binding_model_id" ref="stock.model_stock_move"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+            if records:
+                records.picking_id.action_assign()
+            </field>
+        </record>
+        		
 		
         <record id="action_stock_move_unreserve_picking" model="ir.actions.server">
             <field name="name">Unreserve</field>
