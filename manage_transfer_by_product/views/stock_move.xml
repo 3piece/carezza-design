@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="manage_transfer_by_product_tree" model="ir.ui.view">
+            <field name="name">stock.move.tree</field>
+            <field name="model">stock.move</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Moves" create="0" editable="top">
+                	<field name='product_uom_category_id'  invisible='1'></field>
+                    <field name="date" groups="base.group_no_one" decoration-danger="(state in ('cancel','done')) and date > current_date" />
+                    <field name="reference" invisible='1'/>
+                    <field name='picking_id'  ></field>
+                    <field name="picking_type_id" readonly='1'/>
+                    <field name="create_date" invisible="1" groups="base.group_no_one"/>
+                    <field name="product_id" readonly='1' />
+                    <field name="location_id" invisible='0' readonly='1' options="{'no_create': True}" string="Source WH"/>
+                    <field name="location_dest_id" invisible='0' readonly='1' options="{'no_create': True}" string="Target WH"/>
+                    <!-- <field name="change_location_id" options="{'no_create': True}" string="From"/>
+                    <field name="change_location_dest_id" options="{'no_create': True}" string="To"/> -->   
+                    <field name="product_uom_qty" readonly='1'/>
+                    <field name='reserved_availability' readonly='1'></field>
+					<field name='quantity_done' readonly='1'></field>
+                    <field name="product_uom" readonly='1' options="{'no_open': True, 'no_create': True}" string="Unit of Measure" groups="uom.group_uom"/>
+                    <field name="company_id" readonly='1'  groups="base.group_multi_company"/>
+                    <field name="state" widget='badge' decoration-success="state == 'done'" decoration-info="state in ('done', 'cancel')"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+	<record id="manage_transfer_by_product_filter"
+		model="ir.ui.view">
+		<field name="name">stock.move.list.select</field>
+		<field name="model">stock.move</field>
+		<field name="arch" type="xml">
+			<search string="Search Stock Move">
+				<field name='name'></field>
+				<field name='state'></field>
+				<filter string="State is waiting" name="state_is_waiting" domain="[('state','in',['waiting'])]"/>
+				<filter string="State is Cancel" name="state_is_cancel" domain="[('state','in',['cancel'])]"/>
+				<filter string="State is New" name="state_is_draf" domain="[('state','in',['draft'])]"/>
+				<filter string="State is Confirmed" name="state_is_confirmed" domain="[('state','in',['confirmed'])]"/>
+				<filter string="State is Available" name="state_is_available" domain="[('state','in',['assigned'])]"/>
+				<filter string="State is Done" name="state_is_done" domain="[('state','in',['done'])]"/>
+				<filter name="group_picking_id" string="Transfers"
+					domain="[]" context="{'group_by': 'picking_id'}" />
+			</search>
+		</field>
+	</record>
+
+	<record id="manage_transfer_by_product_action"
+		model="ir.actions.act_window">
+		<field name="name">Stock Move</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">stock.move</field>
+		<field name="view_mode">tree,form,search</field>
+		<field name="view_id"
+			ref="manage_transfer_by_product.manage_transfer_by_product_tree" />
+		<field name="search_view_id"
+			ref="manage_transfer_by_product.manage_transfer_by_product_filter" />
+		<field name="context">{"search_default_group_picking_id":1,"search_default_state_is_available":1 }</field>
+	</record>
+
+	<menuitem id="manage_transfer_by_product_menu"
+		name="Stock Move" parent="stock.menu_stock_warehouse_mgmt"
+		sequence="6" action="manage_transfer_by_product_action" />
+		
+		
+        <record id="action_stock_move_unreserve_picking" model="ir.actions.server">
+            <field name="name">Unreserve</field>
+            <field name="model_id" ref="stock.model_stock_move"/>
+            <field name="binding_model_id" ref="stock.model_stock_move"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+            if records:
+                records.do_unreserve()
+            </field>
+        </record>
+        
+        <record id="action_stock_move_validate_picking" model="ir.actions.server">
+            <field name="name">Validate</field>
+            <field name="model_id" ref="stock.model_stock_move"/>
+            <field name="binding_model_id" ref="stock.model_stock_move"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+            if records:
+                res = records.picking_id.button_validate()
+                if isinstance(res, dict):
+                    action = res
+            </field>
+        </record>        
+        
+</odoo>
