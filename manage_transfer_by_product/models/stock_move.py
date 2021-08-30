@@ -9,6 +9,7 @@ __status__ = "Production"
 __metalink__ = 'https://strai.co/jrtx35fdg'
 __docformat__ = 'Google Docs'
 
+from itertools import groupby
 from odoo import api, fields, models, _
 import logging
 _logger = logging.getLogger(__name__)
