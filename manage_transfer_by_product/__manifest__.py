@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Manage Transfer By Product',
-    'version': '14.0.0.1',
+    'version': '14.0.0.2',
     'summary': 'Manage Transfer By Product',
     'description': """
         Manage Transfer By Product
