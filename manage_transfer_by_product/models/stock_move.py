@@ -26,8 +26,3 @@ class StockMove(models.Model):
         self.picking_id.button_validate()
          
 
-
-            picking = Picking.create(moves._get_new_picking_values())
-            moves.write({'picking_id': picking.id})
-            moves._assign_picking_post_process(new=new_picking)
-        return True
