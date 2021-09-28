@@ -47,6 +47,7 @@
         'security/stock_security.xml',
         'security/base_security.xml',
         'views/stock_picking_type_inherit.xml',
+        'menu/custom_action.xml',
     ],
 
     # only loaded in demonstration mode
