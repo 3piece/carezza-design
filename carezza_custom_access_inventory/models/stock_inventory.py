@@ -12,3 +12,5 @@ class StockInventory(models.Model):
               raise AccessError("You don't have permission")
         res = super().action_validate()
         return res
+
+
