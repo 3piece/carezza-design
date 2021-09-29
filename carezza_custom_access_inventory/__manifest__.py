@@ -50,6 +50,11 @@
         'views/stock_picking_type_inherit.xml',
         'views/stock_picking.xml',
         'views/product_product.xml',
+        'views/res_users.xml',
+        'views/stock_warehouse.xml',
+        'views/stock_quant_inherit.xml',
+        #'views/stock_location.xml',
+        
         # menu
         'menu/custom_action.xml',
     ],
