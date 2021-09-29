@@ -20,6 +20,7 @@ class ProductTemplate(models.Model):
     _inherit = 'product.product'
 
     default_code = fields.Char('Code', index=True)
+    attribute_value = fields.Char(related='product_template_attribute_value_ids.product_attribute_value_id.name')
 
 
     def update_external_id(self,model, id, external_id, prefix='__export__', safe=True):

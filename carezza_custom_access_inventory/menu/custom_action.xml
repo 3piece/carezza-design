@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
+		<menuitem id="stock.menu_warehouse_report" name="Reporting"
+			sequence="99" parent="stock.menu_stock_root"
+			groups="stock.group_stock_manager,carezza_group_stock_checker,carezza_group_stock_manager,stock.group_stock_user" />
+
+
 		<!-- Overide action -->
 		<record id="stock.product_template_action_product"
 			model="ir.actions.act_window">
