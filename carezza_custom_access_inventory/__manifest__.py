@@ -49,6 +49,8 @@
         'views/stock_picking_type_inherit.xml',
         'views/stock_picking_type_inherit.xml',
         'views/stock_picking.xml',
+        'views/product_product.xml',
+        # menu
         'menu/custom_action.xml',
     ],
 
