@@ -7,6 +7,6 @@ class StockPicking(models.Model):
 
     _inherit = 'stock.picking'
 
-    eta =  fields.Datetime()
+    eta =  fields.Date(string="ETA")
     bl_number = fields.Char(string='B/L Number')
     

@@ -8,6 +8,6 @@ class StockMove(models.Model):
     _inherit = 'stock.move'
     
     invoice_number =  fields.Char()
-    invoice_date =  fields.Datetime()
+    invoice_date =  fields.Date()
     invoice_mount =  fields.Float()
     
