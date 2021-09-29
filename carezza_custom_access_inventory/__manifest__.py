@@ -40,7 +40,7 @@
     'sequence': 40,
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
 
-    'depends': ['base','stock'],
+    'depends': ['base','stock','purchase','purchase_stock'],
 
     'data': [
          # 'security/ir.model.access.csv',
@@ -52,9 +52,11 @@
         'views/res_users.xml',
         'views/stock_warehouse.xml',
         'views/stock_quant_inherit.xml',
+        'views/po_inherit.xml',
         #'views/stock_location.xml',
         
         # menu
+        
         'menu/custom_action.xml',
     ],
 
