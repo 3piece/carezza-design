@@ -48,6 +48,7 @@
         'security/base_security.xml',
         'views/stock_picking_type_inherit.xml',
         'views/stock_picking_type_inherit.xml',
+        'views/stock_picking.xml',
         'menu/custom_action.xml',
     ],
 
