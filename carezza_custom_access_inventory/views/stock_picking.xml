@@ -6,14 +6,17 @@
 		<field name="model">stock.picking</field>
 		<field name="inherit_id" ref="stock.view_picking_form" />
 		<field name="arch" type="xml">
-			<xpath expr="//field[@name='origin']" position="after">
+		
+			<xpath expr="//field[@name='date_deadline']" position="before">
 				<field name="eta" />
 				<field name="bl_number" />
-			</xpath>
+			</xpath>		
+		
 			<xpath expr="//field[@name='product_id']" position="after">
+				<field name="currency_id"  invisible='1'/>
 				<field name="invoice_number" />
 				<field name="invoice_date" />
-				<field name="invoice_mount" />
+				<field name="invoice_mount"  widget="monetary" options="{'currency_field': 'currency_id'}"/>
 			</xpath>
 
 
