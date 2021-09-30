@@ -46,6 +46,7 @@
          # 'security/ir.model.access.csv',
         'security/stock_security.xml',
         'security/base_security.xml',
+        'views/report_po_inherit.xml',
         'views/stock_picking_type_inherit.xml',
         'views/stock_picking.xml',
         'views/product_product.xml',

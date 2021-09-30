@@ -22,12 +22,12 @@
 
 
 
-	<template id="rfq_purchase"
+<!-- 	<template id="rfq_purchase"
 		inherit_id="purchase.report_purchasequotation_document" >
 		<xpath expr="//span[@t-field='order_line.date_planned']" position="replace">
 				<span t-field="order_line.date_planned"  t-options='{"format": "dd/MM/yyyy"}'/>
 		</xpath>
-	</template>
+	</template> -->
 
 </odoo> 
 
