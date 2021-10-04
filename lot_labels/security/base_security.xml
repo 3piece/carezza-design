@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.rule"
+			id="operation_type_reponsible_user_rule">
+			<field name="name">operation type: responsible user: access</field>
+			<field name="model_id" ref="stock.model_stock_picking_type" />
+			<field name="domain_force">[('responsible_user_ids', 'child_of', user.id)]
+			</field>
+			<field name="perm_read" eval="True" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_write" eval="False" />
+			<field name="groups"
+				eval="[(4, ref('carezza_custom_access_inventory.carezza_group_stock_checker')),(4, ref('carezza_custom_access_inventory.carezza_group_stock_manager')),(4, ref('stock.group_stock_user'))]" />
+		</record>
+
+		<record model="ir.rule"
+			id="stock_warehouse_reponsible_user_rule">
+			<field name="name">Warehouse : responsible user: access</field>
+			<field name="model_id" ref="stock.model_stock_warehouse" />
+			<field name="domain_force">[('responsible_user_ids', 'child_of', user.id)]
+			</field>
+			<field name="perm_read" eval="True" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_write" eval="False" />
+			<field name="groups"
+				eval="[(4, ref('carezza_custom_access_inventory.carezza_group_stock_checker')),(4, ref('carezza_custom_access_inventory.carezza_group_stock_manager')),(4, ref('stock.group_stock_user'))]" />
+		</record>
+
+
+		<record model="ir.rule"
+			id="stock_picking_reponsible_user_rule">
+			<field name="name">Transfer : responsible user: access</field>
+			<field name="model_id" ref="stock.model_stock_picking" />
+			<field name="domain_force">[('picking_type_id.responsible_user_ids', 'child_of', user.id)]
+			</field>
+			<field name="perm_read" eval="True" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_write" eval="False" />
+			<field name="groups"
+				eval="[(4, ref('carezza_custom_access_inventory.carezza_group_stock_checker')),(4, ref('carezza_custom_access_inventory.carezza_group_stock_manager')),(4, ref('stock.group_stock_user'))]" />
+		</record>
+
+
+		<record model="ir.rule" id="operation_type_admin_rule">
+			<field name="name">operation type: Admin: access</field>
+			<field name="model_id" ref="stock.model_stock_picking_type" />
+			<field name="domain_force">[(1, '=', 1)]
+			</field>
+			<field name="perm_read" eval="True" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_write" eval="False" />
+			<field name="groups"
+				eval="[(4, ref('stock.group_stock_manager'))]" />
+
+		</record>
+
+		<record model="ir.rule" id="stock_warehouse_admin_rule">
+			<field name="name">operation type: Admin: access</field>
+			<field name="model_id" ref="stock.model_stock_warehouse" />
+			<field name="domain_force">[(1, '=', 1)]
+			</field>
+			<field name="perm_read" eval="True" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_write" eval="False" />
+			<field name="groups"
+				eval="[(4, ref('stock.group_stock_manager'))]" />
+		</record>
+
+
+		<record model="ir.rule" id="stock_picking_admin_rule">
+			<field name="name">Transfer Admin: access</field>
+			<field name="model_id" ref="stock.model_stock_picking" />
+			<field name="domain_force">[(1, '=', 1)]
+			</field>
+			<field name="perm_read" eval="True" />
+			<field name="perm_create" eval="False" />
+			<field name="perm_unlink" eval="False" />
+			<field name="perm_write" eval="False" />
+			<field name="groups"
+				eval="[(4, ref('stock.group_stock_manager'))]" />
+		</record>
+	</data>
+</odoo>
