@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <template id="label_transfer_template_view_pdf">
+        <template id="lot_label_transfer_template_view_pdf">
             <t t-call="web.basic_layout">
                 <div class="page">
                     <t t-set="uom_categ_unit" t-value="env.ref('uom.product_uom_categ_unit')"/>

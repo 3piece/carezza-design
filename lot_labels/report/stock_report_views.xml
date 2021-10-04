@@ -5,8 +5,8 @@
             <field name="name">Lot (PDF)</field>
             <field name="model">stock.picking</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">lot_labels.label_transfer_template_view_pdf</field>
-            <field name="report_file">lot_labels.label_transfer_template_view_pdf</field>
+            <field name="report_name">lot_labels.lot_label_transfer_template_view_pdf</field>
+            <field name="report_file">lot_labels.lot_label_transfer_template_view_pdf</field>
             <field name="binding_model_id" ref="stock.model_stock_picking"/>
             <field name="binding_type">report</field>
         </record>
