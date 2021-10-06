@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="action_label_transfer_template_pdf" model="ir.actions.report">
-            <field name="name">Lot (PDF)</field>
+            <field name="name">Lot Labels (PDF)</field>
             <field name="model">stock.picking</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">lot_labels.lot_label_transfer_template_view_pdf</field>
