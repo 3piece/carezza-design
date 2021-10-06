@@ -19,7 +19,7 @@
 								<t t-foreach="range(qty)" t-as="item">
 									<t t-translation="off">
 										<div
-											style="display: inline-table; height: 10rem; width: 32%;">
+											style="display: inline-table; height: 10rem; width: 47%;">
 											<table class="table table-bordered"
 												style="border: 2px solid black;" t-if="picking.move_lines">
 												<tr>
