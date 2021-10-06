@@ -23,14 +23,40 @@
 											<table class="table table-bordered"
 												style="border: 2px solid black;" t-if="picking.move_lines">
 												<tr>
-													<td class="table-active text-center align-middle" style="height:4rem;"
+													<td class="table-active text-center align-middle"
+														style="height:4rem;"
+														t-if="move_line.product_id.material_type == 'Leather'"
 														colspan="2">
 														<strong t-esc="move.product_id.name" />
 														<span>-</span>
 														<strong t-esc="move.product_id.attribute_value" />
 													</td>
-												</tr>
 
+
+													<td class="table-active text-center align-middle"
+														style="height:4rem;"
+														t-if="move_line.product_id.material_type == 'Accessories'"
+														colspan="2">
+														<strong t-esc="move.product_id.name" />
+													</td>
+
+
+													<td rowspan="8"
+														t-if="move_line.product_id.material_type == 'Accessories'">
+														<img
+															t-attf-src="/web/image/product.product/#{move_line.product_id.id}/image_256"
+															class="img img-fluid" style="margin:auto;"
+															alt="Product image" />
+													</td>
+												</tr>
+												<tr>
+													<td class="table-active text-center align-middle"
+														style="height:4rem;"
+														t-if="move_line.product_id.material_type == 'Accessories'"
+														colspan="2">
+														<strong t-esc="move.product_id.attribute_value" />
+													</td>
+												</tr>
 
 												<tr>
 													<td colspan="2" class="text-center align-middle">
@@ -52,40 +78,45 @@
 												</tr>
 
 												<tr>
-													<td colspan="2" class="text-center align-middle" t-if="move_line.product_id.material_type == 'Leather'">
+													<td colspan="2" class="text-center align-middle"
+														t-if="move_line.product_id.material_type == 'Leather'">
 														<strong>Pallet Number: </strong>
 														<span t-field="move_line.move_id.pallet_number"></span>
 
-													</td>	
+													</td>
 												</tr>
-												
+
 												<tr>
-													<td colspan="2" class="text-center align-middle" t-if="move_line.product_id.material_type == 'Leather'">
+													<td colspan="2" class="text-center align-middle"
+														t-if="move_line.product_id.material_type == 'Leather'">
 														<strong>Number Of Skins: </strong>
 														<span t-field="move_line.move_id.number_of_skins"></span>
-													</td>			
+													</td>
 												</tr>
-																								
+
 												<tr>
-																								
+
 													<td colspan="2" class="text-center align-middle">
 														<strong>Roll Length: </strong>
 														<span t-field="move_line.move_id.quantity_done"></span>
 														<span t-field="move_line.product_uom_id"></span>
 
-													</td>																																				
+													</td>
 												</tr>
 												<tr>
-													<td colspan="2" class="text-center align-middle" t-if="move_line.product_id.material_type == 'Leather'">
+													<td colspan="2" class="text-center align-middle"
+														t-if="move_line.product_id.material_type == 'Leather'">
 														<strong>Average Skin Size: </strong>
 														<span t-field="move_line.move_id.average_skin_size"></span>
 
 													</td>
 												</tr>
-												<tr>
+												<tr
+													t-if="move_line.product_id.material_type == 'Leather'">
 													<td class="text-center align-middle">
 														<strong>Ship Date: </strong>
-														<span t-field="move_line.date" t-options='{"format": "dd/MM/yyyy"}'></span>
+														<span t-field="move_line.date"
+															t-options='{"format": "dd/MM/yyyy"}'></span>
 
 
 													</td>
@@ -97,6 +128,24 @@
 												</tr>
 
 
+												<tr
+													t-if="move_line.product_id.material_type == 'Accessories'">
+													<td colspan="2" class="text-center align-middle">
+														<strong>Ship Date: </strong>
+														<span t-field="move_line.date"
+															t-options='{"format": "dd/MM/yyyy"}'></span>
+
+
+													</td>
+												</tr>
+
+												<tr
+													t-if="move_line.product_id.material_type == 'Accessories'">
+													<td colspan="2" class="text-center align-middle">
+														<strong>Supplier:</strong>
+														<span t-field="move_line.picking_id.partner_id"></span>
+													</td>
+												</tr>
 
 
 												<t t-if="move_line.product_id.tracking != 'none'">
