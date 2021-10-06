@@ -30,7 +30,7 @@
     'website': "https://strai.co",
 
     'category': 'Inventory',
-    'version': '14.0.1.0.1',
+    'version': '14.0.2.0.1',
     'application':  True,
     'installable':  True,
     'auto_install':  False,
@@ -54,6 +54,7 @@
         'views/stock_warehouse.xml',
         'views/stock_quant_inherit.xml',
         'views/po_inherit.xml',
+        'views/product_template_inherit.xml',
         #'views/stock_location.xml',
         
         # menu
