@@ -14,7 +14,7 @@ class ProductTemplate(models.Model):
         'Code', compute='_compute_default_code',
         inverse='_set_default_code', store=True)
     
-    material_type = fields.Char(compute='compute_material_type', store=True)
+    material_type = fields.Char(compute='compute_material_type', store=False)
     
     @api.depends('categ_id')
     def compute_material_type(self):
