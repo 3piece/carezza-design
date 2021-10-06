@@ -37,7 +37,7 @@
     'sequence': 40,
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
 
-    'depends': ['base','stock'],
+    'depends': ['base','stock','carezza_custom_access_inventory'],
 
     'data': [
         'report/picking_templates.xml',
