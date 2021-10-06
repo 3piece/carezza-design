@@ -16,7 +16,7 @@
 				<field name="currency_id"  invisible='1'/>
 				<field name="invoice_number" />
 				<field name="invoice_date" />
-				<field name="invoice_mount"  widget="monetary" options="{'currency_field': 'currency_id'}"/>
+				<field name="invoice_amount"  widget="monetary" options="{'currency_field': 'currency_id'}"/>
 			</xpath>
 
 
