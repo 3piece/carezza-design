@@ -52,14 +52,36 @@
 												</tr>
 
 												<tr>
+													<td colspan="2" class="text-center align-middle" t-if="move_line.product_id.material_type == 'Leather'">
+														<strong>Pallet Number: </strong>
+														<span t-field="move_line.move_id.pallet_number"></span>
+
+													</td>	
+												</tr>
+												
+												<tr>
+													<td colspan="2" class="text-center align-middle" t-if="move_line.product_id.material_type == 'Leather'">
+														<strong>Number Of Skins: </strong>
+														<span t-field="move_line.move_id.number_of_skins"></span>
+													</td>			
+												</tr>
+																								
+												<tr>
+																								
 													<td colspan="2" class="text-center align-middle">
 														<strong>Roll Length: </strong>
 														<span t-field="move_line.move_id.quantity_done"></span>
 														<span t-field="move_line.product_uom_id"></span>
 
+													</td>																																				
+												</tr>
+												<tr>
+													<td colspan="2" class="text-center align-middle" t-if="move_line.product_id.material_type == 'Leather'">
+														<strong>Average Skin Size: </strong>
+														<span t-field="move_line.move_id.average_skin_size"></span>
+
 													</td>
 												</tr>
-
 												<tr>
 													<td class="text-center align-middle">
 														<strong>Ship Date: </strong>
