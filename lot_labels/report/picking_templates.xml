@@ -111,7 +111,7 @@
 														<span t-field="move_line.product_uom_id"></span>
 													</td>
 													
-													<td colspan="2" class="text-center align-middle" t-if="move_line.product_id.material_type == 'Material'">
+													<td colspan="2" class="text-center align-middle" t-if="move_line.product_id.material_type == 'Leather'">
 														<strong>Total Length: </strong>
 														<span t-field="move_line.move_id.quantity_done"></span>
 														<span t-field="move_line.product_uom_id"></span>
