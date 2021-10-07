@@ -8,25 +8,47 @@ class ResUsers(models.Model):
     _inherit = 'res.users'
 
     warehouse_ids =  fields.Many2many('stock.warehouse')
-    
+    location_ids =  fields.Many2many('stock.location')
     
     def add_warehouse(self,warehose_id):
         warehouse = self.env['stock.warehouse'].browse([warehose_id])
         warehouse.responsible_user_ids = [(4,self.id)]
         
-        # add user into operation type
+        # Add user into operation type
         operatation_types = self.env['stock.picking.type'].search([('warehouse_id','=',warehose_id)])
         for operatation_type in operatation_types:
             operatation_type.responsible_user_ids = [(4,self.id)]
+        # Add responsible user into location
+        root_location = warehouse.view_location_id
+        locations = self.env['stock.location'].search([])
+        for location in locations:
+            parent_path = location.parent_path.split("/")
+            parent_path.remove('')
+            if len(parent_path) > 2:
+                if int(parent_path[1]) == root_location.id:
+                    location.responsible_user_ids = [(4,self.id)]
+                    self.location_ids = [(4,location.id)]
         
         
     def remove_warehouse(self,warehose_id):
         warehouse = self.env['stock.warehouse'].browse([warehose_id])
         warehouse.responsible_user_ids = [(3,self.id)]       
-
+        
+        # Remove user into operation type
         operatation_types = self.env['stock.picking.type'].search([('warehouse_id','=',warehose_id)])
         for operatation_type in operatation_types:
             operatation_type.responsible_user_ids = [(3,self.id)]
+        
+        # Remove responsible user into location    
+        root_location = warehouse.view_location_id
+        locations = self.env['stock.location'].search([])
+        for location in locations:
+            parent_path = location.parent_path.split("/")
+            parent_path.remove('')
+            if len(parent_path) > 2:
+                if int(parent_path[1]) == root_location.id:
+                    location.responsible_user_ids = [(3,self.id)]   
+                    self.location_ids = [(3,location.id)]        
                 
     def write(self,vals):
         print(self.warehouse_ids)
@@ -52,9 +74,6 @@ class ResUsers(models.Model):
                         break;
                 if remove:
                     warehouse_remove.append(warehouse_id.id)
-            print("XXXXXXXXXXXX")
-            print(warehouse_add)
-            print(warehouse_remove)
         
             for warehouse_id in warehouse_add:
                 self.add_warehouse(warehouse_id)
