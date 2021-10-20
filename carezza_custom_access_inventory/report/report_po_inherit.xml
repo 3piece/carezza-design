@@ -12,6 +12,13 @@
 
 	<template id="print_purchase"
 		inherit_id="purchase.report_purchaseorder_document">
+		
+		<xpath expr="//th[@name='th_taxes']" position="replace">
+		</xpath>
+		
+		<xpath expr="//td[@name='td_taxes']" position="replace">
+		</xpath>				
+		
 		<xpath expr="//p[@t-field='o.date_order']" position="replace">
 			<span t-field="o.date_order"
 				t-options='{"format": "dd/MM/yyyy"}' />
