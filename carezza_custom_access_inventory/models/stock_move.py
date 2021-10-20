@@ -24,3 +24,5 @@ class StockMove(models.Model):
             record.average_skin_size = result
     
     
+    
+    
