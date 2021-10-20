@@ -9,7 +9,6 @@
 			<field name="arch" type="xml">
 				<xpath expr="//group[3]" position='after'>
 					<group string='Responsible Users' groups='base.group_no_one'>
-						<field name='is_propagation'></field>
 						<field name="responsible_user_ids" nolabel="1">
 							<tree>
 								<field name='name'></field>
@@ -17,8 +16,14 @@
 						</field>
 					</group>
 				</xpath>
+
+
+				<xpath expr="//field[@name='use_create_lots']"
+					position='after'>
+					<field name='is_propagation'></field>
+				</xpath>
 			</field>
-		</record>		
+		</record>
 	</data>
 
 
@@ -26,12 +31,10 @@
 
 
 
-<!-- 	<template id="rfq_purchase"
-		inherit_id="purchase.report_purchasequotation_document" >
-		<xpath expr="//span[@t-field='order_line.date_planned']" position="replace">
-				<span t-field="order_line.date_planned"  t-options='{"format": "dd/MM/yyyy"}'/>
-		</xpath>
-	</template> -->
+	<!-- <template id="rfq_purchase" inherit_id="purchase.report_purchasequotation_document" 
+		> <xpath expr="//span[@t-field='order_line.date_planned']" position="replace"> 
+		<span t-field="order_line.date_planned" t-options='{"format": "dd/MM/yyyy"}'/> 
+		</xpath> </template> -->
 
 </odoo> 
 
