@@ -12,3 +12,4 @@ from . import stock_warehouse
 from . import product_product
 from . import purchase_order_line
 from . import stock_location
+from . import procurement_group

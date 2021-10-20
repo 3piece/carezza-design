@@ -9,6 +9,7 @@
 			<field name="arch" type="xml">
 				<xpath expr="//group[3]" position='after'>
 					<group string='Responsible Users' groups='base.group_no_one'>
+						<field name='is_propagation'></field>
 						<field name="responsible_user_ids" nolabel="1">
 							<tree>
 								<field name='name'></field>
@@ -17,8 +18,11 @@
 					</group>
 				</xpath>
 			</field>
-		</record>
+		</record>		
 	</data>
+
+
+
 
 
 
