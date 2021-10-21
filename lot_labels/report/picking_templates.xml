@@ -26,7 +26,7 @@
 												style="border: 2px solid black;font-size: 80px;" t-if="picking.move_lines">
 												<tr>
 													<td class="table-active text-center align-middle"
-														style="height:4rem;"
+														style="height:7rem;"
 														t-if="move_line.product_id.material_type == 'Leather'"
 														colspan="2">
 														<strong t-esc="move.product_id.name" />
@@ -35,7 +35,7 @@
 													</td>
 
 													<td class="table-active text-center align-middle"
-														style="height:4rem;"
+														style="height:7rem;"
 														t-if="move_line.product_id.material_type == 'Material'"
 														colspan="2">
 														<strong t-esc="move.product_id.name" />
@@ -44,7 +44,7 @@
 													</td>
 
 													<td class="table-active text-center align-middle"
-														style="height:4rem;"
+														style="height:7rem;"
 														t-if="move_line.product_id.material_type == 'Accessories'"
 														colspan="2">
 														<strong t-esc="move.product_id.name" />
@@ -63,7 +63,7 @@
 												</tr>
 												<tr>
 													<td class="table-active text-center align-middle"
-														style="height:4rem;"
+														style="height:7rem;"
 														t-if="move_line.product_id.material_type == 'Accessories'"
 														colspan="2">
 														<strong t-esc="move.product_id.attribute_value" />
@@ -173,7 +173,7 @@
 															<t t-if="move_line.lot_name or move_line.lot_id">
 																<img
 																	t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.lot_id.name, 600, 150)"
-																	style="width:100%;height:4rem" alt="Barcode" />
+																	style="width:100%;height:7rem" alt="Barcode" />
 																<span
 																	t-esc="move_line.lot_id.name" />
 															</t>
@@ -189,7 +189,7 @@
 															<t t-if="move_line.lot_name or move_line.lot_id">
 																<img
 																	t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.lot_name, 600, 150)"
-																	style="width:100%;height:4rem" alt="Barcode" />
+																	style="width:100%;height:7rem" alt="Barcode" />
 																<span
 																	t-esc="move_line.lot_name or move_line.lot_id.name" />
 															</t>
@@ -207,7 +207,7 @@
 															<t t-if="move_line.product_id.barcode">
 																<img
 																	t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.product_id.barcode, 600, 150)"
-																	style="width:100%;height:4rem" alt="Barcode" />
+																	style="width:100%;height:7rem" alt="Barcode" />
 																<span t-esc="move_line.product_id.barcode" />
 															</t>
 															<t t-else="">
@@ -223,7 +223,7 @@
 															<t t-if="move_line.product_id.barcode">
 																<img
 																	t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.product_id.barcode, 600, 150)"
-																	style="width:100%;height:4rem" alt="Barcode" />
+																	style="width:100%;height:7rem" alt="Barcode" />
 																<span t-esc="move_line.product_id.barcode" />
 															</t>
 															<t t-else="">
@@ -235,7 +235,7 @@
 												<!-- <t t-if="move_line.product_id.tracking == 'none'"> <tr> 
 													<td class="text-center align-middle" style="height: 6rem;"> <t t-if="move_line.product_id.barcode"> 
 													<img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' 
-													% ('Code128', move_line.product_id.barcode, 600, 150)" style="width:100%;height:4rem" 
+													% ('Code128', move_line.product_id.barcode, 600, 150)" style="width:100%;height:7rem" 
 													alt="Barcode"/> <span t-esc="move_line.product_id.barcode"/> </t> <t t-else=""> 
 													<span class="text-muted">No barcode available</span> </t> </td> </tr> </t> -->
 											</table>
@@ -248,7 +248,7 @@
 											<table class="table table-bordered"
 												style="border: 2px solid black;" t-if="picking.move_lines">
 												<tr>
-													<th class="table-active text-left" style="height:4rem;">
+													<th class="table-active text-left" style="height:7rem;">
 														<span t-esc="move.product_id.display_name" />
 													</th>
 												</tr>
@@ -258,7 +258,7 @@
 															<t t-if="move_line.lot_name or move_line.lot_id">
 																<img
 																	t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.lot_name, 600, 150)"
-																	style="width:100%;height:4rem" alt="Barcode" />
+																	style="width:100%;height:7rem" alt="Barcode" />
 																<span
 																	t-esc="move_line.lot_name or move_line.lot_id.name" />
 															</t>
@@ -275,7 +275,7 @@
 															<t t-if="move_line.product_id.barcode">
 																<img
 																	t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.product_id.barcode, 600, 150)"
-																	style="width:100%;height:4rem" alt="Barcode" />
+																	style="width:100%;height:7rem" alt="Barcode" />
 																<span t-esc="move_line.product_id.barcode" />
 															</t>
 															<t t-else="">
