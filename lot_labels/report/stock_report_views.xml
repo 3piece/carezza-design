@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_label_transfer_template_pdf" model="ir.actions.report">
+            <field name="name">Lot Labels (PDF)</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">lot_labels.lot_label_transfer_template_view_pdf</field>
+            <field name="report_file">lot_labels.lot_label_transfer_template_view_pdf</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

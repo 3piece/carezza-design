@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="stock_picking_new_field_form_view"
+		model="ir.ui.view">
+		<field name="name">stock.picking.form.inherit</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form" />
+		<field name="arch" type="xml">
+		
+			<xpath expr="//field[@name='date_deadline']" position="before">
+				<field name="eta" />
+				<field name="bl_number" />
+				<field name="is_propagation"  groups='base.group_no_one'/>
+				
+			</xpath>		
+		
+			<xpath expr="//field[@name='product_id']" position="after">
+				<field name="currency_id"  invisible='1'/>
+				<field name="group_id" invisible='1' />
+				<field name="invoice_number" />
+				<field name="invoice_date" />
+				<field name="invoice_amount"  widget="monetary" options="{'currency_field': 'currency_id'}"/>
+				<field name="pallet_number" />
+				<field name="number_of_skins" />
+				<field name="average_skin_size" />	
+			</xpath>
+
+
+			<xpath expr="//field[@name='date_done']" position="replace">
+				<field name="date_done"  widget="date" string="Effective Date" attrs="{'invisible': [('state', '!=', 'done')]}"/>
+			</xpath>
+
+			<xpath expr="//field[@name='scheduled_date']" position="replace">
+				<field name="scheduled_date" widget="date" attrs="{'required': [('id', '!=', False)]}" decoration-warning="state not in ('done', 'cancel') and scheduled_date &lt; now" decoration-danger="state not in ('done', 'cancel') and scheduled_date &lt; current_date" decoration-bf="state not in ('done', 'cancel') and (scheduled_date &lt; current_date or scheduled_date &lt; now)"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>
