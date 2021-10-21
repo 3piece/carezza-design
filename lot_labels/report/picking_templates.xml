@@ -23,7 +23,7 @@
 											style="display: inline-table; height: 50rem; width: 100%;">
 											
 											<table class="table table-bordered"
-												style="border: 2px solid black;" t-if="picking.move_lines">
+												style="border: 2px solid black;font-size: 80px;" t-if="picking.move_lines">
 												<tr>
 													<td class="table-active text-center align-middle"
 														style="height:4rem;"
