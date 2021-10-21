@@ -10,10 +10,13 @@
 			<xpath expr="//field[@name='date_deadline']" position="before">
 				<field name="eta" />
 				<field name="bl_number" />
+				<field name="is_propagation"  groups='base.group_no_one'/>
+				
 			</xpath>		
 		
 			<xpath expr="//field[@name='product_id']" position="after">
 				<field name="currency_id"  invisible='1'/>
+				<field name="group_id" invisible='1' />
 				<field name="invoice_number" />
 				<field name="invoice_date" />
 				<field name="invoice_amount"  widget="monetary" options="{'currency_field': 'currency_id'}"/>

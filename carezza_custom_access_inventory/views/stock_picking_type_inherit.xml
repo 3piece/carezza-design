@@ -16,18 +16,25 @@
 						</field>
 					</group>
 				</xpath>
+
+
+				<xpath expr="//field[@name='use_existing_lots']"
+					position='after'>
+					<field name='is_propagation'></field>
+				</xpath>
 			</field>
 		</record>
 	</data>
 
 
 
-<!-- 	<template id="rfq_purchase"
-		inherit_id="purchase.report_purchasequotation_document" >
-		<xpath expr="//span[@t-field='order_line.date_planned']" position="replace">
-				<span t-field="order_line.date_planned"  t-options='{"format": "dd/MM/yyyy"}'/>
-		</xpath>
-	</template> -->
+
+
+
+	<!-- <template id="rfq_purchase" inherit_id="purchase.report_purchasequotation_document" 
+		> <xpath expr="//span[@t-field='order_line.date_planned']" position="replace"> 
+		<span t-field="order_line.date_planned" t-options='{"format": "dd/MM/yyyy"}'/> 
+		</xpath> </template> -->
 
 </odoo> 
 
