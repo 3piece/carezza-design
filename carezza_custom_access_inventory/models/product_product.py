@@ -4,6 +4,7 @@ import logging
 from odoo.exceptions import AccessError
 from odoo import models, fields, api, _
 
+
 _logger = logging.getLogger(__name__)
 
 class ProductProduct(models.Model):
@@ -60,5 +61,16 @@ class ProductProduct(models.Model):
     def create(self,vals):
         res = super().create(vals)
         res.generate_external_ids()
+        if not res.barcode:
+            name=""
+            if res.id < 10:
+                name = "0000"
+            elif res.id < 100:
+                name = "000"
+            elif res.id < 1000:
+                name = "00"
+            elif res.id < 10000:
+                name = "0"
+            res.barcode = name + str(res.id)
         return res
         
