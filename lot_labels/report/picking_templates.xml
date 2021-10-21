@@ -17,9 +17,11 @@
 									<t t-set="qty" t-value="1" />
 								</t>
 								<t t-foreach="range(qty)" t-as="item">
+									<p style="page-break-after: always;"/>
 									<t t-translation="off">
 										<div t-if="move_line.product_id.material_type in ['Leather','Material','Accessories']"
-											style="display: inline-table; height: 10rem; width: 47%;">
+											style="display: inline-table; height: 50rem; width: 100%;">
+											
 											<table class="table table-bordered"
 												style="border: 2px solid black;" t-if="picking.move_lines">
 												<tr>
