@@ -40,6 +40,9 @@
     'depends': ['base','stock','carezza_custom_access_inventory'],
 
     'data': [
+        'report/leather.xml',
+        'report/accessories.xml',
+        'report/material.xml',
         'report/picking_templates.xml',
         'report/stock_report_views.xml',
     ],
