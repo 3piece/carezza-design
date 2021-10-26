@@ -52,7 +52,7 @@
 					</td>
 					<td style='border-right-color: white;font-size:35px !important'
 						class="text-left align-middle">
-						<span t-field="move_line.move_id.number_of_skins"></span>
+						<span t-field="move_line.number_of_skins"></span>
 
 					</td>
 					<td colspan="2" class="text-left align-middle">
@@ -78,7 +78,7 @@
 						<strong>Pallet Number: </strong>
 					</td>
 					<td  style='border-right-color: white;font-size:35px !important' class="text-left align-middle">
-						<span t-field="move_line.move_id.pallet_number"></span>
+						<span t-field="move_line.pallet_number"></span>
 					</td>
 
 				</tr>
