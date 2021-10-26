@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="carezza_stock_production_lot_form" model="ir.ui.view">
+        <field name="name">stock.production.lot.operations.inherit.form</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+            	<field name="pallet_number"/>
+            	<field name="number_of_skins" ></field>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="carezza_stock_production_lot_tree" model="ir.ui.view">
+        <field name="name">stock.production.lot.operations.inherit.tree</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+            	<field name="pallet_number"/>
+            	<field name="number_of_skins" ></field>
+            </xpath>
+        </field>
+    </record>    
+</odoo>
+
+
+
