@@ -20,8 +20,6 @@
 				<field name="invoice_number" />
 				<field name="invoice_date" />
 				<field name="invoice_amount"  widget="monetary" options="{'currency_field': 'currency_id'}"/>
-				<field name="pallet_number" />
-				<field name="number_of_skins" />
 				<field name="average_skin_size" />	
 			</xpath>
 
