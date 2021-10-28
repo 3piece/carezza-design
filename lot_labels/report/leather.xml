@@ -23,7 +23,7 @@
 
 					</td>
 					<td colspan="4" class="text-left align-middle"  style='font-size:35px !important'>
-						<span t-field="move_line.move_id.purchase_line_id.order_id"></span>
+						<span t-field="move_line.lot_id.po_id.name"></span>
 					</td>
 				</tr>
 				<tr style="height: 120px;font-size:24px">
@@ -72,7 +72,7 @@
 						<strong>Supplier:</strong>
 					</td>
 					<td style='border-right-color: white;font-size:35px !important' class="text-left align-middle">
-						<span t-field="move_line.picking_id.partner_id"></span>
+						<span t-field="move_line.lot_id.supplier_id.name"></span>
 					</td>
 					<td style='border-right-color: white;color: gray;' class="text-left align-middle">
 						<strong>Pallet Number: </strong>
