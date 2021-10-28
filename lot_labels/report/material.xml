@@ -22,7 +22,7 @@
 						<strong>MPO :</strong>
 					</td>
 					<td colspan="2" class="text-left align-middle" style="font-size:35px">
-						<span t-field="move_line.move_id.purchase_line_id.order_id"></span>
+						<span t-field="move_line.lot_id.po_id.name"></span>
 					</td>					
 				</tr>
 
@@ -59,7 +59,7 @@
 						<strong>Supplier:</strong>
 					</td>
 					<td class="text-left align-middle" style="font-size:35px">
-						<span t-field="move_line.picking_id.partner_id"></span>
+						<span t-field="move_line.lot_id.supplier_id.name"></span>
 					</td>					
 				</tr>
 

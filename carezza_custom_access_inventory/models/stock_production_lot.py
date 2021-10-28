@@ -9,4 +9,10 @@ class StockProductionLot(models.Model):
 
     pallet_number = fields.Integer()
     number_of_skins = fields.Integer()
+    po_id = fields.Many2one('purchase.order')
+    supplier_id = fields.Many2one('res.partner')
     
+    @api.model
+    def create(self,vals):
+        res = super().create(vals)
+        return res
