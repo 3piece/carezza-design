@@ -6,6 +6,11 @@
 		<field name="model">purchase.order</field>
 		<field name="inherit_id" ref="purchase.purchase_order_form" />
 		<field name="arch" type="xml">
+		
+			<xpath expr="//field[@name='date_order']" position="before">
+				<field name='po_date'></field>
+			</xpath>
+				
 			<xpath expr="//field[@name='date_order']" position="replace">
 				<field name="date_order" widget="date"
 					attrs="{'invisible': [('state','=','purchase')]}" />
