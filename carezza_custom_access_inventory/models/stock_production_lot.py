@@ -16,3 +16,7 @@ class StockProductionLot(models.Model):
     def create(self,vals):
         res = super().create(vals)
         return res
+    
+    def write(self,vals):
+        res = super().write(vals)
+        return res
