@@ -21,6 +21,12 @@ class ResUsers(models.Model):
         # Add responsible user into location
         root_location = warehouse.view_location_id
         locations = self.env['stock.location'].search([])
+        self.location_ids = [(4,root_location.id)]
+       
+        stock_location_locations = self.env.ref('stock.stock_location_locations').id  
+        if stock_location_locations not in self.location_ids.ids:
+            self.location_ids = [(4,stock_location_locations)]
+             
         for location in locations:
             parent_path = location.parent_path.split("/")
             parent_path.remove('')
@@ -42,6 +48,8 @@ class ResUsers(models.Model):
         # Remove responsible user into location    
         root_location = warehouse.view_location_id
         locations = self.env['stock.location'].search([])
+        self.location_ids = [(3,root_location.id)]
+        
         for location in locations:
             parent_path = location.parent_path.split("/")
             parent_path.remove('')
