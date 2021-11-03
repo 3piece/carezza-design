@@ -6,7 +6,8 @@ from odoo.tools import float_compare, float_is_zero
 class StockInventory(models.Model):
 
     _inherit = 'stock.inventory'
-
+    note = fields.Text()
+    
     def action_start(self):
         if not self.user_has_groups('carezza_custom_access_inventory.carezza_group_stock_checker'):
               raise AccessError("Only a stock Checker can start inventory")

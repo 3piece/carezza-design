@@ -58,6 +58,7 @@
         'views/product_template_inherit.xml',
         'views/stock_move_line_inherit.xml',
         'views/stock_production_lot.xml',
+        'views/stock_inventory.xml',
         #'views/stock_location.xml',
         
         # menu
