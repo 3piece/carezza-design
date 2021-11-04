@@ -42,9 +42,11 @@
     'data': [
         'report/leather.xml',
         'report/accessories.xml',
-        'report/material.xml',
+        'report/fabric.xml',
+        'report/west_elm_spo.xml',
         'report/picking_templates.xml',
         'report/stock_report_views.xml',
+        'report/urfk_fabric.xml',
     ],
 
     # only loaded in demonstration mode
