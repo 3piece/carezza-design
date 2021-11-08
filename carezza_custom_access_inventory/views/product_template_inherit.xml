@@ -8,7 +8,8 @@
 			ref="product.product_template_form_view" />
 		<field name="arch" type="xml">
 			<field name="categ_id" position="after">
-				<field name="material_type" groups="base.group_no_one" />
+				<field name="material_type" />
+				<field name="material_types" />
 			</field>
 		</field>
 	</record>

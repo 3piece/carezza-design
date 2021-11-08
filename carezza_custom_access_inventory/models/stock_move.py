@@ -13,14 +13,14 @@ class StockMove(models.Model):
     currency_id = fields.Many2one('res.currency', 'Currency', required=True,
         default=lambda self: self.env.company.currency_id.id)
     pallet_number = fields.Integer()
-    number_of_skins = fields.Integer()
+    hides = fields.Integer()
     average_skin_size = fields.Float(compute='compute_average_skin_size')
     
     def compute_average_skin_size(self):
         for record in self:
             result = 0
-            if record.number_of_skins  != 0:
-                result = record.quantity_done/record.number_of_skins 
+            if record.hides  != 0:
+                result = record.quantity_done/record.hides 
             record.average_skin_size = result
     
     
