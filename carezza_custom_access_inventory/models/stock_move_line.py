@@ -7,10 +7,20 @@ class StockMoveLine(models.Model):
 
     _inherit = 'stock.move.line'
     
-    pallet_number = fields.Integer()
-    hides = fields.Integer()
+    pallet_number = fields.Integer(compute='compute_lot_id', store=True, inverse='_inverse_upper')
+    hides = fields.Integer(compute='compute_lot_id', store=True, inverse='_inverse_upper')
 
-
+    @api.depends('lot_id')
+    def compute_lot_id(self):
+        for record in self:
+            record.pallet_number = record.lot_id.pallet_number
+            record.hides = record.lot_id.hides 
+            
+    def _inverse_upper(self):
+        for record in self:
+            record.lot_id.pallet_number = record.pallet_number
+            record.lot_id.hides = record.hides 
+        
     def _create_and_assign_production_lot(self):
         """ Creates and assign new production lots for move lines."""
         lot_vals = []
