@@ -7,9 +7,10 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='product_id']" position="after">
             	<field name="pallet_number"/>
-            	<field name="number_of_skins" ></field>
-            	<field name="po_id" ></field>
+            	<field name="hides" ></field>
+            	<field name="po_id" readonly='1' force_save='1'></field>
             	<field name="supplier_id" ></field>            	
+            	<field name="vendor_qty" ></field>   
             	
             </xpath>
         </field>
@@ -22,7 +23,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='product_id']" position="after">
             	<field name="pallet_number"/>
-            	<field name="number_of_skins" ></field>
+            	<field name="hides" ></field>
             	<field name="po_id" ></field>
             	<field name="supplier_id" ></field>
             </xpath>
