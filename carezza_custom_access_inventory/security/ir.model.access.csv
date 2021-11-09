@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_carezza_custom_layout_carezza_custom_layout,carezza_custom_layout.carezza_custom_layout,model_carezza_custom_layout_carezza_custom_layout,,1,0,0,0
+access_stock_move_manager,access_stock_move_manager,model_stock_move,carezza_group_stock_manager,1,1,1,1

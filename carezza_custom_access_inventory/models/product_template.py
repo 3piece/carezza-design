@@ -15,7 +15,7 @@ class ProductTemplate(models.Model):
         inverse='_set_default_code', store=True)
     
     material_type = fields.Char(compute='compute_material_type', store=True)
-    material_types = fields.Selection([('fabric','Fabric'),('spo_fabric','SPO Fabric '),('leather','Leather'),('ukfr_fabric','UKFR Fabric'),('accessories','Accessories')])
+    material_types = fields.Selection([('fabric','Fabric'),('spo_fabric','SPO Fabric '),('leather','Leather'),('ukfr_fabric','UKFR Fabric'),('accessories','Accessories')], string='Label Type')
        
     @api.depends('categ_id')
     def compute_material_type(self):
