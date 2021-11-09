@@ -16,7 +16,7 @@
 					</th>
 				</tr>
 
-				<tr style="height: 110px;font-size:20px">
+				<tr style="height:80px;font-size:20px">
 					<td colspan="2" class="text-left align-middle"
 						style='border-right-color: white;color: gray'>
 						<strong>MPO :</strong>
@@ -26,7 +26,7 @@
 						<span t-field="move_line.lot_id.po_id.name"></span>
 					</td>
 				</tr>
-				<tr style="height: 110px;font-size:20px">
+				<tr style="height:80px;font-size:20px">
 					<td colspan="2" class="text-left align-middle"
 						style='border-right-color: white;color: gray;'>
 						<strong>Code: </strong>
@@ -37,7 +37,7 @@
 					</td>
 				</tr>
 
-				<tr style="height: 110px;font-size:20px">
+				<tr style="height:80px;font-size:20px">
 					<td style='border-right-color: white;color: gray;'
 						class="text-left align-middle">
 						<strong>Quantity: </strong>
@@ -65,7 +65,7 @@
 					</td>
 				</tr>
 
-				<tr style="height: 110px;font-size:20px">
+				<tr style="height:80px;font-size:20px">
 					<td style='border-right-color: white;color: gray;' class="text-left align-middle">
 						<strong>Ship Date: </strong>
 					</td>
@@ -88,8 +88,8 @@
 
 				</tr>
 
-				<t style="height: 110px;font-size:24px" t-if="move_line.product_id.tracking != 'none'">
-					<tr style="height: 110px;font-size:24px">
+				<t style="height:80px;font-size:24px" t-if="move_line.product_id.tracking != 'none'">
+					<tr style="height:80px;font-size:24px">
 						<td class="text-center align-middle" colspan="6"
 							style="height: 6rem;">
 							<t t-if="move_line.lot_id.name">
@@ -105,14 +105,14 @@
 					</tr>
 				</t>
 				
-				<t style="height: 110px;font-size:24px" t-if="move_line.product_id.tracking == 'none'">
-					<tr style="height: 110px;font-size:24px">
+				<t style="height:80px;font-size:24px" t-if="move_line.product_id.tracking == 'none'">
+					<tr style="height:80px;font-size:24px">
 						<td class="text-center align-middle" colspan="6"
 							style="height: 6rem;">
 							<t t-if="move_line.product_id.barcode">
 								<img
 									t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.product_id.barcode, 600, 150)"
-									style="width:100%;height:199px" alt="Barcode" />
+									style="width:100%" alt="Barcode" />
 								<p t-esc="move_line.product_id.barcode" />
 							</t>
 							<t t-else="">
