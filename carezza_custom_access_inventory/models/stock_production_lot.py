@@ -9,7 +9,7 @@ class StockProductionLot(models.Model):
 
     pallet_number = fields.Integer()
     hides = fields.Integer()
-    po_id = fields.Many2one('purchase.order')
+    po_id = fields.Many2one('purchase.order',)
     supplier_id = fields.Many2one(related='po_id.partner_id')
     vendor_qty = fields.Float(compute='_compute_qty')
     
@@ -22,7 +22,7 @@ class StockProductionLot(models.Model):
             move_lines = self.env['stock.move.line'].search([('lot_id','=',record.id)])
             for move_line in move_lines:
                 qty+= move_line.qty_done
-                record.vendor_qty = qty
+            record.vendor_qty = qty
     
     @api.model
     def create(self,vals):
