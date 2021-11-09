@@ -19,7 +19,7 @@ class StockProductionLot(models.Model):
     def _compute_qty(self):
         for record in self:
             qty = 0
-            move_lines = self.env['stock.move.line'].search([('lot_id','=',record.id)])
+            move_lines = self.env['stock.move.line'].search([('lot_id','=',record.id),('state','!=','cancel')])
             for move_line in move_lines:
                 qty+= move_line.qty_done
             record.vendor_qty = qty

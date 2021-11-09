@@ -41,7 +41,7 @@ class ProductTemplate(models.Model):
             record.material_type = material_type         
                     
 #             a = categ_name
-    @api.depends('material_type','categ_id')
+    @api.depends('material_type')
     def compute_label_type(self):
         for rec in self:
             if rec.material_type == 'Material':
