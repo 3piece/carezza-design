@@ -68,7 +68,7 @@
 							<t t-if="move_line.lot_id.name">
 								<img
 									t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.lot_id.name, 600, 150)"
-									style="width:100%;height:120px" alt="Barcode" />
+									style="width:100%;height:100px" alt="Barcode" />
 								<p t-esc="move_line.lot_id.name" />
 							</t>
 							<t t-else="">
