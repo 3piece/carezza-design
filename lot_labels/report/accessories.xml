@@ -14,7 +14,7 @@
 						<strong t-esc="move.product_id.attribute_value" />
 					</td>
 
-					<td rowspan="5" class="text-center align-middle">
+					<td rowspan="5" class="">
 
 						<img
 							t-attf-src="/web/image/product.product/#{move_line.product_id.id}/image_256"
