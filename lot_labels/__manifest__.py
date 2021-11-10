@@ -47,6 +47,7 @@
         'report/picking_templates.xml',
         'report/stock_report_views.xml',
         'report/urfk_fabric.xml',
+        'report/accessories_small.xml'
     ],
 
     # only loaded in demonstration mode
