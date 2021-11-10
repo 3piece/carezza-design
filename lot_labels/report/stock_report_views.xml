@@ -15,11 +15,11 @@
 
 			<field name="orientation">Landscape</field>
 
-			<field name="margin_top">3</field>
+			<field name="margin_top">4</field>
 
 			<field name="margin_bottom">3</field>
 
-			<field name="margin_left">3</field>
+			<field name="margin_left">15</field>
 
 			<field name="margin_right">3</field>
 
@@ -27,7 +27,7 @@
 
 			<field name="header_spacing">3</field>
 
-			<field name="dpi">130</field>
+			<field name="dpi">70</field>
 
 		</record>    
     
