@@ -41,11 +41,11 @@
 								
 					<td  style='color: gray; width: 45%;font-size:20px' class="text-left align-middle" colspan="1">
 						<strong>Total Quantity:</strong>
-						<t t-if="move_line.lot_id.product_qty > 0">
+						<t t-if="move_line.lot_id.product_qty > 0" style="font-size:28px; color: black">
 							<span t-field="move_line.lot_id.product_qty" style="font-size:28px; color: black"></span>
 						</t>
 						<t  t-else="">
-							<span t-field="move_line.lot_id.vendor_qty"></span>
+							<span t-field="move_line.lot_id.vendor_qty" style="font-size:28px; color: black"></span>
 						</t>
 						<span t-field="move_line.product_uom_id" style="font-size:28px; color: black"></span>
 					</td>				
