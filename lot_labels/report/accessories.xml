@@ -16,7 +16,7 @@
 						
 					</td>
 
-					<td rowspan="5" style='width: 257px;'>
+					<td rowspan="5" style='width: 257px;' class="text-center align-middle">
 						<img
 							t-attf-src="/web/image/product.product/#{move_line.product_id.id}/image_256"
 							class="img img-fluid" style="width: 100%;height: auto;" alt="Product image" />
