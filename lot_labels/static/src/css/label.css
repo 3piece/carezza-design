@@ -42,4 +42,5 @@
  height:430px;
  width: 595px;
  font-weight: bold;
+ aspect-ratio: 595/430;
 }
