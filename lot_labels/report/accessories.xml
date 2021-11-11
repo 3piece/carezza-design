@@ -3,7 +3,7 @@
 	<data>
 		<template id="accessories_label">
 			<table class="table-bordered table-format" t-if="picking.move_lines" >
-				<tr>
+				<tr >
 					<td style='width:338px; border: 10px solid black !important;' class="text-center height-160 "
 						colspan="2">
 						<!-- <div style='height:60px'> -->
@@ -25,19 +25,19 @@
 					</td>
 				</tr>
 				<tr class='height-60'>
-						<td style='width:100px' class=" align-middle font-label" colspan="1">
+						<td style='width:100px;border-right: 0px !important;' class=" align-middle font-label" colspan="1">
 							<strong>MPO :</strong>
 						</td>
-						<td  style='width:238px;border: 2px solid black  !important;'  class="text-center align-middle font-size-24" colspan="1">
+						<td  style='width:238px;border: 2px solid black  !important;border-left: 0px !important;'  class="text-center align-middle font-size-24" colspan="1">
 							<span t-field="move_line.lot_id.po_id.name"></span>
 						</td>							
 				</tr>
 
 				<tr class='height-60'>
-					<td class="align-middle font-label" colspan="1" >
+					<td class="align-middle font-label" colspan="1"  style='border-right: 0px !important'>
 						<strong>Quantity: </strong>
 					</td>
-					<td class=" text-center align-middle font-size-24" colspan="1">
+					<td class=" text-center align-middle font-size-24" colspan="1" style='border-left: 0px !important'>
 						<t t-if="move_line.lot_id.product_qty > 0">
 							<span t-field="move_line.lot_id.product_qty"></span>
 						</t>
@@ -53,10 +53,10 @@
 
 
 				<tr class='height-60'>
-					<td class=" align-middle font-label" colspan="1">
+					<td class=" align-middle font-label" colspan="1" style='border-right: 0px !important'>
 						<strong>Ship Date: </strong>
 					</td>
-					<td class="font-size-24 text-center align-middle" colspan="1">
+					<td class="font-size-24 text-center align-middle" colspan="1" style='border-left: 0px !important'>
 						<span t-field="move_line.date"
 							t-options='{"format": "dd MMM yyyy"}'></span>
 					</td>					
@@ -64,10 +64,10 @@
 				</tr>
 				
 				<tr style='height:61px'>
-					<td style='width:100px' class="align-middle  align-middle font-label" colspan="1">
+					<td style='width:100px;border-right-color: white !important;border-right: 0px !important' class="align-middle  align-middle font-label" colspan="1">
 						<strong>Supplier:</strong>
 					</td>
-					<td style='width:100px' class="text-center align-middle font-size-24" colspan="1">
+					<td style='width:100px;border-left: 0px !important' class="text-center align-middle font-size-24" colspan="1">
 						<span t-field="move_line.lot_id.supplier_id.name"></span>
 					</td>			
 					<t t-if="move_line.product_id.tracking != 'none'">

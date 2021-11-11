@@ -6,7 +6,7 @@
 			<!-- style="border: 2px solid black ;height:100%;width: 98%;font-weight: bold;" -->
 			<table class="table table-bordered table-format" t-if="picking.move_lines" >
 				<tr class='height-95 font-header '>
-					<td class="table-active text-center align-middle"
+					<td class="table-active text-center align-middle" style='border: 10px solid black  !important;'
 						colspan="2">
 						<strong t-esc="move.product_id.name" />
 						<span>-</span>
