@@ -1,3 +1,5 @@
+@media print {body { zoom: 300%; }}
+
 .height-95 {
     height: 95px;
 }
@@ -34,6 +36,8 @@ font-weight: 900;
 .font-header{
  font-size:32px  !important;
 }
+
+
 
 
 
