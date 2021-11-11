@@ -4,7 +4,7 @@
 		<template id="accessories_label">
 			<table class="table-bordered table-format" t-if="picking.move_lines" >
 				<tr>
-					<td style='width:338px' class="table-active text-center height-160 "
+					<td style='width:338px; border: 10px solid black;' class="text-center height-160 "
 						colspan="2">
 						<!-- <div style='height:60px'> -->
 						<div class='font-header mg-top-44 mg-bot-32'>
@@ -17,20 +17,22 @@
 						</div>
 						
 					</td>
-
+					<td></td>
 					<td rowspan="4" style='width: 257px;' class="text-center align-middle">
 						<img
 							t-attf-src="/web/image/product.product/#{move_line.product_id.id}/image_256"
-							class="img img-fluid" style="width: 100%;height: auto;" alt="Product image" />
+							class="img img-fluid" style="width: 95%;height: auto;" alt="Product image" />
 					</td>
 				</tr>
 				<tr class='height-60'>
-					<td style='width:100px' class=" align-middle font-label" colspan="1">
-						<strong>MPO :</strong>
-					</td>
-					<td  style='width:238px'  class="text-center align-middle font-size-24" colspan="1">
-						<span t-field="move_line.lot_id.po_id.name"></span>
-					</td>					
+					<div style='border: 2px solid black  !important;'>
+						<td style='width:100px' class=" align-middle font-label" colspan="1">
+							<strong>MPO :</strong>
+						</td>
+						<td  style='width:238px'  class="text-center align-middle font-size-24" colspan="1">
+							<span t-field="move_line.lot_id.po_id.name"></span>
+						</td>	
+					</div>				
 					
 				</tr>
 

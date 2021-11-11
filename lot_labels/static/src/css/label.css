@@ -8,7 +8,7 @@
 
 .height-60 {
     height: 60px;
-    border: 2px solid black ;
+   
 }
 
 .font-label{
@@ -29,12 +29,10 @@ font-weight: 900;
  height: 32px;
 }
 
-.border-right-black{
- border-right-color: black !important;
-}
+
 
 .img-barcode{
- width:100%  !important;
+ width: 95%  !important;
  height: 30px  !important;
 }
 
@@ -45,12 +43,12 @@ font-weight: 900;
    
 }
 
-.header-format{
+.header-formasst{
  border: 10px solid black  !important;
 }
 
 .table-format {
-    border: 2px solid black !important;
+    
     width: 595px;
     font-weight: bold !important;
     aspect-ratio: 138/100;
@@ -68,3 +66,6 @@ font-weight: 900;
 	margin-bottom:32px
 }
 
+table {
+    border-collapse: separate;
+}
