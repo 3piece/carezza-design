@@ -106,6 +106,20 @@ border: 2px solid black;
 .border-left-0{
 border-left: 0px !important
 }
+
+.border-right-white{
+ border-right-color: white !important;
+}
+
+.border-right-0{
+border-right: 0px !important
+}
 .padding-0{
     padding: 0px !important;
+}
+.west_spo{
+font-size: 24px !important;;
+ font-weight: bolder !important;; 
+ color: white !important;;
+ background: black !important;;
 }

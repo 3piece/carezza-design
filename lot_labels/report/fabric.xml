@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 	<data>
-		<template id="fabric">
-			
+		<template id="fabric">		
 			<table class="table table-bordered table-format" t-if="picking.move_lines" >
-				<tr class='height-95 font-header '>
-					<td class="text-center align-middle"
+				<tr class='font-header '>
+					<td class=" height-95 text-center align-middle"
 						colspan="2">
 						<strong t-esc="move.product_id.name" />
 						<span>-</span>
