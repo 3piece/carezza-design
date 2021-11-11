@@ -2,7 +2,6 @@
 <odoo>
 	<data>
 		<template id="fabric">
-			
 			<!-- style="border: 2px solid black ;height:100%;width: 98%;font-weight: bold;" -->
 			<table class="table table-bordered table-format" t-if="picking.move_lines" >
 				<tr class='height-95 font-header '>
@@ -15,28 +14,28 @@
 				</tr>
 
 				<tr class='height-60'>
-					<td style='width: 50% !important;' colspan="1" class="text-left align-middle font-label">
+					<td style='width: 50% !important;border-right: 0px !important'  class="text-left align-middle font-label">
 						<strong>MPO :</strong>
 					</td>
-					<td colspan="1" class="text-left align-middle font-size-24">
+					<td  class="text-left align-middle font-size-24" style='border-left: 0px !important'>
 						<span t-field="move_line.lot_id.po_id.name"></span>
 					</td>					
 				</tr>
 
 				<tr class='height-60' >
-					<td colspan="1" class="text-left align-middle font-label">
+				<td  class="text-left align-middle font-label" style='border-right: 0px !important'>
 						<strong>Code: </strong>
 					</td>
-					<td colspan="1" class="text-left align-middle font-size-24">
+					<td  class="text-left align-middle font-size-24" style='border-left: 0px !important'>
 						<span t-field="move_line.product_id.default_code"></span>
 					</td>					
 				</tr>
 
 				<tr class='height-60'>
-					<td colspan="1" class="text-left align-middle font-label border-right-white">
+					<td  class="text-left align-middle font-label" style='border-right: 0px !important'>
 						<strong>Quantity: </strong>
 					</td>
-					<td colspan="1" class="text-left align-middle font-size-24">
+					<td  class="text-left align-middle font-size-24" style='border-left: 0px !important'>
 						<t t-if="move_line.lot_id.product_qty > 0">
 							<span t-field="move_line.lot_id.product_qty"></span>
 						</t>
@@ -48,13 +47,13 @@
 				</tr>
 
 				<tr class='height-60'>
-					<td  colspan="1" class="text-left align-middle font-label border-right-white" >
+					<td   class="text-left align-middle font-label">
 						<strong>Ship Date: </strong>
 						<span t-field="move_line.date" class ='font-size-24' style="color: black;padding-left:15px"
 							t-options='{"format": "dd MMM yyyy"}'></span>
 					</td>
 								
-					<td  style='color: gray; font-size:14px' class="text-left align-middle" colspan="1">
+					<td  style='color: gray; font-size:14px' class="text-left align-middle" >
 						<strong style="padding-left:15px">Supplier:</strong>
 						<span class ='font-size-24' style="color: black;padding-left:15px" t-field="move_line.lot_id.supplier_id.name"></span>
 					</td>				
