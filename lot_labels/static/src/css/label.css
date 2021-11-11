@@ -66,6 +66,7 @@ font-weight: 900;
 	margin-bottom:32px
 }
 
-table {
-    border-collapse: separate;
+td{
+border: 2px solid black  !important;
 }
+
