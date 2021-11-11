@@ -4,9 +4,8 @@
 		<template id="leather">
 
 			<table class="table table-bordered table-format" t-if="picking.move_lines" >
-				<tr class='height-95 font-header'>
-					<th colspan="6" class="table-active text-center align-middle"
-						>
+				<tr >
+					<th colspan="6" class="table-active text-center align-middle height-95 font-header">
 						<strong t-esc="move.product_id.name" />
 						<span>-</span>
 						<strong t-esc="move.product_id.attribute_value" />
@@ -79,15 +78,15 @@
 				</tr>
 
 				<t t-if="move_line.product_id.tracking != 'none'">
-					<tr class='height-60'>
-						<td class="text-center align-middle" colspan="6"
+					<tr>
+						<td class="text-center align-middle padding-top-bot-8" colspan="6" 
 							style="height: 61px">
 							<t t-if="move_line.lot_id.name">
 								<img
 									t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.lot_id.name, 600, 150)"
 									class='img-barcode'
 									alt="Barcode" />
-								<p t-esc="move_line.lot_id.name" />
+								<span t-esc="move_line.lot_id.name"  class='label-barcode'/>
 							</t>
 							<t t-else="">
 								<span class="text-muted">No barcode available</span>
@@ -98,14 +97,14 @@
 				
 				<t  t-if="move_line.product_id.tracking == 'none'">
 					<tr class='height-60'>
-						<td class="text-center align-middle" colspan="6"
+						<td class="text-center align-middle padding-top-bot-8" colspan="6"
 							style="height: 61px">
 							<t t-if="move_line.product_id.barcode">
 								<img
 									t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.product_id.barcode, 600, 150)"
 									class='img-barcode'
 									alt="Barcode" />
-								<p t-esc="move_line.product_id.barcode" />
+								<span t-esc="move_line.product_id.barcode"  class='label-barcode'/>
 							</t>
 							<t t-else="">
 								<span class="text-muted">No barcode available</span>
