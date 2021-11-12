@@ -9,7 +9,7 @@
 	      		<field name="warehouse_ids"/>      		
 	      </xpath>        
 	      <xpath expr="//field[@name='company_id']" position="after">
-	      		<field name="location_ids" groups="base.group_no_one"/>      		
+	      		<field name="location_ids"/>      		
 	      </xpath>       	      
 	      
     </field>

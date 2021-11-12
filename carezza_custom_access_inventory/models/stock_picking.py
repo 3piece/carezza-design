@@ -10,7 +10,7 @@ class StockPicking(models.Model):
     eta =  fields.Date(string="ETA")
     bl_number = fields.Char(string='B/L Number')
     is_propagation = fields.Boolean(related='picking_type_id.is_propagation')
-    
+    po_date = fields.Date(related='purchase_id.po_date')
     
     def button_validate(self):    
         res = super().button_validate()
