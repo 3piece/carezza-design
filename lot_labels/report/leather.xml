@@ -42,8 +42,8 @@
 							<span t-field="move_line.lot_id.vendor_qty"></span>
 						</t>
 					</td>
-					<td colspan="1" class="mg-left-5 text-left align-middle font-size-24 border-right-black border-left-0">
-						<span t-field="move_line.product_uom_id"></span>
+					<td  class=" text-left align-middle font-size-24 border-right-black border-left-0">
+						<span class='mg-left-5' t-field="move_line.product_uom_id"></span>
 					</td>
 					<td class="text-right align-middle font-size-24 border-right-0">
 						<span t-field="move_line.hides"></span>
@@ -55,25 +55,22 @@
 				</tr>
 
 				<tr class='height-60'>
-					<td class="text-left align-middle  border-right-0 label-leather">
-						<strong>Ship Date: </strong>
-					</td>
-					<td class="border-right-black text-left align-middle font-size-24 border-left-0">
-						<span t-field="move_line.date"
+					<td colspan="2" class="text-left align-middle">
+						<strong class='label-leather'>Ship Date: </strong>
+						<span t-field="move_line.date" class='font-size-24'
 							t-options='{"format": "dd MMM yyyy"}'></span>
 					</td>
-					<td class="text-left align-middle border-right-0 label-leather">
-						<strong>Supplier:</strong>
+					
+					<td colspan="2" class="text-left align-middle border-right-0">
+						<strong class='label-leather'>Supplier:</strong>
+						<span class='font-size-24' t-field="move_line.lot_id.supplier_id.name"></span>
 					</td>
-					<td class="text-left align-middle font-size-24 border-right-black border-left-0">
-						<span t-field="move_line.lot_id.supplier_id.name"></span>
+					
+					<td  colspan="2" class=" text-left align-middle">
+						<strong class='label-leather'>Pallet No.</strong>
+						<span  class='font-size-24' t-field="move_line.pallet_number"></span>
 					</td>
-					<td  class="label-leather text-left align-middle border-right-0">
-						<strong>Pallet No. </strong>
-					</td>
-					<td  class="text-left align-middle font-size-24 border-left-0">
-						<span t-field="move_line.pallet_number"></span>
-					</td>
+					
 
 				</tr>
 
