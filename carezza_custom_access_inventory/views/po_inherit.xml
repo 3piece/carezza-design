@@ -8,7 +8,7 @@
 		<field name="arch" type="xml">
 		
 			<xpath expr="//field[@name='date_order']" position="before">
-				<field name='po_date'></field>
+				<field name='po_date' string='PO Date'></field>
 			</xpath>
 				
 			<xpath expr="//field[@name='date_order']" position="replace">
