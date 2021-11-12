@@ -144,6 +144,10 @@ border: 2px solid black;
 
 }
 
+.label-leather{
+padding-left:15px;
+color: gray;font-size:14px;
+}
 .border-left-0{
 border-left: 0px !important
 }
@@ -166,3 +170,6 @@ font-size: 24px !important;
 
 width: max-content;
 }
+
+.mg-left-5{
+margin-left:5px}
