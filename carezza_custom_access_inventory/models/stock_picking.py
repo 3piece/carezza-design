@@ -7,7 +7,7 @@ class StockPicking(models.Model):
 
     _inherit = 'stock.picking'
 
-    eta =  fields.Date(string="ETA")
+    ship_date =  fields.Date(string="Ship Date")
     bl_number = fields.Char(string='B/L Number')
     is_propagation = fields.Boolean(related='picking_type_id.is_propagation')
     po_date = fields.Date(related='purchase_id.po_date')
