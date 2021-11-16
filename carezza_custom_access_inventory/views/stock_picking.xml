@@ -7,8 +7,9 @@
 		<field name="inherit_id" ref="stock.view_picking_form" />
 		<field name="arch" type="xml">
 		
-			<xpath expr="//field[@name='date_deadline']" position="before">
-				<field name="eta" />
+			<xpath expr="//field[@name='date_deadline']" position="before">		
+				<field name="po_date" string='PO Date' />
+				<field name="ship_date" />
 				<field name="bl_number" />
 				<field name="is_propagation"  groups='base.group_no_one'/>
 				
@@ -33,4 +34,16 @@
 			</xpath>
 		</field>
 	</record>
+	
+	<record id="stock_picking_inherit_tree_view"
+		model="ir.ui.view">
+		<field name="name">stock.picking.tree.inherit</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.vpicktree" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='scheduled_date']" position="before">		
+				<field name="po_date"  string='PO Date'/>
+			</xpath>
+		</field>
+	</record>	
 </odoo>

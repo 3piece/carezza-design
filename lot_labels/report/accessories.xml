@@ -2,58 +2,40 @@
 <odoo>
 	<data>
 		<template id="accessories_label">
-			<table class="table table-bordered"
-				style="border: 2px solid black;height:100%;width: 98%;font-weight: bold;"
-				t-if="picking.move_lines">
-				<tr>
-					<td class="table-active text-center align-middle"
-						style="height: 160px; font-size:50px"
+			<table class="table-bordered table-format" t-if="picking.move_lines" >
+				<tr >
+					<td class="text-center height-160 "
 						colspan="2">
-						<strong t-esc="move.product_id.name" />
-						<span>-</span>
-						<strong t-esc="move.product_id.attribute_value" />
+						<div class='font-header mg-top-44 mg-bot-32'>
+							<strong t-esc="move.product_id.name" />
+						</div>
+
+						<div class='font-size-24 mg-bot-32'>
+							<strong t-esc="move.product_id.attribute_value" />
+						</div>
+						
 					</td>
-
-					<td rowspan="5" style='border-right-color: black;border-right-width: 2px;'>
-
+					<td style="border: 0px !important;"></td>
+					<td rowspan="4" class="text-center align-middle td-img-accessory">
 						<img
 							t-attf-src="/web/image/product.product/#{move_line.product_id.id}/image_256"
-							class="img img-fluid" style="width: 100%;height: auto;" alt="Product image" />
+							class="img img-fluid" style="width: 95%;height: auto;" alt="Product image" />
 					</td>
 				</tr>
-				<tr>
-					<td class=" align-middle"
-						style="color: gray; height:50px; border-right-color: white;font-size:20px" colspan="1">
-						<strong>MPO :</strong>
-					</td>
-					<td class="  align-middle"
-						style="height:50px;font-size:28px" colspan="1">
-						<span t-field="move_line.lot_id.po_id.name"></span>
-					</td>					
-					
+				<tr class='height-60'>
+						<td class=" align-middle font-label-accessory" >
+							<strong>APO :</strong>
+						</td>
+						<td  style='width:238px'  class="text-center align-middle font-size-24  border-left-0" >
+							<span t-field="move_line.lot_id.po_id.name"></span>
+						</td>							
 				</tr>
 
-				<tr>
-					<td class=" align-middle"
-						style="color: gray; height:50px; border-right-color: white;font-size:20px" colspan="1">
-						<strong>Code: </strong>
-					</td>
-					<td class="  align-middle"
-						style="height:50px;font-size:28px" colspan="1">
-						<span t-field="move_line.product_id.default_code"></span>
-					</td>					
-					
-				</tr>
-				
-
-
-				<tr>
-					<td class=" align-middle"
-						style="color: gray; height:50px; border-right-color: white;font-size:20px" colspan="1">
+				<tr class='height-60'>
+					<td class="align-middle font-label-accessory">
 						<strong>Quantity: </strong>
 					</td>
-					<td class="  align-middle"
-						style="height:50px;font-size:28px" colspan="1">
+					<td class=" text-center align-middle font-size-24 border-left-0" >
 						<t t-if="move_line.lot_id.product_qty > 0">
 							<span t-field="move_line.lot_id.product_qty"></span>
 						</t>
@@ -66,40 +48,33 @@
 					
 				</tr>
 
-
-
-				<tr>
-					<td class=" align-middle"
-						style="color: gray; height:50px; border-right-color: white;font-size:20px" colspan="1">
+				<tr class='height-60'>
+					<td class=" align-middle font-label-accessory">
 						<strong>Ship Date: </strong>
 					</td>
-					<td class="  align-middle"
-						style="height:50px;font-size:28px" colspan="1">
+					<td class="font-size-24 text-center align-middle border-left-0">
 						<span t-field="move_line.date"
 							t-options='{"format": "dd MMM yyyy"}'></span>
-					</td>					
-					
+					</td>										
 				</tr>
 				
-				<tr>
-					<td class=" align-middle"
-						style="color: gray; height:50px; border-right-color: white;font-size:20px" colspan="1">
+				<tr style='height:61px' class='border-bottom-10'>
+					<td  class="align-middle  align-middle font-label-accessory" >
 						<strong>Supplier:</strong>
 					</td>
-					<td class="  align-middle"
-						style="height:50px;font-size:28px" colspan="1">
+					<td class="border-left-0 text-center align-middle font-size-24" >
 						<span t-field="move_line.lot_id.supplier_id.name"></span>
 					</td>			
-					<t style="height: 110px;font-size:24px" t-if="move_line.product_id.tracking != 'none'">
-				
-						<td class="text-center align-middle" colspan="2"
-							style="height: 6rem; width:50%">
+					<t t-if="move_line.product_id.tracking != 'none'">
+						<td style='width:100px;height:61px;line-height: 1;' class="text-center align-middle" colspan="2">
 							<t t-if="move_line.lot_id.name">
-								<img
-									t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.lot_id.name, 600, 150)"
-									style="width:100%;height:100px" alt="Barcode" />
-								<p class ="text-center" t-esc="move_line.lot_id.name" />
-							</t>
+								<div class='padding-top-bot-8' style='height:57px'>
+									<img
+										t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.lot_id.name, 600, 150)"
+										class='img-barcode' alt="Barcode" />
+									<span class ="text-center label-barcode" t-esc="move_line.lot_id.name" />
+								</div>
+							</t>    
 							<t t-else="">
 								<span class="text-muted">No barcode available</span>
 							</t>
@@ -107,15 +82,16 @@
 				
 					</t>
 				
-					<t style="height: 110px;font-size:24px" t-if="move_line.product_id.tracking == 'none'">
+					<t t-if="move_line.product_id.tracking == 'none'">
 				
-						<td class=" align-middle" colspan="2"
-							style="height: 6rem; width:50%">
+						<td class="text-center align-middle" colspan="2" style='line-height: 1;'>
 							<t t-if="move_line.product_id.barcode">
-								<img
-									t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.product_id.barcode, 600, 150)"
-									style="width:100%;height:100px" alt="Barcode" />
-								<p class='text-center' t-esc="move_line.product_id.barcode" />
+								<div class='padding-top-bot-8'>
+									<img
+										t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.product_id.barcode, 600, 150)"
+										class='img-barcode padding-top-bot-8' alt="Barcode" />
+									<span style='font-size:14px' class='text-center label-barcode' t-esc="move_line.product_id.barcode" />
+								</div>
 							</t>
 							<t t-else="">
 								<span class="text-muted">No barcode available</span>

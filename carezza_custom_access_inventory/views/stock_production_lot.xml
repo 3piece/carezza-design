@@ -9,6 +9,7 @@
             	<field name="pallet_number"/>
             	<field name="hides" ></field>
             	<field name="po_id" readonly='1' force_save='1'></field>
+            	<field name="ship_date" ></field> 
             	<field name="supplier_id" ></field>            	
             	<field name="vendor_qty" ></field>   
             	
