@@ -9,7 +9,17 @@ class StockMoveLine(models.Model):
     
     pallet_number = fields.Integer(compute='compute_lot_id', store=True, inverse='_inverse_upper')
     hides = fields.Integer(compute='compute_lot_id', store=True, inverse='_inverse_upper')
-
+    demand_qty = fields.Float(string='Demand Qty', help='Vendor Qty')
+    
+    
+    def write(self,vals):
+        for record in self:
+            res = super().write(vals)
+            if 'demand_qty' in vals:
+                ship_date = record.picking_id.ship_date
+                record.lot_id.ship_date = ship_date
+        return res
+                
     @api.depends('lot_id')
     def compute_lot_id(self):
         for record in self:
