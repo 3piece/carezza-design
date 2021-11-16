@@ -14,11 +14,15 @@ class StockPicking(models.Model):
     is_locked = fields.Boolean(default=False, help='When the picking is not done this allows changing the '
                                'initial demand. When the picking is done this allows '
                                'changing the done quantities.')
-    @api.model
-    def create(self, vals):
-        res = super().create(vals)
-        return res
-   
+    
+#     @api.model
+#     def create(self, vals):
+#         res = super().create(vals)
+#         if res.po_date:
+#             ship_date = res.po_date +  datetime.timedelta(days=14)
+#             res.ship_date = ship_date
+#         return res
+#    
     def write(self,vals):
         for record in self:
             res = super().write(vals)

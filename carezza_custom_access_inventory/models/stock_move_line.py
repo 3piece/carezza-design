@@ -24,6 +24,7 @@ class StockMoveLine(models.Model):
                             'product_id': vals['product_id'],
                             'po_id' : picking.purchase_id.id,
                             'company_id' : self.env.user.company_id.id,
+                            'ship_date' : picking.ship_date,
 #                             'pallet_number': res.
 #                             'hides':
 #                             'demand_qty':  
