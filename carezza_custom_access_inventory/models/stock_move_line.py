@@ -7,7 +7,7 @@ class StockMoveLine(models.Model):
 
     _inherit = 'stock.move.line'
     
-    pallet_number = fields.Integer(compute='compute_lot_id', store=True, inverse='_inverse_lot_id')
+    pallet_number = fields.Integer(string='Pallet / Box / Roll', compute='compute_lot_id', store=True, inverse='_inverse_lot_id')
     hides = fields.Integer(compute='compute_lot_id', store=True, inverse='_inverse_lot_id')
     demand_qty = fields.Float(string='Demand Qty', help='Vendor Qty')
    
