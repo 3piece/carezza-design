@@ -18,7 +18,7 @@ class StockMoveLine(models.Model):
             if 'demand_qty' in vals:
                 ship_date = record.picking_id.ship_date
                 record.lot_id.ship_date = ship_date
-        return res
+            return res
                 
     @api.depends('lot_id')
     def compute_lot_id(self):
