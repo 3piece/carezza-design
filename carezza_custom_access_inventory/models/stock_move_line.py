@@ -7,10 +7,30 @@ class StockMoveLine(models.Model):
 
     _inherit = 'stock.move.line'
     
-    pallet_number = fields.Integer(compute='compute_lot_id', store=True, inverse='_inverse_upper')
-    hides = fields.Integer(compute='compute_lot_id', store=True, inverse='_inverse_upper')
+    pallet_number = fields.Integer(compute='compute_lot_id', store=True, inverse='_inverse_lot_id')
+    hides = fields.Integer(compute='compute_lot_id', store=True, inverse='_inverse_lot_id')
     demand_qty = fields.Float(string='Demand Qty', help='Vendor Qty')
-    
+   
+    @api.model
+    def create(self, vals):
+        res = super().create(vals)
+        if 'picking_id' in vals:
+            picking = self.env['stock.picking'].browse([vals['picking_id']])
+            product = self.env['product.product'].browse([vals['product_id']])
+            if picking:
+                if picking.picking_type_id.is_generate_lot and product.tracking == 'lot':
+                    lot_name = self.env['ir.sequence'].next_by_code('lot.generation') or 'New'
+                    dict = {'name': lot_name,
+                            'product_id': vals['product_id'],
+                            'po_id' : picking.purchase_id.id,
+                            'company_id' : self.env.user.company_id.id,
+#                             'pallet_number': res.
+#                             'hides':
+#                             'demand_qty':  
+                         }
+                    lot = self.env['stock.production.lot'].create(dict)
+                    res.lot_id = lot.id
+        return res    
     
     def write(self,vals):
         for record in self:
@@ -26,7 +46,7 @@ class StockMoveLine(models.Model):
             record.pallet_number = record.lot_id.pallet_number
             record.hides = record.lot_id.hides 
             
-    def _inverse_upper(self):
+    def _inverse_lot_id(self):
         for record in self:
             record.lot_id.pallet_number = record.pallet_number
             record.lot_id.hides = record.hides 
