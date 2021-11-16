@@ -26,7 +26,7 @@ class StockPicking(models.Model):
                 for stock_move_line in record.move_line_ids_without_package:
                     ship_date = record.ship_date
                     stock_move_line.lot_id.ship_date = ship_date
-        return res   
+            return res   
    
     
     def button_validate(self):    
