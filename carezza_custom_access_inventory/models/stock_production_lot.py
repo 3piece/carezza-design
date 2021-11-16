@@ -12,6 +12,7 @@ class StockProductionLot(models.Model):
     po_id = fields.Many2one('purchase.order', string="PO")
     supplier_id = fields.Many2one(related='po_id.partner_id')
     vendor_qty = fields.Float(compute='_compute_qty')
+    ship_date =  fields.Date(string="Ship Date")
     
     #remove later
     number_of_skins = fields.Integer()

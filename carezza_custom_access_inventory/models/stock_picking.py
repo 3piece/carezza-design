@@ -11,6 +11,16 @@ class StockPicking(models.Model):
     bl_number = fields.Char(string='B/L Number')
     is_propagation = fields.Boolean(related='picking_type_id.is_propagation')
     po_date = fields.Date(related='purchase_id.po_date')
+   
+    def write(self,vals):
+        for record in self:
+            res = super().write(vals)
+            if 'ship_date' in vals:
+                for stock_move_line in record.move_line_ids_without_package:
+                    ship_date = record.ship_date
+                    stock_move_line.lot_id.ship_date = ship_date
+        return res   
+   
     
     def button_validate(self):    
         res = super().button_validate()
