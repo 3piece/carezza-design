@@ -28,7 +28,8 @@ class StockMove(models.Model):
     def create(self,vals):
         res = super().create(vals)
         if not res.picking_id.ship_date and res.picking_id.purchase_id:
-            ship_date = res.picking_id.purchase_id.po_date +  datetime.timedelta(days=14)
-            res.picking_id.ship_date = ship_date            
+            if res.picking_id.purchase_id.po_date:
+                ship_date = res.picking_id.purchase_id.po_date +  datetime.timedelta(days=14)
+                res.picking_id.ship_date = ship_date            
         return res
         
