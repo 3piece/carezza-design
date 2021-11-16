@@ -8,5 +8,6 @@ class StockPickingType(models.Model):
     _inherit = 'stock.picking.type'
 
     responsible_user_ids = fields.Many2many('res.users')
-    is_propagation = fields.Boolean()
+    is_propagation = fields.Boolean(string='Propagate')
+    is_generate_lot = fields.Boolean(string='Generate Lot')
     

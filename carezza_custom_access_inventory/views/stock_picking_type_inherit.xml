@@ -21,6 +21,7 @@
 				<xpath expr="//field[@name='use_existing_lots']"
 					position='after'>
 					<field name='is_propagation'></field>
+					<field name='is_generate_lot'></field>
 				</xpath>
 			</field>
 		</record>
