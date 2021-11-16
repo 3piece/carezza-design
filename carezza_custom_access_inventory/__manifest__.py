@@ -48,6 +48,7 @@
         'security/base_security.xml',
         'security/ir.model.access.csv',
         
+        'data/lot_sequence.xml',
         'report/report_po_inherit.xml',
         'report/report_stockpicking_operation_inherit.xml',
         'views/stock_picking_type_inherit.xml',

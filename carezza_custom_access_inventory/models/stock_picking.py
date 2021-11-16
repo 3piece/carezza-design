@@ -11,6 +11,11 @@ class StockPicking(models.Model):
     bl_number = fields.Char(string='B/L Number')
     is_propagation = fields.Boolean(related='picking_type_id.is_propagation')
     po_date = fields.Date(related='purchase_id.po_date')
+    
+    @api.model
+    def create(self, vals):
+        res = super().create(vals)
+        return res
    
     def write(self,vals):
         for record in self:
