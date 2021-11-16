@@ -11,7 +11,9 @@ class StockPicking(models.Model):
     bl_number = fields.Char(string='B/L Number')
     is_propagation = fields.Boolean(related='picking_type_id.is_propagation')
     po_date = fields.Date(related='purchase_id.po_date')
-    
+    is_locked = fields.Boolean(default=False, help='When the picking is not done this allows changing the '
+                               'initial demand. When the picking is done this allows '
+                               'changing the done quantities.')
     @api.model
     def create(self, vals):
         res = super().create(vals)

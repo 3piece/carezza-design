@@ -12,7 +12,7 @@ class StockMove(models.Model):
     invoice_amount =  fields.Float()
     currency_id = fields.Many2one('res.currency', 'Currency', required=True,
         default=lambda self: self.env.company.currency_id.id)
-    pallet_number = fields.Integer()
+    pallet_number = fields.Integer(string='Pallet / Box / Roll')
     hides = fields.Integer()
     average_skin_size = fields.Float(compute='compute_average_skin_size')
     
