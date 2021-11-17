@@ -7,17 +7,22 @@ class StockMoveLine(models.Model):
 
     _inherit = 'stock.move.line'
     
-    pallet_number = fields.Integer(string='Pallet / Box / Roll', compute='compute_lot_id', store=True, inverse='_inverse_lot_id')
-    hides = fields.Integer(compute='compute_lot_id', store=True, inverse='_inverse_lot_id')
+    pallet_number = fields.Integer(string='Pallet / Box / Roll')
+    hides = fields.Integer()
     demand_qty = fields.Float(string='Demand Qty', help='Vendor Qty')
    
+    @api.onchange('lot_id')
+    def onchange_lot_id(self):
+        self.pallet_number = self.lot_id.pallet_number
+        self.hides = self.lot_id.hides
+        
     @api.model
     def create(self, vals):
         res = super().create(vals)
         if 'picking_id' in vals:
             picking = self.env['stock.picking'].browse([vals['picking_id']])
             product = self.env['product.product'].browse([vals['product_id']])
-            if picking:
+            if picking and 'lot_id' not in vals:
                 if picking.picking_type_id.is_generate_lot and product.tracking == 'lot':
                     lot_name = self.env['ir.sequence'].next_by_code('lot.generation') or 'New'
                     dict = {'name': lot_name,
@@ -38,19 +43,15 @@ class StockMoveLine(models.Model):
             res = super().write(vals)
             if 'demand_qty' in vals:
                 ship_date = record.picking_id.ship_date
-                record.lot_id.ship_date = ship_date
+                record.lot_id.ship_date = ship_date         
+            if 'pallet_number' in vals:
+                pallet_number = record.pallet_number
+                record.lot_id.pallet_number = pallet_number     
+            if 'hides' in vals:
+                hides = record.hides
+                record.lot_id.hides = hides
             return res
                 
-    @api.depends('lot_id')
-    def compute_lot_id(self):
-        for record in self:
-            record.pallet_number = record.lot_id.pallet_number
-            record.hides = record.lot_id.hides 
-            
-    def _inverse_lot_id(self):
-        for record in self:
-            record.lot_id.pallet_number = record.pallet_number
-            record.lot_id.hides = record.hides 
         
     def _create_and_assign_production_lot(self):
         """ Creates and assign new production lots for move lines."""
