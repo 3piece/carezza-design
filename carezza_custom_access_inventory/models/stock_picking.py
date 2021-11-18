@@ -65,28 +65,44 @@ class StockPicking(models.Model):
             for stock_move in self.move_ids_without_package:
                 stock_move.group_id = procurement_group.id
 
-    def csv_to_dict(self, csv):
-        #  Example CSV
-        #  'external_id','PO Number','Product','Box / Roll / Pallet No.','Qty Shipped','Hides'
-        #  external_id.newid_314324,2013,LG-1172-24 BLACK POWDER,2,50,2
-        #  external_id.newid_314326,LG-806-40 BRASS BRUSH,1,110,4
 
-        df = pd.read_csv(csv, sep=',')
-        return df.to_dict()
 
-#     def write(self, vals):
-#         res = super().write(vals)
-#         list_obj = None
-#         if 'upload_excel_file' in vals:
-#             csv_data = base64.b64decode(self.upload_excel_file)
-#             data_file = io.StringIO(csv_data.decode("utf-8"))
-#             data_file.seek(0)
-#             file_reader = []
-#             csv_reader = csv.reader(data_file, delimiter=',')
-#             list_obj = file_reader.extend(csv_reader)
-# 
-# 
-#         return res
+    def check_transfer(self, details):
+        # TODO:  will have logic check all line must have the same
+        # purchase_name
+        for detail in details:
+            transfer = self.env['stock.picking'].search(
+                [('name', '=', detail['picking_name']), ('state', '=', 'assigned')])
+            self.update_exist_transfer(transfer, details)
+
+    def write(self, vals):
+        res = super().write(vals)
+        list_obj = []
+        if 'upload_excel_file' in vals:
+            if vals['upload_excel_file']:
+                csv_data = base64.b64decode(self.upload_excel_file)
+                data_file = io.StringIO(csv_data.decode("utf-8"))
+                data_file.seek(0)
+                file_reader = []
+                csv_reader = csv.reader(data_file, delimiter=',')
+                file_reader.extend(csv_reader)
+                header = True
+                for obj in file_reader:
+                    if header:
+                        header = False
+                    else:
+                        dict_val = {
+                        'ship_date': obj[0],
+                        'picking_name' : obj[1],
+                        'product_name': obj[2],
+                        'product_id': obj[3],
+                        'demand_qty': obj[4],
+                        'pallet_number': obj[5],
+                        'hides': obj[6],
+                        'crud' : obj[7],}
+                        list_obj.append(dict_val)
+                self.check_transfer(list_obj)
+        return res
 
     def update_exist_transfer(self,transfer,details):
         for move in transfer.move_ids_without_package:
@@ -107,12 +123,7 @@ class StockPicking(models.Model):
                     #move._action_done()
 #
 #
-    def check_transfer(self, details):
-        # TODO:  will have logic check all line must have the same
-        # purchase_name
-        transfer = self.env['stock.picking'].search(
-            [('origin', '=', details[0]['picking_name']), ('state', '=', 'assigned')])
-        self.update_exist_transfer(transfer, details)
+
 #
 #
 #
