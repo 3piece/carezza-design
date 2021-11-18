@@ -18,7 +18,7 @@
 
 				<field name="upload_excel_name" invisible="1"/>
            		<field name="upload_excel_file" filename="upload_excel_name" widget="binary" />	
-				<button type='object' name='test_details_insert'> Test Insert</button>			
+			
 			</xpath>		
 		
 			<xpath expr="//field[@name='lot_ids']" position="after">
