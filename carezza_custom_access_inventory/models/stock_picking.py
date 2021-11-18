@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
 from odoo.exceptions import AccessError
+import pandas as pd
 
 
 class StockPicking(models.Model):
@@ -59,8 +60,22 @@ class StockPicking(models.Model):
                                                                               'move_type': 'direct'})
             for stock_move in self.move_ids_without_package:
                 stock_move.group_id = procurement_group.id
-            
-            
+
+
+    def csv_to_dict(self,csv):
+        #  Example CSV
+        #  'external_id','PO Number','Product','Box / Roll / Pallet No.','Qty Shipped','Hides'
+        #  external_id.newid_314324,2013,LG-1172-24 BLACK POWDER,2,50,2
+        #  external_id.newid_314326,LG-806-40 BRASS BRUSH,1,110,4
+
+        df = pd.read_csv(csv, usecols=['ship_date','picking_name','product_name','product_id','Box / Roll / Pallet No.','Qty Shipped','Hides'], sep=',')
+        return df.to_dict()            
+    
+    
+    def write(self,vals):           
+        res = super().write(vals)
+        dict_data = self.csv_to_dict(self.upload_excel_file)
+        return res
 #     def update_exist_transfer(self,transfer,details):
 #         for move in transfer.move_ids_without_package:
 #             for detail in details:
