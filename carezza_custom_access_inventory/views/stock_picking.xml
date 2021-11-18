@@ -13,6 +13,12 @@
 				<field name="bl_number" />
 				<field name="is_propagation"  groups='base.group_no_one'/>
 				
+				<field name="excel_template_name" invisible="1"/>
+           		<field name="excel_template" filename="excel_template_name" widget="binary" />		    			
+
+				<field name="upload_excel_name" invisible="1"/>
+           		<field name="upload_excel_file" filename="upload_excel_name" widget="binary" />	
+				<button type='object' name='test_details_insert'> Test Insert</button>			
 			</xpath>		
 		
 			<xpath expr="//field[@name='lot_ids']" position="after">
