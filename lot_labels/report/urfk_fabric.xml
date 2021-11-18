@@ -61,7 +61,7 @@
 				<tr class='height-60'>
 					<td colspan="1">
 						<strong class="text-left align-middle font-label" >Ship Date: </strong>
-						<span style='padding-left:15px' class='font-size-24' t-field="move_line.date"
+						<span style='padding-left:15px' class='font-size-24' t-field="move_line.lot_id.ship_date"
 							t-options='{"format": "dd MMM yyyy"}'></span>
 					</td>
 					
