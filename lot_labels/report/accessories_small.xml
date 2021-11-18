@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="accessories_small">
+			<table class="table table-bordered"
+				style="border: 2px solid black ;height:100%;width: 98%;font-weight: bold;"
+				t-if="picking.move_lines" >
+				<tr>
+					<td class="table-active text-center align-middle"
+						style="height: 160px; font-size:48px"
+						colspan="2">
+						<strong t-esc="move.product_id.name" />
+					</td>
+				</tr>
+				
+				<tr style="height:60px;font-size:14px">
+					<td colspan="1" class="text-left align-middle" style='width: width: 45%;; border-right-color: white;color: gray'>
+						<strong>Color :</strong>
+					</td>
+					<td colspan="1" class="text-left align-middle" style="font-size:24px">
+						<span t-esc="move.product_id.attribute_value" />
+					</td>					
+				</tr>
+
+				<tr style="height:60px;font-size:14px">
+					<td colspan="1" class="text-left align-middle" style='width: width: 45%;; border-right-color: white;color: gray'>
+						<strong>APO :</strong>
+					</td>
+					<td colspan="1" class="text-left align-middle" style="font-size:24px">
+						<span t-field="move_line.lot_id.po_id.name"></span>
+					</td>					
+				</tr>
+
+
+				<tr style="height: 60px" >
+					<td  style='color: gray;width: 45%;font-size:14px' class="text-left align-middle" colspan="1">
+						<strong>Ship Date: </strong>
+						<span t-field="move_line.date" style="font-size:24px; color: black"
+							t-options='{"format": "dd MMM yyyy"}'></span>
+					</td>
+								
+					<td  style='color: gray; width: 45%;font-size:14px' class="text-left align-middle" colspan="1">
+						<strong>Total Quantity:</strong>
+						<t t-if="move_line.lot_id.product_qty > 0" style="font-size:24px; color: black">
+							<span t-field="move_line.lot_id.product_qty" style="font-size:24px; color: black"></span>
+						</t>
+						<t  t-else="">
+							<span t-field="move_line.lot_id.vendor_qty" style="font-size:24px; color: black"></span>
+						</t>
+						<span t-field="move_line.product_uom_id" style="font-size:24px; color: black"></span>
+					</td>				
+				</tr>
+
+				<t style="font-size:24px" t-if="move_line.product_id.tracking != 'none'">
+					<tr style="font-size:24px">
+						<td class="text-center align-middle" colspan="2" style='height: 61px'>
+							<t t-if="move_line.lot_id.name">
+								<img
+									t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.lot_id.name, 600, 150)"
+									style="width:120px;height:45px" alt="Barcode" />
+								<p t-esc="move_line.lot_id.name" />
+							</t>
+							<t t-else="">
+								<span class="text-muted">No barcode available</span>
+							</t>
+						</td>
+					</tr>
+				</t>
+				
+				<t style="height:60px;font-size:24px" t-if="move_line.product_id.tracking == 'none'">
+					<tr style="height:60px;font-size:24px">
+						<td class="text-center align-middle" style='height: 61px' colspan="2"
+							>
+							<t t-if="move_line.product_id.barcode">
+								<img
+									t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.product_id.barcode, 600, 150)"
+									style="width:120px;width:45px" alt="Barcode" />
+								<p t-esc="move_line.product_id.barcode" />
+							</t>
+							<t t-else="">
+								<span class="text-muted">No barcode available</span>
+							</t>
+						</td>
+					</tr>
+				</t>						
+			</table>
+		</template>
+	</data>
+</odoo>
