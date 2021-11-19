@@ -50,8 +50,13 @@
 						<strong>Ship Date: </strong>
 					</td>
 					<td class="font-size-24 text-center align-middle border-left-0">
-						<span t-field="move_line.lot_id.ship_date"
+						<t t-if='move_line.lot_id.ship_date'>
+							<span t-field="move_line.lot_id.ship_date"
 							t-options='{"format": "dd MMM yyyy"}'></span>
+						</t>
+						<t t-else="">
+							<span>None</span>
+						</t>
 					</td>										
 				</tr>
 				
@@ -60,7 +65,12 @@
 						<strong>Supplier:</strong>
 					</td>
 					<td class="border-left-0 text-center align-middle font-size-24" >
-						<span t-field="move_line.lot_id.supplier_id.name"></span>
+						<t t-if="move_line.lot_id.supplier_id.name">
+							<span t-field="move_line.lot_id.supplier_id.name"></span>
+						</t>
+						<t t-else="">
+								<span> None </span>
+						</t>
 					</td>			
 					<t t-if="move_line.product_id.tracking != 'none'">
 						<td style='width:100px;height:61px;line-height: 1;' class="text-center align-middle" colspan="2">

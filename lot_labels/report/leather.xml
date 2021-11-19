@@ -54,13 +54,25 @@
 				<tr class='height-60'>
 					<td colspan="2" class="text-left align-middle">
 						<strong class='label-leather'>Ship Date: </strong>
-						<span t-field="move_line.lot_id.ship_date" class='font-size-24'
+						<t t-if='move_line.lot_id.ship_date'>
+							<span t-field="move_line.lot_id.ship_date"
 							t-options='{"format": "dd MMM yyyy"}'></span>
+						</t>
+						<t t-else="">
+							<span>None</span>
+						</t>
 					</td>
 					
 					<td colspan="2" class="text-left align-middle border-right-0">
 						<strong class='label-leather'>Supplier:</strong>
-						<span class='font-size-24' t-field="move_line.lot_id.supplier_id.name"></span>
+						
+						<t t-if='move_line.lot_id.supplier_id.name'>
+							<span class='font-size-24' t-field="move_line.lot_id.supplier_id.name"></span>
+						</t>
+						<t t-else="">
+							<span> None </span>
+						</t>						
+					
 					</td>
 					
 					<td  colspan="2" class=" text-left align-middle">
