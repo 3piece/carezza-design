@@ -66,6 +66,32 @@ class StockPicking(models.Model):
                 stock_move.group_id = procurement_group.id
 
 
+    def update_exist_transfer(self,transfer,details):
+        for move in transfer.move_ids_without_package:
+            for detail in details:
+                # Update move_line base on line_id
+                if detail['move_line_id']:
+                    move_line = self.env['stock.move.line'].search([('picking_id','=',transfer.id),('id','=',detail['move_line_id'])])
+                    if move_line:
+                        move_line.qty_done = detail['qty_done']
+                        move_line.pallet_number = detail['pallet_number']
+                        move_line.hides = detail['hides']
+                
+                #Create new move line
+                if move.product_id.id == detail['product_id']:
+                    vals= {'product_id' : move.product_id.id,
+                           'picking_id': transfer.id,
+                           'move_id': move.id,
+                           'product_uom_id': move.product_id.uom_id.id,
+                           'qty_done': detail['qty_done'],
+                           'location_id': transfer.location_id.id,
+                           'location_dest_id': transfer.location_dest_id.id,
+                           'state': 'assigned',
+                           'pallet_number': detail['pallet_number'],
+                           'hides': detail['hides']
+                           }
+                    move_line = self.env['stock.move.line'].create(vals)
+                    
 
     def check_transfer(self, details):
         # TODO:  will have logic check all line must have the same
@@ -74,12 +100,14 @@ class StockPicking(models.Model):
             transfer = self.env['stock.picking'].search(
                 [('name', '=', detail['picking_name']), ('state', '=', 'assigned')])
             self.update_exist_transfer(transfer, details)
-
+            
+            
+    
     def write(self, vals):
         res = super().write(vals)
         list_obj = []
         if 'upload_excel_file' in vals:
-            if vals['upload_excel_file']:
+            if vals['upload_excel_file']:         
                 csv_data = base64.b64decode(self.upload_excel_file)
                 data_file = io.StringIO(csv_data.decode("utf-8"))
                 data_file.seek(0)
@@ -87,6 +115,7 @@ class StockPicking(models.Model):
                 csv_reader = csv.reader(data_file, delimiter=',')
                 file_reader.extend(csv_reader)
                 header = True
+                list_move_line_id = []
                 for obj in file_reader:
                     if header:
                         header = False
@@ -95,30 +124,18 @@ class StockPicking(models.Model):
                         'ship_date': obj[0],
                         'picking_name' : obj[1],
                         'product_name': obj[2],
-                        'product_id': obj[3],
-                        'demand_qty': obj[4],
+                        'product_id': int(obj[3]),
+                        'qty_done': obj[4],
                         'pallet_number': obj[5],
                         'hides': obj[6],
-                        'crud' : obj[7],}
+                        'move_line_id': int(obj[7]) if obj[7] != '' else False }
                         list_obj.append(dict_val)
+                        if obj[7] != '':
+                            list_move_line_id.append(int(object))
                 self.check_transfer(list_obj)
         return res
 
-    def update_exist_transfer(self,transfer,details):
-        for move in transfer.move_ids_without_package:
-            for detail in details:
-                if move.product_id.id == int(detail['product_id']):
-                    vals= {'product_id' : move.product_id.id,
-                           'picking_id': transfer.id,
-                           'move_id': move.id,
-                           'product_uom_id': move.product_id.uom_id.id,
-                           'demand_qty': detail['demand_qty'],
-                           'location_id': transfer.location_id.id,
-                           'location_dest_id': transfer.location_dest_id.id,
-                           'state': 'assigned',
-                           'pallet_number': detail['pallet_number'],
-                           'hides': detail['hides']}
-                    move_line = self.env['stock.move.line'].create(vals)
+
                     #move._action_confirm()
                     #move._action_done()
 #
@@ -148,28 +165,28 @@ class StockPicking(models.Model):
 #                     'hides': 10,
 #                     'crud' : 'update'}]
 #
-#     def process(self):
-#         pickings_to_do = self.env['stock.picking']
-#         pickings_not_to_do = self.env['stock.picking']
-#         for line in self.backorder_confirmation_line_ids:
-#             if line.to_backorder is True:
-#                 pickings_to_do |= line.picking_id
-#             else:
-#                 pickings_not_to_do |= line.picking_id
-#
-#         for pick_id in pickings_not_to_do:
-#             moves_to_log = {}
-#             for move in pick_id.move_lines:
-#                 if float_compare(move.product_uom_qty,
-#                                  move.quantity_done,
-#                                  precision_rounding=move.product_uom.rounding) > 0:
-#                     moves_to_log[move] = (move.quantity_done, move.product_uom_qty)
-#             pick_id._log_less_quantities_than_expected(moves_to_log)
-#
-#         pickings_to_validate = self.env.context.get('button_validate_picking_ids')
-#         if pickings_to_validate:
-#             pickings_to_validate = self.env['stock.picking'].browse(pickings_to_validate).with_context(skip_backorder=True)
-#             if pickings_not_to_do:
-#                 pickings_to_validate = pickings_to_validate.with_context(picking_ids_not_to_backorder=pickings_not_to_do.ids)
-#             return pickings_to_validate.button_validate()
-#         return True
+    def process(self):
+        pickings_to_do = self.env['stock.picking']
+        pickings_not_to_do = self.env['stock.picking']
+        for line in self.backorder_confirmation_line_ids:
+            if line.to_backorder is True:
+                pickings_to_do |= line.picking_id
+            else:
+                pickings_not_to_do |= line.picking_id
+
+        for pick_id in pickings_not_to_do:
+            moves_to_log = {}
+            for move in pick_id.move_lines:
+                if float_compare(move.product_uom_qty,
+                                 move.quantity_done,
+                                 precision_rounding=move.product_uom.rounding) > 0:
+                    moves_to_log[move] = (move.quantity_done, move.product_uom_qty)
+            pick_id._log_less_quantities_than_expected(moves_to_log)
+
+        pickings_to_validate = self.env.context.get('button_validate_picking_ids')
+        if pickings_to_validate:
+            pickings_to_validate = self.env['stock.picking'].browse(pickings_to_validate).with_context(skip_backorder=True)
+            if pickings_not_to_do:
+                pickings_to_validate = pickings_to_validate.with_context(picking_ids_not_to_backorder=pickings_not_to_do.ids)
+            return pickings_to_validate.button_validate()
+        return True

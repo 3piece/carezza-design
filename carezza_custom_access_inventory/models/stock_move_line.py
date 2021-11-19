@@ -9,7 +9,8 @@ class StockMoveLine(models.Model):
     
     pallet_number = fields.Integer(string='Pallet / Box / Roll')
     hides = fields.Integer()
-    demand_qty = fields.Float(string='Demand Qty', help='Vendor Qty')
+    
+    #row_csv_line_id = fields.Integer(help='use to update line baseon csv')
    
     @api.onchange('lot_id')
     def onchange_lot_id(self):
@@ -41,7 +42,7 @@ class StockMoveLine(models.Model):
     def write(self,vals):
         for record in self:
             res = super().write(vals)
-            if 'demand_qty' in vals:
+            if 'qty_done' in vals:
                 ship_date = record.picking_id.ship_date
                 record.lot_id.ship_date = ship_date         
             if 'pallet_number' in vals:

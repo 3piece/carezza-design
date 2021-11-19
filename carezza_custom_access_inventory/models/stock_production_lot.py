@@ -17,13 +17,13 @@ class StockProductionLot(models.Model):
     #remove later
     number_of_skins = fields.Integer()
     
-    def _compute_qty(self):
-        for record in self:
-            qty = 0
-            move_lines = self.env['stock.move.line'].search([('lot_id','=',record.id),('state','!=','cancel')])
-            for move_line in move_lines:
-                qty+= move_line.demand_qty
-            record.vendor_qty = qty
+#     def _compute_qty(self):
+#         for record in self:
+#             qty = 0
+#             move_lines = self.env['stock.move.line'].search([('lot_id','=',record.id),('state','!=','cancel')])
+#             for move_line in move_lines:
+#                 qty+= move_line.demand_qty
+#             record.vendor_qty = qty
     
     @api.model
     def create(self,vals):
