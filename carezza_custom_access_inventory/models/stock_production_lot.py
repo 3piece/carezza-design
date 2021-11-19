@@ -11,19 +11,19 @@ class StockProductionLot(models.Model):
     hides = fields.Integer()
     po_id = fields.Many2one('purchase.order', string="PO")
     supplier_id = fields.Many2one(related='po_id.partner_id')
-    vendor_qty = fields.Float(compute='_compute_qty')
+    
     ship_date =  fields.Date(string="Ship Date")
     
     #remove later
     number_of_skins = fields.Integer()
     
-    def _compute_qty(self):
-        for record in self:
-            qty = 0
-            move_lines = self.env['stock.move.line'].search([('lot_id','=',record.id),('state','!=','cancel')])
-            for move_line in move_lines:
-                qty+= move_line.demand_qty
-            record.vendor_qty = qty
+#     def _compute_qty(self):
+#         for record in self:
+#             qty = 0
+#             move_lines = self.env['stock.move.line'].search([('lot_id','=',record.id),('state','!=','cancel')])
+#             for move_line in move_lines:
+#                 qty+= move_line.demand_qty
+#             record.vendor_qty = qty
     
     @api.model
     def create(self,vals):

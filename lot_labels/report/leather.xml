@@ -35,12 +35,9 @@
 						<strong>Quantity: </strong>
 					</td>
 					<td  class="text-right align-middle font-size-24 border-left-0 border-right-0">
-						<t t-if="move_line.lot_id.product_qty > 0">
-							<span t-field="move_line.lot_id.product_qty"></span>
-						</t>
-						<t  t-else="">
-							<span t-field="move_line.lot_id.vendor_qty"></span>
-						</t>
+
+							<span t-field="move_line.qty_done"></span>
+						
 					</td>
 					<td  class=" text-left align-middle font-size-24 border-right-black border-left-0">
 						<span class='mg-left-5' t-field="move_line.product_uom_id"></span>
@@ -57,13 +54,25 @@
 				<tr class='height-60'>
 					<td colspan="2" class="text-left align-middle">
 						<strong class='label-leather'>Ship Date: </strong>
-						<span t-field="move_line.lot_id.ship_date" class='font-size-24'
+						<t t-if='move_line.lot_id.ship_date'>
+							<span t-field="move_line.lot_id.ship_date"
 							t-options='{"format": "dd MMM yyyy"}'></span>
+						</t>
+						<t t-else="">
+							<span>None</span>
+						</t>
 					</td>
 					
 					<td colspan="2" class="text-left align-middle border-right-0">
 						<strong class='label-leather'>Supplier:</strong>
-						<span class='font-size-24' t-field="move_line.lot_id.supplier_id.name"></span>
+						
+						<t t-if='move_line.lot_id.supplier_id.name'>
+							<span class='font-size-24' t-field="move_line.lot_id.supplier_id.name"></span>
+						</t>
+						<t t-else="">
+							<span> None </span>
+						</t>						
+					
 					</td>
 					
 					<td  colspan="2" class=" text-left align-middle">
