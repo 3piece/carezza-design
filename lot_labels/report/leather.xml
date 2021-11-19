@@ -35,12 +35,9 @@
 						<strong>Quantity: </strong>
 					</td>
 					<td  class="text-right align-middle font-size-24 border-left-0 border-right-0">
-						<t t-if="move_line.lot_id.product_qty > 0">
-							<span t-field="move_line.lot_id.product_qty"></span>
-						</t>
-						<t  t-else="">
-							<span t-field="move_line.lot_id.vendor_qty"></span>
-						</t>
+
+							<span t-field="move_line.qty_done"></span>
+						
 					</td>
 					<td  class=" text-left align-middle font-size-24 border-right-black border-left-0">
 						<span class='mg-left-5' t-field="move_line.product_uom_id"></span>

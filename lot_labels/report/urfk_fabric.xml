@@ -47,12 +47,9 @@
 					</td>
 					<td class="  align-middle"
 						style="height:60px;font-size:24px" colspan="1">
-						<t t-if="move_line.lot_id.product_qty > 0">
-							<span t-field="move_line.lot_id.product_qty"></span>
-						</t>
-						<t  t-else="">
-							<span t-field="move_line.lot_id.vendor_qty"></span>
-						</t>
+
+							<span t-field="move_line.qty_done"></span>
+				
 						<span t-field="move_line.product_uom_id"></span>
 					</td>					
 					
