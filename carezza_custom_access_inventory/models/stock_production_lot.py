@@ -10,7 +10,7 @@ class StockProductionLot(models.Model):
     pallet_number = fields.Integer(string='Pallet / Box / Roll')
     hides = fields.Integer()
     po_id = fields.Many2one('purchase.order', string="PO")
-    supplier_id = fields.Many2one(related='po_id.partner_id')
+    supplier_id = fields.Many2one('res.partner')
     
     ship_date =  fields.Date(string="Ship Date")
     

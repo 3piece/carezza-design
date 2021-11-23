@@ -37,6 +37,10 @@ class StockMoveLine(models.Model):
                          }
                     lot = self.env['stock.production.lot'].create(dict)
                     res.lot_id = lot.id
+            if res.lot_id:
+                res.pallet_number = res.lot_id.pallet_number
+                res.hides = res.lot_id.hides
+                
         return res    
     
     def write(self,vals):
