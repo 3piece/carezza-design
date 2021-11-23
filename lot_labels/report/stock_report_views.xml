@@ -14,7 +14,7 @@
 			<field name="margin_right">0</field>
 			<field name="header_line" eval="False" />
 			<field name="header_spacing">3</field>
-			<field name="dpi">65</field>
+			<field name="dpi">67</field>
 		</record>    
     
         <record id="action_label_transfer_template_pdf" model="ir.actions.report">
