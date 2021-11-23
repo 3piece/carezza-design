@@ -11,6 +11,13 @@ width:338px;
 border: 10px solid black !important;
 }
 
+
+.height-160-no-border {
+    height: 160px;
+width:338px; 
+
+}
+
 .height-60 {
     height: 60px;
    
@@ -139,6 +146,16 @@ border: 2px solid black;
  color: gray  !important;
  padding-left: 10px !important;
  width:100px;
+ border-right-color: white !important;
+ border-right: 0px !important
+
+}
+
+.font-label-urfk{
+ font-size:12px;
+ color: gray  !important;
+ padding-left: 10px !important;
+ width:70px;
  border-right-color: white !important;
  border-right: 0px !important
 
