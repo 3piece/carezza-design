@@ -30,14 +30,6 @@ class StockPicking(models.Model):
 #         return res
 #
 
-    def write(self, vals):
-        for record in self:
-            res = super().write(vals)
-            if 'ship_date' in vals:
-                for stock_move_line in record.move_line_ids_without_package:
-                    ship_date = record.ship_date
-                    stock_move_line.lot_id.ship_date = ship_date
-            return res
 
     def button_validate(self):
         res = super().button_validate()
@@ -99,39 +91,46 @@ class StockPicking(models.Model):
         for detail in details:
             transfer = self.env['stock.picking'].search(
                 [('name', '=', detail['picking_name']), ('state', '=', 'assigned')])
-            self.update_exist_transfer(transfer, details)
-            
-            
+            self.update_exist_transfer(transfer, details)          
     
+    def read_csv(self,upload_excel_file):
+        list_obj = []
+        csv_data = base64.b64decode(upload_excel_file)
+        data_file = io.StringIO(csv_data.decode("utf-8"))
+        data_file.seek(0)
+        file_reader = []
+        csv_reader = csv.reader(data_file, delimiter=',')
+        file_reader.extend(csv_reader)
+        header = True
+        list_move_line_id = []
+        for obj in file_reader:
+            if header:
+                header = False
+            else:
+                dict_val = {
+                'ship_date': obj[0],
+                'picking_name' : obj[1],
+                'product_name': obj[2],
+                'product_id': int(obj[3]),
+                'qty_done': obj[4],
+                'pallet_number': obj[5],
+                'hides': obj[6],
+                'move_line_id': int(obj[7]) if obj[7] != '' else False }
+                list_obj.append(dict_val)
+                if obj[7] != '':
+                    list_move_line_id.append(int(object))
+        return list_obj
+                    
     def write(self, vals):
         res = super().write(vals)
-        list_obj = []
+        if 'ship_date' in vals:
+            for stock_move_line in record.move_line_ids_without_package:
+                ship_date = record.ship_date
+                stock_move_line.lot_id.ship_date = ship_date 
+                       
         if 'upload_excel_file' in vals:
-            if vals['upload_excel_file']:         
-                csv_data = base64.b64decode(self.upload_excel_file)
-                data_file = io.StringIO(csv_data.decode("utf-8"))
-                data_file.seek(0)
-                file_reader = []
-                csv_reader = csv.reader(data_file, delimiter=',')
-                file_reader.extend(csv_reader)
-                header = True
-                list_move_line_id = []
-                for obj in file_reader:
-                    if header:
-                        header = False
-                    else:
-                        dict_val = {
-                        'ship_date': obj[0],
-                        'picking_name' : obj[1],
-                        'product_name': obj[2],
-                        'product_id': int(obj[3]),
-                        'qty_done': obj[4],
-                        'pallet_number': obj[5],
-                        'hides': obj[6],
-                        'move_line_id': int(obj[7]) if obj[7] != '' else False }
-                        list_obj.append(dict_val)
-                        if obj[7] != '':
-                            list_move_line_id.append(int(object))
+            if vals['upload_excel_file']: 
+                list_obj = self.read_csv(self.upload_excel_file)        
                 self.check_transfer(list_obj)
         return res
 
