@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
-from odoo.exceptions import AccessError
+from odoo.exceptions import AccessError,ValidateError
 import pandas as pd
 import base64
 import io
@@ -30,6 +30,23 @@ class StockPicking(models.Model):
 #         return res
 #
 
+ 
+                
+                
+    def prepare_value_generate(self):
+        list = []
+        for move_line_id in self.move_line_ids_without_package:
+            value = {}
+            value['ship_date'] = move_line_id.picking_id.ship_date
+            value['picking_name'] = move_line_id.picking_id.name
+            value['product_name'] =  move_line_id.product_id.display_name
+            value['qty_done'] = move_line_id.qty_done
+            value['pallet_number'] = move_line_id.pallet_number
+            value['hides'] = move_line_id.hides
+            value['move_line_id'] = move_line_id.id
+            list.append(value)
+        return list
+
 
     def button_validate(self):
         res = super().button_validate()
@@ -58,40 +75,62 @@ class StockPicking(models.Model):
                 stock_move.group_id = procurement_group.id
 
 
-    def update_exist_transfer(self,transfer,details):
-        for move in transfer.move_ids_without_package:
-            for detail in details:
-                # Update move_line base on line_id
-                if detail['move_line_id']:
-                    move_line = self.env['stock.move.line'].search([('picking_id','=',transfer.id),('id','=',detail['move_line_id'])])
-                    if move_line:
-                        move_line.qty_done = detail['qty_done']
-                        move_line.pallet_number = detail['pallet_number']
-                        move_line.hides = detail['hides']
-                
-                #Create new move line
-                if move.product_id.id == detail['product_id']:
-                    vals= {'product_id' : move.product_id.id,
-                           'picking_id': transfer.id,
-                           'move_id': move.id,
-                           'product_uom_id': move.product_id.uom_id.id,
-                           'qty_done': detail['qty_done'],
-                           'location_id': transfer.location_id.id,
-                           'location_dest_id': transfer.location_dest_id.id,
-                           'state': 'assigned',
-                           'pallet_number': detail['pallet_number'],
-                           'hides': detail['hides']
-                           }
-                    move_line = self.env['stock.move.line'].create(vals)
-                    
+    def remove_move_line(self,transfer,list_move_line_id):
+        list_remove = []
+        current_move_line_ids = transfer.move_line_ids_without_package.ids
+        for current_move_line_id in current_move_line_ids:
+            if current_move_line_id not in list_move_line_id:
+                list_remove.append((5,current_move_line_id))
+        transfer.move_line_ids_without_package = list_remove
 
-    def check_transfer(self, details):
-        # TODO:  will have logic check all line must have the same
-        # purchase_name
-        for detail in details:
+
+    def update_move_line(self,transfer,list_obj):
+        id_update = []
+        for move in transfer.move_ids_without_package: 
+            for detail in list_obj:
+                move_line = self.env['stock.move.line'].search([('picking_id','=',transfer.id),('id','=',detail['move_line_id'])])
+                if detail['move_line_id'] and move_line:
+                    move_line.qty_done = detail['qty_done']
+                    move_line.pallet_number = detail['pallet_number']
+                    move_line.hides = detail['hides']
+                    id_update.append(move_line.id)
+        return id_update
+                    
+        
+    def create_move_line(self,transfer,list_obj,list_id_update):    
+        for move in transfer.move_ids_without_package:
+            for detail in list_obj:
+                if detail['move_line_id'] not in list_id_update:
+                    if move.product_id.id == detail['product_id']:
+                        vals= {'product_id' : move.product_id.id,
+                               'picking_id': transfer.id,
+                               'move_id': move.id,
+                               'product_uom_id': move.product_id.uom_id.id,
+                               'qty_done': detail['qty_done'],
+                               'location_id': transfer.location_id.id,
+                               'location_dest_id': transfer.location_dest_id.id,
+                               'state': 'assigned',
+                               'pallet_number': detail['pallet_number'],
+                               'hides': detail['hides']
+                               }
+                        move_line = self.env['stock.move.line'].create(vals)                    
+            
+        
+    def process_move_line(self,transfer,list_obj,list_move_line_id = None):
+        #remove
+        self.remove_move_line(transfer,list_move_line_id)
+        #update
+        list_id_update = self.update_move_line(transfer,list_obj)
+        #Create
+        self.create_move_line(transfer,list_obj,list_id_update)
+        
+    def check_transfer(self, list_obj, list_move_line_id=None):
+        for detail in list_obj:
             transfer = self.env['stock.picking'].search(
                 [('name', '=', detail['picking_name']), ('state', '=', 'assigned')])
-            self.update_exist_transfer(transfer, details)          
+            if transfer:
+                self.process_move_line(transfer, list_obj, list_move_line_id)    
+                      
     
     def read_csv(self,upload_excel_file):
         list_obj = []
@@ -103,15 +142,19 @@ class StockPicking(models.Model):
         file_reader.extend(csv_reader)
         header = True
         list_move_line_id = []
+
         for obj in file_reader:
             if header:
                 header = False
             else:
+                product_id = self.env['product.product'].search([('display_name','=ilike', obj[2])])
+                if not product_id:
+                    raise ValidateError("Can't find prodcuct %s"% obj[2])                
                 dict_val = {
                 'ship_date': obj[0],
                 'picking_name' : obj[1],
                 'product_name': obj[2],
-                'product_id': int(obj[3]),
+                'product_id': product_id,
                 'qty_done': obj[4],
                 'pallet_number': obj[5],
                 'hides': obj[6],
@@ -119,19 +162,20 @@ class StockPicking(models.Model):
                 list_obj.append(dict_val)
                 if obj[7] != '':
                     list_move_line_id.append(int(object))
-        return list_obj
+
+        return list_obj,list_move_line_id
                     
     def write(self, vals):
         res = super().write(vals)
         if 'ship_date' in vals:
-            for stock_move_line in record.move_line_ids_without_package:
-                ship_date = record.ship_date
+            for stock_move_line in self.move_line_ids_without_package:
+                ship_date = self.ship_date
                 stock_move_line.lot_id.ship_date = ship_date 
                        
         if 'upload_excel_file' in vals:
             if vals['upload_excel_file']: 
-                list_obj = self.read_csv(self.upload_excel_file)        
-                self.check_transfer(list_obj)
+                list_return = self.read_csv(self.upload_excel_file)        
+                self.check_transfer(list_obj,list_move_line_id)
         return res
 
 
