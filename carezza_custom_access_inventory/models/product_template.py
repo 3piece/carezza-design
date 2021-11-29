@@ -53,4 +53,9 @@ class ProductTemplate(models.Model):
                 rec.label_type = 'leather'
             else:
                 rec.label_type = None
+                
+    def generate_external_id(self):
+        for rec in self:
+            for product in rec.product_variant_ids:
+                product.generate_external_ids()
     
