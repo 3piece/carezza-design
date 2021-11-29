@@ -9,9 +9,48 @@
 		<field name="arch" type="xml">
 			<field name="categ_id" position="after">
 				<field name="material_type" />
-				<field name="material_types" readonly='0'  force_save=''/>
+				<field name="label_type" readonly='0'  force_save=''/>
 			</field>
 		</field>
 	</record>
 
+<!-- 	<record id="product_type_template_tree_view" model="ir.ui.view">
+		<field name="name">product.template.product.tree</field>
+		<field name="model">product.template</field>
+		<field name="priority" eval="1" />
+		<field name="inherit_id"
+			ref="product.product_template_tree_view" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='name']" position="after">
+				<field name="material_type" />
+				<field name="label_type" readonly='0'  force_save=''/>
+			</xpath>
+		</field>
+	</record> -->
+        <record id="view_product_template_carezza_tree" model="ir.ui.view">
+            <field name="name">product.template.tree.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="material_type" />
+					<field name="label_type" readonly='0'  force_save='1'/>
+                </field>
+
+            </field>
+        </record>
+	
+        <record id="product_template_carezza_search_view" model="ir.ui.view">
+            <field name="name">product.template.search.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='filter_to_purchase']" position="after">
+                	<separator/>
+                    <filter name="material_type_accessories" string="Accessories" domain="[('material_type','=','Accessories')]"/>
+                    <filter name="material_type_material" string="Material" domain="[('material_type','=','Material')]"/>
+                    <filter name="material_type_leather" string="Leather" domain="[('material_type','=','Leather')]"/>
+                </xpath>
+            </field>
+        </record>
 </odoo>
