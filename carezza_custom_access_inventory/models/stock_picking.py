@@ -117,7 +117,6 @@ class StockPicking(models.Model):
             
         
     def process_move_line(self,transfer,list_obj,list_move_line_id = None):
-        
         #remove
         self.remove_move_line(transfer,list_move_line_id)
         #update
@@ -125,9 +124,6 @@ class StockPicking(models.Model):
         #Create
         self.create_move_line(transfer,list_obj,list_id_update)
         
-        
-  
-
     def check_transfer(self, list_obj, list_move_line_id=None):
         for detail in list_obj:
             transfer = self.env['stock.picking'].search(
@@ -172,8 +168,8 @@ class StockPicking(models.Model):
     def write(self, vals):
         res = super().write(vals)
         if 'ship_date' in vals:
-            for stock_move_line in record.move_line_ids_without_package:
-                ship_date = record.ship_date
+            for stock_move_line in self.move_line_ids_without_package:
+                ship_date = self.ship_date
                 stock_move_line.lot_id.ship_date = ship_date 
                        
         if 'upload_excel_file' in vals:
