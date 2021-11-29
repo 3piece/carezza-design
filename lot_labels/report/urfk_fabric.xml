@@ -14,7 +14,7 @@
 						
 					</td>
 				</tr>
-				<tr class='height-60'>
+				<tr class='height-50'>
 						<td class=" align-middle font-label-urfk" >
 							<strong>MPO</strong>
 						</td>
@@ -29,7 +29,7 @@
 												
 				</tr>
 
-				<tr class='height-60'>
+				<tr class='height-50'>
 						<td class=" align-middle font-label-urfk" >
 							<strong>Code</strong>
 						</td>
@@ -37,7 +37,7 @@
 							<span t-field="move_line.product_id.default_code"></span>
 						</td>							
 				</tr>
-				<tr class='height-60'>
+				<tr class='height-50'>
 					<td class="align-middle font-label-urfk">
 						<strong>Quantity</strong>
 					</td>
@@ -55,7 +55,7 @@
 				</tr>
 
 
-				<tr class='height-60'>
+				<tr class='height-50'>
 					<td  class=" align-middle font-label-urfk border-right-0" >
 						<strong>Ship Date</strong>
 						
