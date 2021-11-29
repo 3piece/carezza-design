@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
-from odoo.exceptions import AccessError,ValidateError
+from odoo.exceptions import AccessError,ValidationError
 import pandas as pd
 import base64
 import io
@@ -149,7 +149,7 @@ class StockPicking(models.Model):
             else:
                 product_id = self.env['product.product'].search([('display_name','=ilike', obj[2])])
                 if not product_id:
-                    raise ValidateError("Can't find prodcuct %s"% obj[2])                
+                    raise ValidationError("Can't find prodcuct %s"% obj[2])                
                 dict_val = {
                 'ship_date': obj[0],
                 'picking_name' : obj[1],
