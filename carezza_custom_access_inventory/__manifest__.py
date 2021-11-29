@@ -40,7 +40,7 @@
     'sequence': 40,
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
 
-    'depends': ['base','stock','purchase','purchase_stock'],
+    'depends': ['base','stock','purchase','purchase_stock','stock_account'],
 
     'data': [
          # 'security/ir.model.access.csv',
