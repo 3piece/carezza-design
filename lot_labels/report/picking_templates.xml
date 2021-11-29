@@ -20,23 +20,23 @@
 								<t t-foreach="range(qty)" t-as="item">
 									<p style="page-break-after: always;"/>
 									<t t-translation="off">														
-										<div t-if="move_line.product_id.material_types in ['accessories_small','spo_fabric','fabric','accessories','leather','ukfr_fabric']">					
-												<t t-if="move_line.product_id.material_types in ['leather']">	
+										<div t-if="move_line.product_id.label_type in ['accessories_small','spo_fabric','fabric','accessories','leather','ukfr_fabric']">					
+												<t t-if="move_line.product_id.label_type in ['leather']">	
 													<t t-call="lot_labels.leather"></t>
 												</t>
-												<t t-if="move_line.product_id.material_types in ['accessories_small']">	
+												<t t-if="move_line.product_id.label_type in ['accessories_small']">	
 													<t t-call="lot_labels.accessories_small"></t>
 												</t>
-												<t t-if="move_line.product_id.material_types in ['accessories']">	
+												<t t-if="move_line.product_id.label_type in ['accessories']">	
 													<t t-call="lot_labels.accessories_label"></t>
 												</t>												
-												<t t-if="move_line.product_id.material_types in ['fabric']">	
+												<t t-if="move_line.product_id.label_type in ['fabric']">	
 													<t t-call="lot_labels.fabric"></t>
 												</t>
-												<t t-if="move_line.product_id.material_types in ['spo_fabric']">	
+												<t t-if="move_line.product_id.label_type in ['spo_fabric']">	
 													<t t-call="lot_labels.fabric_spo"></t>
 												</t>
-												<t t-if="move_line.product_id.material_types in ['ukfr_fabric']">	
+												<t t-if="move_line.product_id.label_type in ['ukfr_fabric']">	
 													<t t-call="lot_labels.ukfr_fabric"></t>
 												</t>																								
 										</div>
