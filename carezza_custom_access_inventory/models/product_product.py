@@ -52,6 +52,7 @@ class ProductProduct(models.Model):
                 variant_att_name+= '_'+product_template_attribute_value_ids.name.strip().replace(' ', '_')
                 
             variant_name = variant.name.strip().replace(' ', '_')
+            variant_name = variant_name.replace('_(copy)', '')
             external_id = variant_name+variant_att_name
             external_id = external_id.replace('(', '').replace(')', '').replace(' ', '_').replace('.', '_')
             print(external_id)
