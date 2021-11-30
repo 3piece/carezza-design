@@ -14,10 +14,10 @@ class ProductTemplate(models.Model):
         'Code', compute='_compute_default_code',
         inverse='_set_default_code', store=True)
     
-    material_type = fields.Char(compute='compute_material_type', store=True)
-    label_type = fields.Selection([('accessories_small','Accessories small'),('fabric','Fabric'),('spo_fabric','SPO Fabric '),('leather','Leather'),('ukfr_fabric','UKFR Fabric'),('accessories','Accessories')], string='Label Type', compute='compute_label_type', store=True)
+    material_type = fields.Char()
+    label_type = fields.Selection([('accessories_small','Accessories small'),('fabric','Fabric'),('spo_fabric','SPO Fabric '),('leather','Leather'),('ukfr_fabric','UKFR Fabric'),('accessories','Accessories')], string='Label Type', store=True)
        
-    @api.depends('categ_id')
+    @api.onchange('categ_id')
     def compute_material_type(self):
         for record in self:
             material_type = None
@@ -41,7 +41,8 @@ class ProductTemplate(models.Model):
             record.material_type = material_type         
                     
 #             a = categ_name
-    @api.depends('material_type')
+
+    @api.onchange('material_type')
     def compute_label_type(self):
         for rec in self:
             if rec.material_type == 'Material':
@@ -52,4 +53,9 @@ class ProductTemplate(models.Model):
                 rec.label_type = 'leather'
             else:
                 rec.label_type = None
+                
+    def generate_external_id(self):
+        for rec in self:
+            for product in rec.product_variant_ids:
+                product.generate_external_ids()
     

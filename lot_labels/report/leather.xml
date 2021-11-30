@@ -46,7 +46,7 @@
 					<td  class=" text-left align-middle font-size-24 border-right-black border-left-0">
 						<span class='mg-left-5' t-field="move_line.product_uom_id"></span>
 					</td>
-					<td class="text-right align-middle font-size-24 border-right-0">
+					<td class="text-right align-middle font-size-24 border-right-0" style='width:51px'>
 						
 						<span t-if='move_line.hides > 0' t-field="move_line.hides"></span>
 

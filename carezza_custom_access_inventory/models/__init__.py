@@ -16,3 +16,4 @@ from . import purchase_order_line
 from . import stock_location
 from . import procurement_group
 from . import purchase_order
+from . import stock_valuation_layer
