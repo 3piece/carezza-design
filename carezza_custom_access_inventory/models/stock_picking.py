@@ -131,7 +131,16 @@ class StockPicking(models.Model):
             if transfer:
                 self.process_move_line(transfer, list_obj, list_move_line_id)    
                       
-    
+    def get_id_by_value(self,model,field_names,value):
+        model = self.env['stock.move.line']   
+        converted = {} 
+        converters = {
+        name: self.env['ir.fields.converter'].to_field(model, field)
+        for name, field in model._fields.items()
+        }
+        converted[field_names], ws = converters[field_names]([{None: value}])
+        return converted[field_names]
+  
     def read_csv(self,upload_excel_file):
         list_obj = []
         csv_data = base64.b64decode(upload_excel_file)
@@ -147,12 +156,17 @@ class StockPicking(models.Model):
             if header:
                 header = False
             else:
-                product_id = self.env['product.product'].search([('display_name','=ilike', obj[2])])
-                if not product_id:
-                    raise ValidationError("Can't find prodcuct %s"% obj[2])                
+                #product_id = self.env['product.product'].search([('display_name','=', obj[2])])
+                 
+                
+                # obj[1] is picking name
+                # obj[2] is product name
+                product_id = self.get_id_by_value(self.env['stock.move.line'],'product_id',obj[2])
+                picking_name = self.get_id_by_value(self.env['stock.move.line'],'picking_id',obj[1])
+                print(product_id)
                 dict_val = {
                 'ship_date': obj[0],
-                'picking_name' : obj[1],
+                'picking_name' : picking_name,
                 'product_name': obj[2],
                 'product_id': product_id,
                 'qty_done': obj[4],
@@ -161,7 +175,7 @@ class StockPicking(models.Model):
                 'move_line_id': int(obj[7]) if obj[7] != '' else False }
                 list_obj.append(dict_val)
                 if obj[7] != '':
-                    list_move_line_id.append(int(object))
+                    list_move_line_id.append(int(obj[7]))
 
         return list_obj,list_move_line_id
                     
@@ -174,8 +188,10 @@ class StockPicking(models.Model):
                        
         if 'upload_excel_file' in vals:
             if vals['upload_excel_file']: 
-                list_return = self.read_csv(self.upload_excel_file)        
+                list_obj,list_move_line_id = self.read_csv(self.upload_excel_file)        
                 self.check_transfer(list_obj,list_move_line_id)
+                
+
         return res
 
 
