@@ -14,14 +14,14 @@
 				<field name="bl_number" />
 				<field name="is_propagation"  groups='base.group_no_one'/>
 				
-				<button name="prepare_value_generate" string="prepare value"
+				<button  groups='base.group_no_one' name="prepare_value_generate" string="prepare value"
 								type="object" class="oe_highlight" style="margin-right: 10px" />
 				
-				<field name="excel_template_name" invisible="1"/>
-           		<field name="excel_template" filename="excel_template_name" widget="binary" />		    			
+				<field name="excel_template_name" invisible="1" />
+           		<field name="excel_template" filename="excel_template_name" widget="binary" groups='base.group_no_one' />		    			
 
 				<field name="upload_excel_name" invisible="1"/>
-           		<field name="upload_excel_file" filename="upload_excel_name" widget="binary" />	
+           		<field name="upload_excel_file" filename="upload_excel_name" widget="binary"  groups='base.group_no_one'/>	
 			
 			</xpath>		
 		

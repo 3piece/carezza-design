@@ -77,60 +77,64 @@ class StockPicking(models.Model):
 
     def remove_move_line(self,transfer,list_move_line_id):
         list_remove = []
-        current_move_line_ids = transfer.move_line_ids_without_package.ids
-        for current_move_line_id in current_move_line_ids:
-            if current_move_line_id not in list_move_line_id:
-                list_remove.append((5,current_move_line_id))
-        transfer.move_line_ids_without_package = list_remove
+        for current_move_line_id in transfer.move_line_ids_without_package:
+            if current_move_line_id.id not in list_move_line_id:
+                current_move_line_id.unlink()
 
-
-    def update_move_line(self,transfer,list_obj):
-        id_update = []
+    def update_move_line(self,transfer,detail):
         for move in transfer.move_ids_without_package: 
-            for detail in list_obj:
-                move_line = self.env['stock.move.line'].search([('picking_id','=',transfer.id),('id','=',detail['move_line_id'])])
-                if detail['move_line_id'] and move_line:
-                    move_line.qty_done = detail['qty_done']
-                    move_line.pallet_number = detail['pallet_number']
-                    move_line.hides = detail['hides']
-                    id_update.append(move_line.id)
-        return id_update
-                    
+            move_line = self.env['stock.move.line'].search([('picking_id','=',transfer.id),('id','=',detail['move_line_id'])])
+            if move_line:
+                move_line.write({'qty_done': detail['qty_done'],
+                                 'pallet_number': detail['pallet_number'],
+                                 'hides': detail['hides'],})
+                return move_line.id
+            else:
+                return False                    
         
-    def create_move_line(self,transfer,list_obj,list_id_update):    
-        for move in transfer.move_ids_without_package:
-            for detail in list_obj:
-                if detail['move_line_id'] not in list_id_update:
-                    if move.product_id.id == detail['product_id']:
-                        vals= {'product_id' : move.product_id.id,
-                               'picking_id': transfer.id,
-                               'move_id': move.id,
-                               'product_uom_id': move.product_id.uom_id.id,
-                               'qty_done': detail['qty_done'],
-                               'location_id': transfer.location_id.id,
-                               'location_dest_id': transfer.location_dest_id.id,
-                               'state': 'assigned',
-                               'pallet_number': detail['pallet_number'],
-                               'hides': detail['hides']
-                               }
-                        move_line = self.env['stock.move.line'].create(vals)                    
+    def create_move_line(self,transfer,detail,list_id_updated):   
+        for move in transfer.move_ids_without_package:  
+            if detail['move_line_id'] not in list_id_updated and move.product_id.id == detail['product_id']:
+                vals= {'product_id' : move.product_id.id,
+                       'picking_id': transfer.id,
+                       'move_id': move.id,
+                       'product_uom_id': move.product_id.uom_id.id,
+                       'qty_done': detail['qty_done'],
+                       'location_id': transfer.location_id.id,
+                       'location_dest_id': transfer.location_dest_id.id,
+                       'state': 'assigned',
+                       'pallet_number': detail['pallet_number'],
+                       'hides': detail['hides']
+                       }
+                move_line = self.env['stock.move.line'].create(vals)                    
             
         
-    def process_move_line(self,transfer,list_obj,list_move_line_id = None):
+    def process_move_line(self,transfer,detail,list_move_line_id = None):
         #remove
         self.remove_move_line(transfer,list_move_line_id)
         #update
-        list_id_update = self.update_move_line(transfer,list_obj)
+        list_id_update = self.update_move_line(transfer,detail)
         #Create
-        self.create_move_line(transfer,list_obj,list_id_update)
+        #self.create_move_line(transfer,detail,list_id_update)
+        return list_id_update
         
     def check_transfer(self, list_obj, list_move_line_id=None):
+        list_id_updated=[]
+        #process remove and update
+        for detail in list_obj:
+            transfer = self.env['stock.picking'].search([('id', '=', detail['picking_name'])])
+            if transfer:
+                id_updated = self.process_move_line(transfer, detail, list_move_line_id)   
+                if id_updated: 
+                    list_id_updated.append(id_updated) 
+                
         for detail in list_obj:
             transfer = self.env['stock.picking'].search(
-                [('name', '=', detail['picking_name']), ('state', '=', 'assigned')])
+                [('id', '=', detail['picking_name'])])
             if transfer:
-                self.process_move_line(transfer, list_obj, list_move_line_id)    
-                      
+                self.create_move_line(transfer,detail,list_id_updated)
+                             
+                     
     def get_id_by_value(self,model,field_names,value):
         model = self.env['stock.move.line']   
         converted = {} 
@@ -189,9 +193,7 @@ class StockPicking(models.Model):
         if 'upload_excel_file' in vals:
             if vals['upload_excel_file']: 
                 list_obj,list_move_line_id = self.read_csv(self.upload_excel_file)        
-                self.check_transfer(list_obj,list_move_line_id)
-                
-
+                self.check_transfer(list_obj,list_move_line_id)              
         return res
 
 
