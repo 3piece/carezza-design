@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="portal_my_purchase_order_transfer"
+		name="Portal: My Purchase Order Transfer"
+		inherit_id="purchase.portal_my_purchase_order" customize_show="True"
+		priority="20">
+
+		<xpath expr="//div[hasclass('card-body')]/div[2]"
+			position="after">
+			<h1>Transfers</h1>
+			<table class="table table-sm">
+				<thead class="bg-100">
+					<tr>
+						<th>Reference</th>
+						<th>Ship Date</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<t t-foreach="pickings" t-as="picking">
+						<tr>
+							<td>
+								<span t-esc='picking.name'></span>
+							</td>
+							<td>
+								<span t-esc='picking.ship_date'></span>
+							</td>
+							<td>
+								<span t-esc='picking.state'></span>
+							</td>
+						</tr>
+					</t>
+				</tbody>
+			</table>
+		</xpath>
+
+	</template>
+	<!-- portal_my_purchase_order -->
+
+
+</odoo>
