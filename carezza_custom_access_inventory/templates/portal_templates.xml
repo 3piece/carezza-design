@@ -14,25 +14,65 @@
 					<tr>
 						<th>Reference</th>
 						<th>Ship Date</th>
+						<th>Upload</th>
 						<th>Status</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<t t-foreach="pickings" t-as="picking">
-						<tr>
-							<td>
-								<span t-esc='picking.name'></span>
-							</td>
-							<td>
-								<span t-esc='picking.ship_date'></span>
-							</td>
-							<td>
-								<span t-esc='picking.state'></span>
-							</td>
-						</tr>
+						<form id="hr_recruitment_form" action="/picking_upload_csv"
+							method="post" enctype="multipart/form-data"
+							class="o_mark_required" data-mark="*">
+							<tr>
+								<td>
+									<span t-esc='picking.name'></span>
+								</td>
+								<td>
+
+									<input t-att-value='picking.ship_date' type="date"
+										name="ship_date" />
+									<input type="hidden" name="csrf_token"
+										t-att-value="request.csrf_token()" />
+									<input type="hidden" id="picking_id"
+										t-att-value='picking.id' name="picking_id" />
+
+
+								</td>
+
+								<td>
+
+
+									<input type="hidden" name="csrf_token"
+										t-att-value="request.csrf_token()" />
+									<input type="hidden" id="picking_id"
+										t-att-value='picking.id' name="picking_id" />
+									<input id="attachment" style='width:47%' type="file"
+										multiple="true" name="attachment" />
+
+									
+
+
+								</td>
+								<td>
+									<span t-esc='picking.state'></span>
+								</td>
+								<td>
+								
+									<button type="submit" class="btn btn-primary">
+										Submit
+									</button>
+								</td>
+
+
+
+							</tr>
+						</form>
 					</t>
 				</tbody>
 			</table>
+
+
 		</xpath>
 
 	</template>
