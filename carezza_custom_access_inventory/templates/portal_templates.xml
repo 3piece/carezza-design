@@ -17,6 +17,7 @@
 						<th>Upload</th>
 						<th>Status</th>
 						<th></th>
+						<th>Lot Labels</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -31,27 +32,22 @@
 								<td>
 
 									<input t-att-value='picking.ship_date' type="date"
-										name="ship_date" />
+										name="ship_date" style='width:81%' />
 									<input type="hidden" name="csrf_token"
 										t-att-value="request.csrf_token()" />
 									<input type="hidden" id="picking_id"
 										t-att-value='picking.id' name="picking_id" />
-
 
 								</td>
 
 								<td>
 
-
 									<input type="hidden" name="csrf_token"
 										t-att-value="request.csrf_token()" />
 									<input type="hidden" id="picking_id"
 										t-att-value='picking.id' name="picking_id" />
-									<input id="attachment" style='width:47%' type="file"
+									<input id="attachment" style='width:50%' type="file"
 										multiple="true" name="attachment" />
-
-									
-
 
 								</td>
 								<td>
@@ -64,7 +60,9 @@
 									</button>
 								</td>
 
-
+								<td>
+									<a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-att-href="'/print_lot_label?picking_id=%s' % (picking.id)"  title="Print" target="_blank"><i class="fa fa-print"/></a>
+								</td>
 
 							</tr>
 						</form>

@@ -40,5 +40,9 @@ class CustomerPortal(CustomerPortal):
             picking_id.upload_excel_name = file_name
         
        
-       
+    @http.route('/print_lot_label', type='http', auth="user",website=True)
+    def print_lot_label(self,**post):
+        picking_id = post['picking_id']
+        respone = ReportController.report_download(ReportController(),'["/report/pdf/lot_labels.lot_label_transfer_template_view_pdf/%s","qweb-pdf"]'%picking_id,'dummy-because-api-expects-one','{"lang":"en_US","tz":"Hongkong","uid":2,"allowed_company_ids":[1]}')
+        return respone           
        
