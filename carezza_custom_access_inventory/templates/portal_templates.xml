@@ -17,6 +17,7 @@
 						<th>Upload</th>
 						<th>Status</th>
 						<th></th>
+						<th>Template</th>
 						<th>Lot Labels</th>
 					</tr>
 				</thead>
@@ -46,7 +47,7 @@
 										t-att-value="request.csrf_token()" />
 									<input type="hidden" id="picking_id"
 										t-att-value='picking.id' name="picking_id" />
-									<input id="attachment" style='width:50%' type="file"
+									<input id="attachment"  type="file"
 										multiple="true" name="attachment" />
 
 								</td>
@@ -59,7 +60,11 @@
 										Submit
 									</button>
 								</td>
-
+								<td>
+										
+									<a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-att-href="'/report/csv/base_report_csv.stock_picking_csv/%s' % (picking.id)"  title="Print" target="_blank"><i class="fa fa-print"/></a>
+								</td>	
+									
 								<td>
 									<a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-att-href="'/print_lot_label?picking_id=%s' % (picking.id)"  title="Print" target="_blank"><i class="fa fa-print"/></a>
 								</td>
