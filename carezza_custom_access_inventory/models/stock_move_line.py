@@ -2,6 +2,8 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import AccessError
 from collections import OrderedDict, defaultdict
+from odoo.tools.float_utils import float_compare, float_is_zero, float_round
+from mako.pyparser import reserved
 
 class StockMoveLine(models.Model):
 
@@ -16,6 +18,15 @@ class StockMoveLine(models.Model):
     def onchange_lot_id(self):
         self.pallet_number = self.lot_id.pallet_number
         self.hides = self.lot_id.hides
+        
+        context = self.env.context
+        if 'default_picking_id' in context:
+            picking_id = context['default_picking_id']
+        move_id = self.env['stock.move'].search([('product_id','=',self.product_id.id),('picking_id','=',picking_id)])
+        qty_need = move_id.product_uom_qty- move_id.reserved_availability
+        available_quantity = self.check_available_quantity(self.product_id,self.location_id,qty_need,self.lot_id,)
+        self.product_uom_qty = available_quantity      
+        
         
     @api.model
     def create(self, vals):
@@ -84,8 +95,18 @@ class StockMoveLine(models.Model):
         for key, mls in key_to_mls.items():
             mls._assign_production_lot(lots[key_to_index[key]].with_prefetch(lots._ids))  # With prefetch to reconstruct the ones broke by accessing by index
 
-        
-        
-    
+
+    def check_available_quantity(self, product_id, location_id, quantity, lot_id=None):
+ 
+        self = self.sudo()
+        rounding = product_id.uom_id.rounding
+        quants = self.env['stock.quant']._gather(product_id, location_id, lot_id=lot_id)
+        reserved_quants = []
+        if rounding:
+            if float_compare(quantity, 0, precision_rounding=rounding) > 0:
+                # if we want to reserve
+                available_quantity = sum(quants.filtered(lambda q: float_compare(q.quantity, 0, precision_rounding=rounding) > 0).mapped('quantity')) - sum(quants.mapped('reserved_quantity'))
+                return available_quantity
+#             
     
     
