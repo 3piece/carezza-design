@@ -3,7 +3,7 @@ from odoo import models, fields, api, _
 from odoo.exceptions import AccessError
 from collections import OrderedDict, defaultdict
 from odoo.tools.float_utils import float_compare, float_is_zero, float_round
-from mako.pyparser import reserved
+
 
 class StockMoveLine(models.Model):
 
