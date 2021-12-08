@@ -160,26 +160,19 @@ class StockPicking(models.Model):
             if header:
                 header = False
             else:
-                #product_id = self.env['product.product'].search([('display_name','=', obj[2])])
-                 
-                
-                # obj[1] is picking name
-                # obj[2] is product name
-                product_id = self.get_id_by_value(self.env['stock.move.line'],'product_id',obj[2])
-                picking_name = self.get_id_by_value(self.env['stock.move.line'],'picking_id',obj[1])
+                product_id = self.get_id_by_value(self.env['stock.move.line'],'product_id',obj[1])
+                picking_name = self.get_id_by_value(self.env['stock.move.line'],'picking_id',obj[0])
                 print(product_id)
                 dict_val = {
-                'ship_date': obj[0],
                 'picking_name' : picking_name,
-                'product_name': obj[2],
                 'product_id': product_id,
-                'qty_done': obj[4],
-                'pallet_number': obj[5],
-                'hides': obj[6],
-                'move_line_id': int(obj[7]) if obj[7] != '' else False }
+                'qty_done': obj[2],
+                'pallet_number': obj[3],
+                'hides': obj[4],
+                'move_line_id': int(obj[5]) if obj[5] != '' else False }
                 list_obj.append(dict_val)
-                if obj[7] != '':
-                    list_move_line_id.append(int(obj[7]))
+                if obj[5] != '':
+                    list_move_line_id.append(int(obj[5]))
 
         return list_obj,list_move_line_id
                     
