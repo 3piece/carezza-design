@@ -13,20 +13,11 @@
         </xpath>
     </template>
     
-    <report
-        id="partner_csv"
-        model="res.partner"
-        string="Print to CSV"
-        report_type="csv"
-        name="base_report_csv.partner_csv"
-        file="res_partner"
-        attachment_use="False"
-    ></report>
-    
+
     <report
         id="picking_csv"
         model="stock.picking"
-        string="Print to CSV"
+        string="Picking"
         report_type="csv"
         name="base_report_csv.stock_picking_csv"
         file="stock.picking"
