@@ -30,10 +30,10 @@ class StockMoveLine(models.Model):
         if available_quantity:
             if available_quantity > qty_need:
                 self.product_uom_qty = qty_need  
-                quants.reserved_quantity+= qty_need  
+                #quants.reserved_quantity+= qty_need  
             else:
                 self.product_uom_qty = available_quantity  
-                quants.reserved_quantity+= qty_need      
+                #quants.reserved_quantity+= qty_need      
 
 #         if self._origin.lot_id != self.lot_id:
 #             quants = self.env['stock.quant']._gather(self.product_id,self.location_id,self._origin.lot_id)
@@ -42,6 +42,13 @@ class StockMoveLine(models.Model):
     @api.model
     def create(self, vals):
         res = super().create(vals)
+        if 'product_uom_qty' in vals: 
+            quants = self.env['stock.quant']._gather(res.product_id,res.location_id,res.lot_id)  
+            current_reserved_quantity = quants.reserved_quantity
+            reserved_quantity = vals['product_uom_qty'] 
+            quants.reserved_quantity  = current_reserved_quantity + reserved_quantity      
+        
+        
         if 'picking_id' in vals:
             picking = self.env['stock.picking'].browse([vals['picking_id']])
             product = self.env['product.product'].browse([vals['product_id']])
@@ -78,7 +85,7 @@ class StockMoveLine(models.Model):
                 record.lot_id.pallet_number = pallet_number     
             if 'hides' in vals:
                 hides = record.hides
-                record.lot_id.hides = hides
+                record.lot_id.hides = hides                                              
             return res
                 
         

@@ -7,6 +7,10 @@ class StockQuant(models.Model):
 
     _inherit = 'stock.quant'
 
+    
+    def write(self,vals):
+        return super().write(vals)
+        
     @api.model
     def _get_quants_action(self, domain=None, extend=False):
         """ Returns an action to open quant view.
