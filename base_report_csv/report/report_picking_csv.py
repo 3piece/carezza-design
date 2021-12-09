@@ -26,7 +26,7 @@ class StockPickingCSV(models.AbstractModel):
         res["fieldnames"].append("Box / Roll / Pallet No")
         res["fieldnames"].append("Hides")
         res["fieldnames"].append("Move line id")
-        res["delimiter"] = ";"
+        res["delimiter"] = ","
         res["quoting"] = csv.QUOTE_ALL
         return res    
     
