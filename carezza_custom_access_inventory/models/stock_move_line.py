@@ -24,10 +24,21 @@ class StockMoveLine(models.Model):
             picking_id = context['default_picking_id']
         move_id = self.env['stock.move'].search([('product_id','=',self.product_id.id),('picking_id','=',picking_id)])
         qty_need = move_id.product_uom_qty- move_id.reserved_availability
-        available_quantity = self.check_available_quantity(self.product_id,self.location_id,qty_need,self.lot_id,)
-        self.product_uom_qty = available_quantity      
+        quants = self.env['stock.quant']._gather(self.product_id,self.location_id,self.lot_id)
+        available_quantity = self.check_available_quantity(self.product_id,self.location_id,qty_need,self.lot_id)
         
-        
+        if available_quantity:
+            if available_quantity > qty_need:
+                self.product_uom_qty = qty_need  
+                quants.reserved_quantity+= qty_need  
+            else:
+                self.product_uom_qty = available_quantity  
+                quants.reserved_quantity+= qty_need      
+
+#         if self._origin.lot_id != self.lot_id:
+#             quants = self.env['stock.quant']._gather(self.product_id,self.location_id,self._origin.lot_id)
+#             quants.reserved_quantity-= self.product_uom_qty
+            
     @api.model
     def create(self, vals):
         res = super().create(vals)
@@ -101,12 +112,13 @@ class StockMoveLine(models.Model):
         self = self.sudo()
         rounding = product_id.uom_id.rounding
         quants = self.env['stock.quant']._gather(product_id, location_id, lot_id=lot_id)
-        reserved_quants = []
         if rounding:
             if float_compare(quantity, 0, precision_rounding=rounding) > 0:
                 # if we want to reserve
                 available_quantity = sum(quants.filtered(lambda q: float_compare(q.quantity, 0, precision_rounding=rounding) > 0).mapped('quantity')) - sum(quants.mapped('reserved_quantity'))
                 return available_quantity
-#             
+            elif float_compare(quantity, 0, precision_rounding=rounding) < 0:
+            # if we want to unreserve
+                available_quantity = sum(quants.mapped('reserved_quantity'))
     
     
