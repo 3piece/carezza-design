@@ -42,11 +42,11 @@ class StockMoveLine(models.Model):
     @api.model
     def create(self, vals):
         res = super().create(vals)
-        if 'product_uom_qty' in vals: 
-            quants = self.env['stock.quant']._gather(res.product_id,res.location_id,res.lot_id)  
-            current_reserved_quantity = quants.reserved_quantity
-            reserved_quantity = vals['product_uom_qty'] 
-            quants.reserved_quantity  = current_reserved_quantity + reserved_quantity      
+#         if 'product_uom_qty' in vals: 
+#             quants = self.env['stock.quant']._gather(res.product_id,res.location_id,res.lot_id)  
+#             current_reserved_quantity = quants.reserved_quantity
+#             reserved_quantity = vals['product_uom_qty'] 
+#             quants.reserved_quantity  = current_reserved_quantity + reserved_quantity      
         
         
         if 'picking_id' in vals:
