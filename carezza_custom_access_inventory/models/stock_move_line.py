@@ -12,8 +12,7 @@ class StockMoveLine(models.Model):
     pallet_number = fields.Integer(string='Pallet / Box / Roll')
     hides = fields.Integer()
     create_auto = fields.Boolean()
-    #row_csv_line_id = fields.Integer(help='use to update line baseon csv')
-   
+
     @api.onchange('lot_id')
     def onchange_lot_id(self):
         self.pallet_number = self.lot_id.pallet_number
@@ -30,15 +29,10 @@ class StockMoveLine(models.Model):
         if available_quantity:
             if available_quantity > qty_need:
                 self.product_uom_qty = qty_need  
-                #quants.reserved_quantity+= qty_need  
+
             else:
                 self.product_uom_qty = available_quantity  
-                #quants.reserved_quantity+= qty_need      
-
-#         if self._origin.lot_id != self.lot_id:
-#             quants = self.env['stock.quant']._gather(self.product_id,self.location_id,self._origin.lot_id)
-#             quants.reserved_quantity-= self.product_uom_qty
-            
+         
     @api.model
     def create(self, vals):
         res = super().create(vals)
@@ -60,10 +54,6 @@ class StockMoveLine(models.Model):
                             'product_id': vals['product_id'],
                             'po_id' : picking.purchase_id.id,
                             'company_id' : self.env.user.company_id.id,
-#                             'ship_date' : picking.ship_date,
-#                             'pallet_number': res.
-#                             'hides':
-#                             'demand_qty':  
                          }
                     lot = self.env['stock.production.lot'].create(dict)
                     res.lot_id = lot.id
@@ -113,7 +103,6 @@ class StockMoveLine(models.Model):
         lots = self.env['stock.production.lot'].create(lot_vals)
         for key, mls in key_to_mls.items():
             mls._assign_production_lot(lots[key_to_index[key]].with_prefetch(lots._ids))  # With prefetch to reconstruct the ones broke by accessing by index
-
 
     def check_available_quantity(self, product_id, location_id, quantity, lot_id=None):
  
