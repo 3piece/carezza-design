@@ -11,7 +11,7 @@ class StockMoveLine(models.Model):
     
     pallet_number = fields.Integer(string='Pallet / Box / Roll')
     hides = fields.Integer()
-    
+    create_auto = fields.Boolean()
     #row_csv_line_id = fields.Integer(help='use to update line baseon csv')
    
     @api.onchange('lot_id')
@@ -42,11 +42,12 @@ class StockMoveLine(models.Model):
     @api.model
     def create(self, vals):
         res = super().create(vals)
-#         if 'product_uom_qty' in vals: 
-#             quants = self.env['stock.quant']._gather(res.product_id,res.location_id,res.lot_id)  
-#             current_reserved_quantity = quants.reserved_quantity
-#             reserved_quantity = vals['product_uom_qty'] 
-#             quants.reserved_quantity  = current_reserved_quantity + reserved_quantity      
+        if 'create_auto' not in vals:
+            if 'product_uom_qty' in vals: 
+                quants = self.env['stock.quant']._gather(res.product_id,res.location_id,res.lot_id)  
+                current_reserved_quantity = quants.reserved_quantity
+                reserved_quantity = vals['product_uom_qty'] 
+                quants.reserved_quantity  = current_reserved_quantity + reserved_quantity      
         
         
         if 'picking_id' in vals:
