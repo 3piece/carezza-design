@@ -17,7 +17,6 @@ class StockMoveLine(models.Model):
     def onchange_lot_id(self):
         self.pallet_number = self.lot_id.pallet_number
         self.hides = self.lot_id.hides
-        
         context = self.env.context
         if 'default_picking_id' in context:
             picking_id = context['default_picking_id']
@@ -25,15 +24,12 @@ class StockMoveLine(models.Model):
         qty_need = move_id.product_uom_qty- move_id.reserved_availability
         quants = self.env['stock.quant']._gather(self.product_id,self.location_id,self.lot_id)
         available_quantity = self.check_available_quantity(self.product_id,self.location_id,qty_need,self.lot_id)
-        
         if available_quantity:
             if available_quantity > qty_need:
                 self.product_uom_qty = qty_need  
-
             else:
                 self.product_uom_qty = available_quantity  
-#             if move.reserved_availability > move.product_uom_qty:
-#                 raise UserError("Product %s reserved can't > Demand"%move.product_id.display_name)             
+         
     @api.model
     def create(self, vals):
         res = super().create(vals)
