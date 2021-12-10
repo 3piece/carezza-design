@@ -37,7 +37,6 @@ class StockMoveLine(models.Model):
     @api.model
     def create(self, vals):
         res = super().create(vals)
-        
         if 'create_auto' not in vals:
             if 'product_uom_qty' in vals: 
                 quants = self.env['stock.quant']._gather(res.product_id,res.location_id,res.lot_id)  
@@ -48,12 +47,9 @@ class StockMoveLine(models.Model):
         move_line_ids = self.env['stock.move.line'].search([('picking_id','=',res.picking_id.id),('move_id','=',res.move_id.id)])
         sum_reserved_quantity  = 0
         for line in move_line_ids:
-            sum_reserved_quantity+= line.product_uom_qty
-            
+            sum_reserved_quantity+= line.product_uom_qty          
         if sum_reserved_quantity > res.move_id.product_uom_qty:
-                raise UserError("Product %s: Reserved can't > Demand"%res.product_id.display_name)             
-            
-            
+                raise UserError("Product %s: Reserved can't > Demand"%res.product_id.display_name)                   
         if 'picking_id' in vals:
             picking = self.env['stock.picking'].browse([vals['picking_id']])
             product = self.env['product.product'].browse([vals['product_id']])
@@ -72,7 +68,6 @@ class StockMoveLine(models.Model):
                     res.pallet_number = res.lot_id.pallet_number
                 if res.hides == 0 :
                     res.hides = res.lot_id.hides
-                
         return res    
     
     def write(self,vals):
@@ -87,8 +82,7 @@ class StockMoveLine(models.Model):
             if 'hides' in vals:
                 hides = record.hides
                 record.lot_id.hides = hides                                              
-            return res
-                
+            return res               
         
     def _create_and_assign_production_lot(self):
         """ Creates and assign new production lots for move lines."""
@@ -109,13 +103,11 @@ class StockMoveLine(models.Model):
                     'supplier_id': ml.move_id.purchase_line_id.order_id.partner_id.id,
                     'po_id': ml.move_id.purchase_line_id.order_id.id
                 })
-
         lots = self.env['stock.production.lot'].create(lot_vals)
         for key, mls in key_to_mls.items():
             mls._assign_production_lot(lots[key_to_index[key]].with_prefetch(lots._ids))  # With prefetch to reconstruct the ones broke by accessing by index
 
     def check_available_quantity(self, product_id, location_id, quantity, lot_id=None):
- 
         self = self.sudo()
         rounding = product_id.uom_id.rounding
         quants = self.env['stock.quant']._gather(product_id, location_id, lot_id=lot_id)
@@ -127,5 +119,3 @@ class StockMoveLine(models.Model):
             elif float_compare(quantity, 0, precision_rounding=rounding) < 0:
             # if we want to unreserve
                 available_quantity = sum(quants.mapped('reserved_quantity'))
-    
-    

@@ -17,27 +17,6 @@ class StockMove(models.Model):
     #average_skin_size = fields.Float(compute='compute_average_skin_size')
     average_skin_size = fields.Float()
     
-   
-
-    def write(self,vals):
-        return super().write(vals)
-    
-#     def compute_average_skin_size(self):
-#         for record in self:
-#             result = 0
-#             if record.hides  != 0:
-#                 result = record.quantity_done/record.hides 
-#             record.average_skin_size = result
-    
-    
-#     def create(self,vals):
-#         res = super().create(vals)
-#         if not res.picking_id.ship_date and res.picking_id.purchase_id:
-#             if res.picking_id.purchase_id.po_date:
-#                 ship_date = res.picking_id.purchase_id.po_date +  datetime.timedelta(days=14)
-#                 res.picking_id.ship_date = ship_date            
-#         return res
-
     def _update_reserved_quantity(self, need, available_quantity, location_id, lot_id=None, package_id=None, owner_id=None, strict=True):
         """ Create or update move lines.
         """
@@ -49,9 +28,7 @@ class StockMove(models.Model):
             package_id = self.env['stock.quant.package']
         if not owner_id:
             owner_id = self.env['res.partner']
-
         taken_quantity = min(available_quantity, need)
-
         # `taken_quantity` is in the quants unit of measure. There's a possibility that the move's
         # unit of measure won't be respected if we blindly reserve this quantity, a common usecase
         # is if the move's unit of measure's rounding does not allow fractional reservation. We chose
@@ -63,14 +40,11 @@ class StockMove(models.Model):
         if not strict and self.product_id.uom_id != self.product_uom:
             taken_quantity_move_uom = self.product_id.uom_id._compute_quantity(taken_quantity, self.product_uom, rounding_method='DOWN')
             taken_quantity = self.product_uom._compute_quantity(taken_quantity_move_uom, self.product_id.uom_id, rounding_method='HALF-UP')
-
         quants = []
         rounding = self.env['decimal.precision'].precision_get('Product Unit of Measure')
-
         if self.product_id.tracking == 'serial':
             if float_compare(taken_quantity, int(taken_quantity), precision_digits=rounding) != 0:
                 taken_quantity = 0
-
         try:
             with self.env.cr.savepoint():
                 if not float_is_zero(taken_quantity, precision_rounding=self.product_id.uom_id.rounding):
@@ -80,7 +54,6 @@ class StockMove(models.Model):
                     )
         except UserError:
             taken_quantity = 0
-
         # Find a candidate move line to update or create a new one.
         for reserved_quant, quantity in quants:
             to_update = self.move_line_ids.filtered(lambda ml: ml._reservation_is_updatable(quantity, reserved_quant))
@@ -102,5 +75,3 @@ class StockMove(models.Model):
                     self.env['stock.move.line'].create(vals)
         return taken_quantity
   
-           
-           
