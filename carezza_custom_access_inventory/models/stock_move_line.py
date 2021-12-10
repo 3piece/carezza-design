@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
-from odoo.exceptions import AccessError
+from odoo.exceptions import AccessError, UserError
 from collections import OrderedDict, defaultdict
 from odoo.tools.float_utils import float_compare, float_is_zero, float_round
 
@@ -32,10 +32,12 @@ class StockMoveLine(models.Model):
 
             else:
                 self.product_uom_qty = available_quantity  
-         
+#             if move.reserved_availability > move.product_uom_qty:
+#                 raise UserError("Product %s reserved can't > Demand"%move.product_id.display_name)             
     @api.model
     def create(self, vals):
         res = super().create(vals)
+        
         if 'create_auto' not in vals:
             if 'product_uom_qty' in vals: 
                 quants = self.env['stock.quant']._gather(res.product_id,res.location_id,res.lot_id)  
@@ -43,7 +45,15 @@ class StockMoveLine(models.Model):
                 reserved_quantity = vals['product_uom_qty'] 
                 quants.reserved_quantity  = current_reserved_quantity + reserved_quantity      
         
-        
+        move_line_ids = self.env['stock.move.line'].search([('picking_id','=',res.picking_id.id),('move_id','=',res.move_id.id)])
+        sum_reserved_quantity  = 0
+        for line in move_line_ids:
+            sum_reserved_quantity+= line.product_uom_qty
+            
+        if sum_reserved_quantity > res.move_id.product_uom_qty:
+                raise UserError("Product %s: Reserved can't > Demand"%res.product_id.display_name)             
+            
+            
         if 'picking_id' in vals:
             picking = self.env['stock.picking'].browse([vals['picking_id']])
             product = self.env['product.product'].browse([vals['product_id']])

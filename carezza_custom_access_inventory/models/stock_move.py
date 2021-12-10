@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
-from odoo.exceptions import AccessError, UserError
+from odoo.exceptions import UserError
 import datetime
 from odoo.tools.float_utils import float_compare, float_is_zero, float_round
 
@@ -16,6 +16,11 @@ class StockMove(models.Model):
         default=lambda self: self.env.company.currency_id.id)
     #average_skin_size = fields.Float(compute='compute_average_skin_size')
     average_skin_size = fields.Float()
+    
+   
+
+    def write(self,vals):
+        return super().write(vals)
     
 #     def compute_average_skin_size(self):
 #         for record in self:
@@ -96,4 +101,6 @@ class StockMove(models.Model):
                     vals['create_auto'] = True
                     self.env['stock.move.line'].create(vals)
         return taken_quantity
+  
+           
            
