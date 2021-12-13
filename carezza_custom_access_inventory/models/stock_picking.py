@@ -162,7 +162,6 @@ class StockPicking(models.Model):
             else:
                 product_id = self.get_id_by_value(self.env['stock.move.line'],'product_id',obj[1])
                 picking_name = self.get_id_by_value(self.env['stock.move.line'],'picking_id',obj[0])
-                print(product_id)
                 dict_val = {
                 'picking_name' : picking_name,
                 'product_id': product_id,
