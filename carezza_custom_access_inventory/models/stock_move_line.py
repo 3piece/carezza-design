@@ -35,10 +35,11 @@ class StockMoveLine(models.Model):
         res = super().create(vals)
         if 'create_auto' not in vals:
             if 'product_uom_qty' in vals: 
-                quants = self.env['stock.quant']._gather(res.product_id,res.location_id,res.lot_id)  
-                current_reserved_quantity = quants.reserved_quantity
-                reserved_quantity = vals['product_uom_qty'] 
-                quants.reserved_quantity  = current_reserved_quantity + reserved_quantity      
+                if res.lot_id:
+                    quants = self.env['stock.quant']._gather(res.product_id,res.location_id,res.lot_id)  
+                    current_reserved_quantity = quants.reserved_quantity
+                    reserved_quantity = vals['product_uom_qty'] 
+                    quants.reserved_quantity  = current_reserved_quantity + reserved_quantity      
         
         move_line_ids = self.env['stock.move.line'].search([('picking_id','=',res.picking_id.id),('move_id','=',res.move_id.id)])
         sum_reserved_quantity  = 0
