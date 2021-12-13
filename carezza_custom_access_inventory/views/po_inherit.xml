@@ -47,6 +47,20 @@
 		<field name="arch" type="xml">
 			<xpath expr="//field[@name='name']" position="after">
 				<field name='material_type'></field>
+				<field name='po_date'></field>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_kpis_tree_view"
+		model="ir.ui.view">
+		<field name="name">purchase.order.kpis.tree.inherit</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_kpis_tree" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='name']" position="after">
+				<field name='material_type'></field>
+				<field name='po_date'></field>
 			</xpath>
 		</field>
 	</record>
@@ -68,7 +82,7 @@
 		</field>
 	</record>
 
-
+        
         <record id="po_carezza_search_view" model="ir.ui.view">
             <field name="name">po.search.form</field>
             <field name="model">purchase.order</field>
@@ -81,6 +95,20 @@
                 </xpath>
             </field>
         </record>
+        
+         <record id="po_carezza_search_filter_view" model="ir.ui.view">
+            <field name="name">po.search.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='order_date']" position="after">
+                	<separator/>
+                    <filter name="material_type_material" string="Material" domain="[('material_type','=','material')]"/>
+                    <filter name="material_type_accessory" string="Accessory" domain="[('material_type','=','Accessory')]"/>
+                	<separator/>
+                </xpath>
+            </field>
+        </record>                   
 	<!-- purchase_stock.purchase_order_view_form_inherit -->
 
 </odoo>
