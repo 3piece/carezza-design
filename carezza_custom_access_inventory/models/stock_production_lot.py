@@ -13,7 +13,7 @@ class StockProductionLot(models.Model):
     supplier_id = fields.Many2one('res.partner',related='po_id.partner_id')
     
     ship_date =  fields.Date(string="Ship Date")
-    
+    alphanumeric = fields.Char('Alphanumeric')
     #remove later
     number_of_skins = fields.Integer()
     

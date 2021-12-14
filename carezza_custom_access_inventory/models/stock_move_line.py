@@ -12,6 +12,7 @@ class StockMoveLine(models.Model):
     pallet_number = fields.Integer(string='Pallet / Box / Roll')
     hides = fields.Integer()
     create_auto = fields.Boolean()
+    alphanumeric = fields.Char(related='lot_id.alphanumeric')
 
     @api.onchange('lot_id')
     def onchange_lot_id(self):
