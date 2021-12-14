@@ -16,6 +16,12 @@ class ProductTemplate(models.Model):
     
     material_type = fields.Char()
     label_type = fields.Selection([('accessories_small','Accessories small'),('fabric','Fabric'),('spo_fabric','SPO Fabric'),('leather','Leather'),('ukfr_fabric','UKFR Fabric'),('accessories','Accessories')], string='Label Type', store=True)
+ 
+    def copy(self, default=None):
+        # TDE FIXME: should probably be copy_data
+        #default['generate_id'] = False
+        res = super(ProductTemplate, self).copy(default=default) 
+        return res
        
     @api.onchange('categ_id')
     def compute_material_type(self):
@@ -54,8 +60,21 @@ class ProductTemplate(models.Model):
             else:
                 rec.label_type = None
                 
-    def generate_external_id(self):
+    def re_generate_external_id(self):
         for rec in self:
             for product in rec.product_variant_ids:
-                product.generate_external_ids()
+                variant_att_name = ""
+                for product_template_attribute_value_ids in product.product_template_attribute_value_ids:
+                    variant_att_name+= '_'+ product_template_attribute_value_ids.name.strip().replace(' ', '_')
+                
+                variant_name = product.name.strip().replace(' ', '_')
+                external_id = variant_name + variant_att_name
+                external_id = external_id.replace('(', '').replace(')', '').replace(' ', '_').replace('.', '_')            
+                
+                ir_model_data = self.env['ir.model.data'].search([('res_id','=', product.id),
+                                                                  ('model','=','product.product')])
+                
+                ir_model_data.name =  external_id
+                
+                
     
