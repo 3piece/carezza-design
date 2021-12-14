@@ -6,13 +6,12 @@
         <field name="inherit_id" ref="stock.view_production_lot_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='product_id']" position="after">
+            	<field name="alphanumeric"></field>
             	<field name="pallet_number"  readonly='1' force_save='1'/>
             	<field name="hides"  readonly='1' force_save='1' ></field>
             	<field name="po_id" ></field>
             	<field name="ship_date" ></field> 
-            	<field name="supplier_id" ></field>            	
-
-            	
+            	<field name="supplier_id" ></field>            	  	
             </xpath>
         </field>
     </record>
@@ -23,10 +22,12 @@
         <field name="inherit_id" ref="stock.view_production_lot_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='product_id']" position="after">
+            	<field name="alphanumeric" ></field>
+            	<field name="product_qty" optional="show"/>
             	<field name="pallet_number"/>
             	<field name="hides" ></field>
             	<field name="po_id" ></field>
-            	<field name="supplier_id" ></field>
+            	<field name="supplier_id" ></field>           	         	
             </xpath>
         </field>
     </record>    
