@@ -12,6 +12,7 @@ class StockMoveLine(models.Model):
     pallet_number = fields.Integer(string='Pallet / Box / Roll')
     hides = fields.Integer()
     create_auto = fields.Boolean()
+    position = fields.Char(related='lot_id.position')
 
     @api.onchange('lot_id')
     def onchange_lot_id(self):
@@ -46,7 +47,21 @@ class StockMoveLine(models.Model):
         for line in move_line_ids:
             sum_reserved_quantity+= line.product_uom_qty          
         if sum_reserved_quantity > res.move_id.product_uom_qty:
-                raise UserError("Product %s: Reserved can't > Demand"%res.product_id.display_name)                   
+#                 72 50
+                res.product_uom_qty = 0
+                #raise UserError("Product %s: Reserved can't > Demand"%res.product_id.display_name)                   
+                # Check last record
+                move_line_ids = self.env['stock.move.line'].search([('picking_id','=',res.picking_id.id),('move_id','=',res.move_id.id)])
+                sum_reserved_quantity = 0
+                for line in move_line_ids:
+                    sum_reserved_quantity+= line.product_uom_qty
+                qty = res.move_id.product_uom_qty - sum_reserved_quantity
+                if qty>0:
+                    res.product_uom_qty = qty
+                else:
+                    res.product_uom_qty = 0
+        
+        
         if 'picking_id' in vals:
             picking = self.env['stock.picking'].browse([vals['picking_id']])
             product = self.env['product.product'].browse([vals['product_id']])

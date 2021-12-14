@@ -6,6 +6,7 @@
         <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='lot_name']" position="after">
+            	<field name="position"></field>
             	<field name="pallet_number"  groups="stock.group_production_lot" attrs="{'readonly': [('lot_id', '=', False)],'column_invisible': [('parent.show_lots_text', '=', True)], 'invisible': [('lots_visible', '=', False)]}" context="{'default_product_id': product_id, 'default_company_id': company_id, 'active_picking_id': picking_id}" optional="show"/>
             	<field name="hides" groups="stock.group_production_lot" attrs="{'readonly': [('lot_id', '=', False)],'column_invisible': [('parent.show_lots_text', '=', True)], 'invisible': [('lots_visible', '=', False)]}" context="{'default_product_id': product_id, 'default_company_id': company_id, 'active_picking_id': picking_id}" optional="show"/>  
             </xpath>
@@ -18,7 +19,7 @@
 	        		   groups="stock.group_production_lot" 
 	        		   attrs="{'column_invisible': [('parent.show_lots_text', '=', True)], 'invisible': [('lots_visible', '=', False)]}" 
 	        		   context="{'move_id':move_id, 'default_product_id': product_id, 'default_company_id': company_id, 'active_picking_id': picking_id}" 
-	        		   optional="show"/>
+	        		   optional="show"/>	        	
 	        </xpath>        
         </field>        
     </record>
