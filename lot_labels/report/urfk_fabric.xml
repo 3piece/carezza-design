@@ -22,8 +22,8 @@
 							<span t-field="move_line.lot_id.po_id.name"></span>
 						</td>	
 					<td rowspan="4" class="text-center align-middle td-img-accessory" colspan='2'>
-						<img
-							t-attf-src="/web/image/product.product/#{move_line.product_id.id}/image_256"
+						<img  
+							t-attf-src="/lot_labels/static/img/UKFR.png"
 							class="img img-fluid" style="width: 95%;height: auto;" alt="Product image" />
 					</td>						
 												
