@@ -54,6 +54,8 @@ class StockPicking(models.Model):
             if move_line_id.lot_id:
                 move_line_id.lot_id.pallet_number = move_line_id.pallet_number
                 move_line_id.lot_id.hides = move_line_id.hides
+                move_line_id.lot_id.position = move_line_id.position
+                
         return res
 
     @api.onchange('move_ids_without_package')
