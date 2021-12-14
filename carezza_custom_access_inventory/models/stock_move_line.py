@@ -12,12 +12,13 @@ class StockMoveLine(models.Model):
     pallet_number = fields.Integer(string='Pallet / Box / Roll')
     hides = fields.Integer()
     create_auto = fields.Boolean()
-    position = fields.Char(related='lot_id.position')
+    position = fields.Char()
 
     @api.onchange('lot_id')
     def onchange_lot_id(self):
         self.pallet_number = self.lot_id.pallet_number
         self.hides = self.lot_id.hides
+        self.position = self.lot_id.position
         context = self.env.context
         if 'default_picking_id' in context:
             picking_id = context['default_picking_id']
@@ -80,6 +81,9 @@ class StockMoveLine(models.Model):
                     res.pallet_number = res.lot_id.pallet_number
                 if res.hides == 0 :
                     res.hides = res.lot_id.hides
+                if res.hides == 0 :
+                    res.position = res.lot_id.position    
+                    
         return res    
     
     def write(self,vals):
@@ -93,7 +97,11 @@ class StockMoveLine(models.Model):
                 record.lot_id.pallet_number = pallet_number     
             if 'hides' in vals:
                 hides = record.hides
-                record.lot_id.hides = hides                                              
+                record.lot_id.hides = hides  
+            if 'position' in vals:
+                position = record.position
+                record.lot_id.position = position      
+                                                            
             return res               
         
     def _create_and_assign_production_lot(self):
