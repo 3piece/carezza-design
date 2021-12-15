@@ -15,7 +15,8 @@ class CustomerPortal(CustomerPortal):
     def portal_my_purchase_order(self, order_id=None, access_token=None, **kw):
        response = super(CustomerPortal, self).portal_my_purchase_order(order_id, access_token, **kw) 
        if 'order' in response.qcontext:
-           response.qcontext['pickings'] = response.qcontext['order'].picking_ids
+           
+           response.qcontext['pickings'] = response.qcontext['order'].picking_ids.filtered(lambda picking: picking.state not in [ 'draft','done','cancel'])
 #        a = response.qcontext['picking_id']
        return response
    
