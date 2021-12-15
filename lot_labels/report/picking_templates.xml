@@ -38,11 +38,7 @@
 												</t>
 												<t t-if="move_line.product_id.label_type in ['ukfr_fabric']">	
 													<t t-call="lot_labels.ukfr_fabric"></t>
-												</t>	
-												<t t-if="move_line.product_id.label_type in ['accessories_small']">	
-													<t t-call="lot_labels.accessories_small"></t>
-												</t>	
-												
+												</t>												
 																																		
 										</div>
 
