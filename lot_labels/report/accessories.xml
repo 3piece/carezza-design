@@ -22,7 +22,7 @@
 							class="img img-fluid" style="width: 95%;height: auto;" alt="Product image" />
 					</td>
 				</tr>
-				<tr class='height-60'>
+				<tr class='height-59'>
 						<td class=" align-middle font-label-accessory" >
 							<strong>APO :</strong>
 						</td>
@@ -31,7 +31,7 @@
 						</td>							
 				</tr>
 
-				<tr class='height-60'>
+				<tr class='height-59'>
 					<td class="align-middle font-label-accessory">
 						<strong>Quantity: </strong>
 					</td>
@@ -48,7 +48,7 @@
 					
 				</tr>
 
-				<tr class='height-60'>
+				<tr class='height-59'>
 					<td class=" align-middle font-label-accessory">
 						<strong>Ship Date: </strong>
 					</td>
