@@ -6,6 +6,12 @@ import base64
 import io
 import csv
 
+import xlrd
+import tempfile
+import binascii
+import openpyxl
+import math
+
 class StockPicking(models.Model):
 
     _inherit = 'stock.picking'
@@ -124,17 +130,14 @@ class StockPicking(models.Model):
         list_id_updated=[]
         #process remove and update
         for detail in list_obj:
-            transfer = self.env['stock.picking'].search([('id', '=', detail['picking_name'])])
-            if transfer:
-                id_updated = self.process_move_line(transfer, detail, list_move_line_id)   
-                if id_updated: 
-                    list_id_updated.append(id_updated) 
+            #transfer = self.env['stock.picking'].search([('id', '=', detail['picking_name'])])
+
+            id_updated = self.process_move_line(self, detail, list_move_line_id)   
+            if id_updated: 
+                list_id_updated.append(id_updated) 
                 
         for detail in list_obj:
-            transfer = self.env['stock.picking'].search(
-                [('id', '=', detail['picking_name'])])
-            if transfer:
-                self.create_move_line(transfer,detail,list_id_updated)
+            self.create_move_line(self,detail,list_id_updated)
                              
                      
     def get_id_by_value(self,model,field_names,value):
@@ -148,32 +151,43 @@ class StockPicking(models.Model):
         return converted[field_names]
   
     def read_csv(self,upload_excel_file):
-        list_obj = []
-        csv_data = base64.b64decode(upload_excel_file)
-        data_file = io.StringIO(csv_data.decode("utf-8"))
-        data_file.seek(0)
-        file_reader = []
-        csv_reader = csv.reader(data_file, delimiter=',')
-        file_reader.extend(csv_reader)
-        header = True
+        fp = tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx")
+        fp.write(binascii.a2b_base64(self.upload_excel_file))
+        fp.seek(0)
+        df = pd.read_excel(fp.name, engine='openpyxl')
+        df = df.to_dict()
+        print(df)
+        count_lop = len(df['Hides'])
         list_move_line_id = []
+        list_obj = []
 
-        for obj in file_reader:
-            if header:
-                header = False
-            else:
-                product_id = self.get_id_by_value(self.env['stock.move.line'],'product_id',obj[1])
-                picking_name = self.get_id_by_value(self.env['stock.move.line'],'picking_id',obj[0])
-                dict_val = {
-                'picking_name' : picking_name,
-                'product_id': product_id,
-                'qty_done': obj[2],
-                'pallet_number': obj[3],
-                'hides': obj[4],
-                'move_line_id': int(obj[5]) if obj[5] != '' else False }
-                list_obj.append(dict_val)
-                if obj[5] != '':
-                    list_move_line_id.append(int(obj[5]))
+        for index in range(count_lop):  
+                          
+            #product_name = "[%s] "%df['Code'][index] + "%s "%df['Product Name'][index]+ "[%s]"+ df['Color'][index]
+            #full_name = df['Display Name'][index]
+            code=""
+            if df['Code'][index]:
+                code = '[%s] '%df['Code'][index]
+            color=""
+            if df['Color'][index]:
+                color = ' (%s)'%df['Color'][index]
+            full_name = code+ df['Product Name'][index]+ color
+            
+            product_id = self.get_id_by_value(self.env['stock.move.line'],'product_id',full_name)
+            #picking_name = self.get_id_by_value(self.env['stock.move.line'],'picking_id',obj[0])
+
+            a = math.isnan(df['Move line id'][index])
+            print(a)
+            dict_val = {
+            'picking_name' : self.name,
+            'product_id': product_id,
+            'qty_done': df['Demand Qty'][index],
+            'pallet_number': df['Box / Roll / Pallet No'][index],
+            'hides': df['Hides'][index],
+            'move_line_id': int(df['Move line id'][index]) if math.isnan(df['Move line id'][index])!= True else False }
+            list_obj.append(dict_val)
+            if not math.isnan(df['Move line id'][index]):
+                list_move_line_id.append(int(df['Move line id'][index]))
 
         return list_obj,list_move_line_id
                     
