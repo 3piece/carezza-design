@@ -60,9 +60,8 @@
 										Submit
 									</button>
 								</td>
-								<td>
-										
-									<a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-att-href="'/report/csv/base_report_csv.stock_picking_csv/%s' % (picking.id)"  title="Print" target="_blank"><i class="fa fa-print"/></a>
+								<td>																													
+									<a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-att-href="'/report/xlsx/report_xlsx.stock_picking_xlsx/%s' % (picking.id)"  title="Print" target="_blank"><i class="fa fa-print"/></a>
 								</td>	
 									
 								<td>
