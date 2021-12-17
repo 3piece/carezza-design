@@ -15,7 +15,7 @@
 						<th>Reference</th>
 						<th>Ship Date</th>
 						<th>Upload</th>
-						<th>Status</th>
+						
 						<th></th>
 						<th>Template</th>
 						<th>Lot Labels</th>
@@ -51,9 +51,7 @@
 										multiple="true" name="attachment" />
 
 								</td>
-								<td>
-									<span t-esc='picking.state'></span>
-								</td>
+
 								<td>
 								
 									<button type="submit" class="btn btn-primary">
