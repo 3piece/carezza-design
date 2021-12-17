@@ -167,10 +167,10 @@ class StockPicking(models.Model):
             #product_name = "[%s] "%df['Code'][index] + "%s "%df['Product Name'][index]+ "[%s]"+ df['Color'][index]
             #full_name = df['Display Name'][index]
             code=""
-            if df['Code'][index]:
+            if isinstance(df['Code'][index]):
                 code = '[%s] '%df['Code'][index]
             color=""
-            if df['Color'][index]:
+            if isinstance(df['Color'][index]):
                 color = ' (%s)'%df['Color'][index]
             full_name = code+ df['Product Name'][index]+ color
             
