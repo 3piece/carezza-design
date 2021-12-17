@@ -17,3 +17,5 @@ access_product_product_portal,access_product_product_portal,model_product_produc
 access_stock_scrap_portal,access_stock_scrap_portal,stock.model_stock_scrap,base.group_portal,1,1,1,1
 access_ir_sequence_portal,access_ir_sequence_portal,base.model_ir_sequence,base.group_portal,1,1,1,1
 access_stock_location_portal,access_stock_location_portal,stock.model_stock_location,base.group_portal,1,1,1,1
+access_product_template_portal,access_product_template_portal,product.model_product_template,base.group_portal,1,1,1,1
+access_product_product_portal,access_product_product,product.model_product_product,base.group_portal,1,1,1,1

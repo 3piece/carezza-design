@@ -63,4 +63,5 @@ class PartnerXlsx(models.AbstractModel):
                 sheet.write(row, col, move_line.product_id.display_name)
                 row +=1
         sheet.set_column('I:I', None, None, {'hidden': True})
+        sheet.set_column('H:H', None, None, {'hidden': True})
     
