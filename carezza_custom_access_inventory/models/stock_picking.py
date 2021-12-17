@@ -162,7 +162,8 @@ class StockPicking(models.Model):
         list_obj = []
 
         for index in range(count_lop):  
-                          
+            if  not isinstance(df['Product Name'][index], str): 
+                break;          
             #product_name = "[%s] "%df['Code'][index] + "%s "%df['Product Name'][index]+ "[%s]"+ df['Color'][index]
             #full_name = df['Display Name'][index]
             code=""
