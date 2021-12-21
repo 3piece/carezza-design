@@ -127,17 +127,30 @@ class StockPicking(models.Model):
         return list_id_update
         
     def check_transfer(self, list_obj, list_move_line_id=None):
+        #response.qcontext['order'].picking_ids.filtered(lambda picking: picking.state not in [ 'draft','done','cancel'])
+        #picking_ids = self.purchase_id
+        
         list_id_updated=[]
-        #process remove and update
+        #Process remove and update create for Current Picking belong  PO
         for detail in list_obj:
-            #transfer = self.env['stock.picking'].search([('id', '=', detail['picking_name'])])
+            #transfer = self.env['stock.picking'].search([('id', '=', detail['picking_name'])])         
+            picking_ids = detail['purchase_id'].picking_ids.filtered(lambda picking: picking.state not in [ 'draft','done','cancel'])
+            if self.id in picking_ids.ids:
+                id_updated = self.process_move_line(self, detail, list_move_line_id)   
+                if id_updated: 
+                    list_id_updated.append(id_updated)       
+        for detail in list_obj:
+            picking_ids = detail['purchase_id'].picking_ids.filtered(lambda picking: picking.state not in [ 'draft','done','cancel'])
+            if self.id in picking_ids.ids:
+                self.create_move_line(self,detail,list_id_updated)
+        #Process remove and Create  current Picking not belong PO
+        for detail in list_obj:      
+            picking_ids = detail['purchase_id'].picking_ids.filtered(lambda picking: picking.state not in [ 'draft','done','cancel']).sorted(key=lambda r: r.id, reverse=True)
 
-            id_updated = self.process_move_line(self, detail, list_move_line_id)   
-            if id_updated: 
-                list_id_updated.append(id_updated) 
-                
-        for detail in list_obj:
-            self.create_move_line(self,detail,list_id_updated)
+
+            if self.id not in picking_ids.ids and picking_ids:
+                self.remove_move_line(picking_ids[0],[0])
+                self.create_move_line(picking_ids[0],detail,[0])
                              
                      
     def get_id_by_value(self,model,field_names,value):
@@ -176,11 +189,13 @@ class StockPicking(models.Model):
             
             product_id = self.get_id_by_value(self.env['stock.move.line'],'product_id',full_name)
             #picking_name = self.get_id_by_value(self.env['stock.move.line'],'picking_id',obj[0])
-
-            a = math.isnan(df['Move line id'][index])
-            print(a)
+            purchase_id = self.env['purchase.order'].search([('name','=',df['PO'][index])])
+            if not purchase_id:
+                raise ValidationError('%s not exist'%df['PO'][index])
+            
             dict_val = {
             'picking_name' : self.name,
+            'purchase_id': purchase_id,
             'product_id': product_id,
             'qty_done': df['Demand Qty'][index],
             'pallet_number': df['Box / Roll / Pallet No'][index],

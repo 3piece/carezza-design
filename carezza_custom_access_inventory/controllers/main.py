@@ -15,31 +15,35 @@ class CustomerPortal(CustomerPortal):
     def portal_my_purchase_order(self, order_id=None, access_token=None, **kw):
        response = super(CustomerPortal, self).portal_my_purchase_order(order_id, access_token, **kw) 
        if 'order' in response.qcontext:
-           
            response.qcontext['pickings'] = response.qcontext['order'].picking_ids.filtered(lambda picking: picking.state not in [ 'draft','done','cancel'])
-#        a = response.qcontext['picking_id']
+           stock_picking_types = request.env['stock.picking.type'].search([('code','=','incoming')])
+           response.qcontext['stock_picking_types'] = stock_picking_types
        return response
-   
-   
+          
+    @http.route('/create_transfer', type='http', method='POST', auth="user",website=True)
+    def create_transfer(self,**post):  
+        order = request.env['purchase.order'].browse([int(post['order'])])
+        picking_id = order.picking_ids.filtered(lambda picking: picking.state not in [ 'draft','done','cancel'])
+        if picking_id:
+            new_picking = picking_id[0].copy()
+            new_picking.action_confirm()
+            new_picking.ship_date = post.get('ship_date')
+            url = (request.httprequest.referrer and request.httprequest.referrer + "#create-transfer")
+            return request.redirect(url)
+    
     @http.route('/picking_upload_csv', type='http', method='POST', auth="user",website=True)
     def picking_upload_csv(self,**post):
- 
         file_name = post.get('attachment')
         picking_id = int(post.get('picking_id'))
-#         a = ReportController
-#         ReportController.report_download(ReportController,'["/report/pdf/lot_labels.lot_label_transfer_template_view_pdf/2542","qweb-pdf"]','dummy-because-api-expects-one','{"lang":"en_US","tz":"Hongkong","uid":2,"allowed_company_ids":[1]}')
         picking_id = request.env['stock.picking'].browse([picking_id])
         picking_id.ship_date = post.get('ship_date')
-#         
-#         report = request.env['ir.actions.report'].browse([385])
-#         report._render_qweb_pdf([picking_id.id],{'context': {'tz': 'Hongkong', 'uid': 2, 'allowed_company_ids': [1]}})
-#         
         if file_name != '':
             file = post.get('attachment')
             file_name = post.get('attachment',False).filename
             picking_id.upload_excel_file = base64.b64encode(file.read())
             picking_id.upload_excel_name = file_name
-        
+            url = (request.httprequest.referrer and request.httprequest.referrer + "#create-transfer")
+            return request.redirect(url)
        
     @http.route('/print_lot_label', type='http', auth="user",website=True)
     def print_lot_label(self,**post):

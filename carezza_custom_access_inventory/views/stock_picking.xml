@@ -7,21 +7,15 @@
 		<field name="inherit_id" ref="stock.view_picking_form" />
 		<field name="arch" type="xml">
 		
-			<xpath expr="//field[@name='date_deadline']" position="before">
-						
+			<xpath expr="//field[@name='date_deadline']" position="before">		
 				<field name="po_date" string='PO Date' />
 				<field name="ship_date" />
 				<field name="bl_number" />
-				<field name="is_propagation"  groups='base.group_no_one'/>
-				
-				<button  groups='base.group_no_one' name="prepare_value_generate" string="prepare value"
-								type="object" class="oe_highlight" style="margin-right: 10px" />
-				
+				<field name="is_propagation"  groups='base.group_no_one'/>							
 				<field name="excel_template_name" invisible="1" />
            		<field name="excel_template" filename="excel_template_name" widget="binary" groups='base.group_no_one' />		    			
-
 				<field name="upload_excel_name" invisible="1"/>
-           		<field name="upload_excel_file" filename="upload_excel_name" widget="binary"  groups='base.group_no_one'/>	
+           		<field name="upload_excel_file" filename="upload_excel_name" widget="binary" />	
 			
 			</xpath>		
 		
@@ -58,7 +52,7 @@
 				<field name="excel_template_name" invisible="1" />
            		<field name="excel_template" filename="excel_template_name" widget="binary" groups='base.group_no_one' />		    			
 				<field name="upload_excel_name" invisible="1"/>
-           		<field name="upload_excel_file" filename="upload_excel_name" widget="binary"  groups='base.group_no_one'/>
+           		<field name="upload_excel_file" filename="upload_excel_name" widget="binary" />
 
 			</xpath>
 		</field>

@@ -13,8 +13,6 @@ class PartnerXlsx(models.AbstractModel):
 
     def generate_xlsx_report(self, workbook, data, pickings):
         bold = workbook.add_format({"bold": True})
-        bold1 = workbook.add_format({"bold": True,
-                                    "hidden": True})
         sheet = workbook.add_worksheet("Report")
         
         i = 1
@@ -27,16 +25,16 @@ class PartnerXlsx(models.AbstractModel):
         sheet.set_column(0, 5, 20)
         #sheet.set_column('A', None, None, {'hidden': True})
         # Set Header
-        sheet.write(0, 0, "Picking Name", bold1)
-        sheet.write(0, 1, "Code", bold)
-        sheet.write(0, 2, "Product Name", bold)
-        sheet.write(0, 3, "Color", bold)
-        sheet.write(0, 4, "Demand Qty", bold)
-        sheet.write(0, 5, "Box / Roll / Pallet No", bold)
-        sheet.write(0, 6, "Hides", bold)
-        sheet.write(0, 7, "Move line id", bold)
-        sheet.write(0, 8, "Display Name", bold)
-        
+        sheet.write(0, 0, "Picking Name", bold)
+        sheet.write(0, 1, "PO", bold)
+        sheet.write(0, 2, "Code", bold)
+        sheet.write(0, 3, "Product Name", bold)
+        sheet.write(0, 4, "Color", bold)
+        sheet.write(0, 5, "Demand Qty", bold)
+        sheet.write(0, 6, "Box / Roll / Pallet No", bold)
+        sheet.write(0, 7, "Hides", bold)
+        sheet.write(0, 8, "Move line id", bold)
+
         
         
         for obj in pickings:
@@ -45,6 +43,8 @@ class PartnerXlsx(models.AbstractModel):
             for move_line in obj.move_line_ids_without_package:
                 col = 0         
                 sheet.write(row, col, obj.name)
+                col += 1
+                sheet.write(row, col, obj.purchase_id.name)
                 col += 1
                 sheet.write(row, col, move_line.product_id.default_code)
                 col += 1
@@ -59,9 +59,6 @@ class PartnerXlsx(models.AbstractModel):
                 sheet.write(row, col, move_line.hides)
                 col += 1
                 sheet.write(row, col, move_line.id)
-                col += 1
-                sheet.write(row, col, move_line.product_id.display_name)
                 row +=1
-        sheet.set_column('I:I', None, None, {'hidden': True})
-        sheet.set_column('H:H', None, None, {'hidden': True})
+
     
