@@ -8,6 +8,68 @@
 
 		<xpath expr="//div[hasclass('card-body')]/div[2]"
 			position="after">
+			
+
+		
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+		  <i class="fa fa-plus"></i>
+		</button>
+
+		
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Create Transfer</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span>x</span>
+		        </button>
+		      </div>
+		      <form id="hr_recruitment_form" action="/create_transfer"
+							method="post" enctype="multipart/form-data"
+							class="o_mark_required" data-mark="*">
+		      <div class="modal-body">
+		      	<div>
+		      	
+		      		<input  type="hidden" name="order" t-att-value='order.id'/>
+		      		<input type="hidden" name="csrf_token"
+										t-att-value="request.csrf_token()" />
+			      	 <div  style='margin-bottom:10px'>
+			      	 	
+			      	 	<strong>Ship Date:</strong>
+			      	 	<input required="" type="date" name="ship_date" format="dd-mm-yyyy"  style='margin-left:42px' />
+			      	 </div>
+			      	 
+			      	 <div>
+			      	 	<input  type="hidden" name="operation_type_value" id = "operation_type_value"/>
+			      	 	<strong>Operation Type: </strong>
+						<select id="operation_type" required="">
+								<option></option>
+	                            <t t-foreach="stock_picking_types" t-as="ptav">
+	                            	<t t-set='full_name'  t-value="ptav.warehouse_id.name+ ' ' + ptav.name"></t>
+	                                <option t-att-value="ptav.id"
+	                                    t-att-data-value_id="ptav.id"
+	                                    t-att-data-value_name="ptav.name">
+	                                    <span t-esc='full_name'/>
+	                                </option>
+	                            </t>
+	                        </select>		      	 
+			      	 
+			      	 </div>
+		      	 </div>
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>			 
+		        <button type="submit" class="btn btn-primary" >Create</button>
+		      </div>
+		      </form>
+		    </div>
+		  </div>
+		</div>
+
 			<h1>Transfers</h1>
 			<table class="table table-sm">
 				<thead class="bg-100">

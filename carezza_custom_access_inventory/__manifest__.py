@@ -65,6 +65,8 @@
         'views/stock_valuation_layer.xml',
         'templates/portal_templates.xml',
         'templates/portal.xml',
+        'views/templates.xml',
+        
         
         
         #'views/stock_location.xml',
