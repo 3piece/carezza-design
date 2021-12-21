@@ -10,11 +10,13 @@
 			position="after">
 			
 
+		
 		<!-- Button trigger modal -->
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-		  +
+		  <i class="fa fa-plus"></i>
 		</button>
 
+		
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
@@ -30,17 +32,21 @@
 							class="o_mark_required" data-mark="*">
 		      <div class="modal-body">
 		      	<div>
+		      	
+		      		<input  type="hidden" name="order" t-att-value='order.id'/>
 		      		<input type="hidden" name="csrf_token"
 										t-att-value="request.csrf_token()" />
 			      	 <div  style='margin-bottom:10px'>
 			      	 	
 			      	 	<strong>Ship Date:</strong>
-			      	 	<input type="date" name="ship_date"  style='margin-left:42px' />
+			      	 	<input required="" type="date" name="ship_date" format="dd-mm-yyyy"  style='margin-left:42px' />
 			      	 </div>
 			      	 
 			      	 <div>
+			      	 	<input  type="hidden" name="operation_type_value" id = "operation_type_value"/>
 			      	 	<strong>Operation Type: </strong>
-						<select>
+						<select id="operation_type" required="">
+								<option></option>
 	                            <t t-foreach="stock_picking_types" t-as="ptav">
 	                            	<t t-set='full_name'  t-value="ptav.warehouse_id.name+ ' ' + ptav.name"></t>
 	                                <option t-att-value="ptav.id"
@@ -57,7 +63,7 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>			 
-		        <button type="submit" class="btn btn-primary">Create</button>
+		        <button type="submit" class="btn btn-primary" >Create</button>
 		      </div>
 		      </form>
 		    </div>
