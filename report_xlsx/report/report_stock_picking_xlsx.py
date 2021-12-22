@@ -30,7 +30,7 @@ class PartnerXlsx(models.AbstractModel):
         sheet.write(0, 2, "Code", bold)
         sheet.write(0, 3, "Product Name", bold)
         sheet.write(0, 4, "Color", bold)
-        sheet.write(0, 5, "Demand Qty", bold)
+        sheet.write(0, 5, "Quantity", bold)
         sheet.write(0, 6, "Box / Roll / Pallet No", bold)
         sheet.write(0, 7, "Hides", bold)
         sheet.write(0, 8, "Move line id", bold)
@@ -60,5 +60,6 @@ class PartnerXlsx(models.AbstractModel):
                 col += 1
                 sheet.write(row, col, move_line.id)
                 row +=1
+        sheet.set_column('I:I', None, None, {'hidden': True})
 
     
