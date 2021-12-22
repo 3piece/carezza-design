@@ -16,7 +16,7 @@ class StockPicking(models.Model):
 
     _inherit = 'stock.picking'
 
-    ship_date = fields.Date(string="Ship Date")
+    ship_date = fields.Date(string="Ship Date", tracking=True)
     bl_number = fields.Char(string='B/L Number')
     is_propagation = fields.Boolean(related='picking_type_id.is_propagation')
     po_date = fields.Date(related='purchase_id.po_date')
@@ -25,18 +25,9 @@ class StockPicking(models.Model):
                                'changing the done quantities.')
     excel_template = fields.Binary()
     excel_template_name = fields.Char("Filename")
-    upload_excel_file = fields.Binary()
+    upload_excel_file = fields.Binary(tracking=True)
     upload_excel_name = fields.Char("Filename")
-#     @api.model
-#     def create(self, vals):
-#         res = super().create(vals)
-#         if res.po_date:
-#             ship_date = res.po_date +  datetime.timedelta(days=14)
-#             res.ship_date = ship_date
-#         return res
-#
 
- 
                 
                 
     def prepare_value_generate(self):
@@ -101,20 +92,35 @@ class StockPicking(models.Model):
                 return False                    
         
     def create_move_line(self,transfer,detail,list_id_updated):   
-        for move in transfer.move_ids_without_package:  
-            if detail['move_line_id'] not in list_id_updated and move.product_id.id == detail['product_id']:
-                vals= {'product_id' : move.product_id.id,
-                       'picking_id': transfer.id,
-                       'move_id': move.id,
-                       'product_uom_id': move.product_id.uom_id.id,
-                       'qty_done': detail['qty_done'],
-                       'location_id': transfer.location_id.id,
-                       'location_dest_id': transfer.location_dest_id.id,
-                       'state': 'assigned',
-                       'pallet_number': detail['pallet_number'],
-                       'hides': detail['hides']
-                       }
-                move_line = self.env['stock.move.line'].create(vals)                    
+        for move in transfer.move_ids_without_package:
+            if list_id_updated:
+                if detail['move_line_id'] not in list_id_updated and move.product_id.id == detail['product_id']:
+                    vals= {'product_id' : move.product_id.id,
+                           'picking_id': transfer.id,
+                           'move_id': move.id,
+                           'product_uom_id': move.product_id.uom_id.id,
+                           'qty_done': detail['qty_done'],
+                           'location_id': transfer.location_id.id,
+                           'location_dest_id': transfer.location_dest_id.id,
+                           'state': 'assigned',
+                           'pallet_number': detail['pallet_number'],
+                           'hides': detail['hides']
+                           }
+                    move_line = self.env['stock.move.line'].create(vals)  
+            else:
+                if move.product_id.id == detail['product_id']:
+                    vals= {'product_id' : move.product_id.id,
+                               'picking_id': transfer.id,
+                               'move_id': move.id,
+                               'product_uom_id': move.product_id.uom_id.id,
+                               'qty_done': detail['qty_done'],
+                               'location_id': transfer.location_id.id,
+                               'location_dest_id': transfer.location_dest_id.id,
+                               'state': 'assigned',
+                               'pallet_number': detail['pallet_number'],
+                               'hides': detail['hides']
+                               }
+                    move_line = self.env['stock.move.line'].create(vals)                                  
             
         
     def process_move_line(self,transfer,detail,list_move_line_id = None):
@@ -141,16 +147,17 @@ class StockPicking(models.Model):
                     list_id_updated.append(id_updated)       
         for detail in list_obj:
             picking_ids = detail['purchase_id'].picking_ids.filtered(lambda picking: picking.state not in [ 'draft','done','cancel'])
-            if self.id in picking_ids.ids:
+            if self.id not in picking_ids.ids:
                 self.create_move_line(self,detail,list_id_updated)
+        
         #Process remove and Create  current Picking not belong PO
         for detail in list_obj:      
             picking_ids = detail['purchase_id'].picking_ids.filtered(lambda picking: picking.state not in [ 'draft','done','cancel']).sorted(key=lambda r: r.id, reverse=True)
 
 
             if self.id not in picking_ids.ids and picking_ids:
-                self.remove_move_line(picking_ids[0],[0])
-                self.create_move_line(picking_ids[0],detail,[0])
+                #self.remove_move_line(picking_ids[0],[0])
+                self.create_move_line(picking_ids[0],detail,False)
                              
                      
     def get_id_by_value(self,model,field_names,value):
@@ -165,7 +172,7 @@ class StockPicking(models.Model):
   
     def read_csv(self,upload_excel_file):
         fp = tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx")
-        fp.write(binascii.a2b_base64(self.upload_excel_file))
+        fp.write(binascii.a2b_base64(upload_excel_file))
         fp.seek(0)
         df = pd.read_excel(fp.name, engine='openpyxl')
         df = df.to_dict()
@@ -189,15 +196,19 @@ class StockPicking(models.Model):
             
             product_id = self.get_id_by_value(self.env['stock.move.line'],'product_id',full_name)
             #picking_name = self.get_id_by_value(self.env['stock.move.line'],'picking_id',obj[0])
+            
             purchase_id = self.env['purchase.order'].search([('name','=',df['PO'][index])])
-            if not purchase_id:
+            if not isinstance(df['PO'][index], str):
+                purchase_id = self.purchase_id
+            if not purchase_id and not isinstance(df['PO'][index], str):
                 raise ValidationError('%s not exist'%df['PO'][index])
             
             dict_val = {
+            'index': index,
             'picking_name' : self.name,
             'purchase_id': purchase_id,
             'product_id': product_id,
-            'qty_done': df['Demand Qty'][index],
+            'qty_done': df['Quantity'][index],
             'pallet_number': df['Box / Roll / Pallet No'][index],
             'hides': df['Hides'][index],
             'move_line_id': int(df['Move line id'][index]) if math.isnan(df['Move line id'][index])!= True else False }
@@ -207,17 +218,26 @@ class StockPicking(models.Model):
 
         return list_obj,list_move_line_id
                     
-    def write(self, vals):
+    def write(self, vals):   
+        if 'upload_excel_file' in vals:
+            if vals['upload_excel_file']:
+                list_obj, list_move_line_id = self.read_csv(
+                    vals['upload_excel_file'])
+                for obj in list_obj:
+                    if obj['move_line_id'] != 0:
+                        for check_obj in list_obj:
+                            if check_obj['move_line_id'] == obj['move_line_id'] and check_obj['index'] != obj['index']:
+                                check_obj['move_line_id'] = 0
+                
+                self.check_transfer(list_obj,list_move_line_id)         
+        vals['upload_excel_file'] = False
         res = super().write(vals)
         if 'ship_date' in vals:
             for stock_move_line in self.move_line_ids_without_package:
                 ship_date = self.ship_date
                 stock_move_line.lot_id.ship_date = ship_date 
-                       
-        if 'upload_excel_file' in vals:
-            if vals['upload_excel_file']: 
-                list_obj,list_move_line_id = self.read_csv(self.upload_excel_file)        
-                self.check_transfer(list_obj,list_move_line_id)              
+                    
+        #self.upload_excel_file = False            
         return res
 
 
@@ -249,29 +269,4 @@ class StockPicking(models.Model):
 #                     'pallet_number': 1,
 #                     'hides': 10,
 #                     'crud' : 'update'}]
-#
-    def process(self):
-        pickings_to_do = self.env['stock.picking']
-        pickings_not_to_do = self.env['stock.picking']
-        for line in self.backorder_confirmation_line_ids:
-            if line.to_backorder is True:
-                pickings_to_do |= line.picking_id
-            else:
-                pickings_not_to_do |= line.picking_id
 
-        for pick_id in pickings_not_to_do:
-            moves_to_log = {}
-            for move in pick_id.move_lines:
-                if float_compare(move.product_uom_qty,
-                                 move.quantity_done,
-                                 precision_rounding=move.product_uom.rounding) > 0:
-                    moves_to_log[move] = (move.quantity_done, move.product_uom_qty)
-            pick_id._log_less_quantities_than_expected(moves_to_log)
-
-        pickings_to_validate = self.env.context.get('button_validate_picking_ids')
-        if pickings_to_validate:
-            pickings_to_validate = self.env['stock.picking'].browse(pickings_to_validate).with_context(skip_backorder=True)
-            if pickings_not_to_do:
-                pickings_to_validate = pickings_to_validate.with_context(picking_ids_not_to_backorder=pickings_not_to_do.ids)
-            return pickings_to_validate.button_validate()
-        return True

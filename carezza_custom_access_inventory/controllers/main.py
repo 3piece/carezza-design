@@ -43,7 +43,7 @@ class CustomerPortal(CustomerPortal):
             picking_id.upload_excel_file = base64.b64encode(file.read())
             picking_id.upload_excel_name = file_name
             url = (request.httprequest.referrer and request.httprequest.referrer + "#create-transfer")
-            return request.redirect(url)
+            #return request.redirect(url)
        
     @http.route('/print_lot_label', type='http', auth="user",website=True)
     def print_lot_label(self,**post):
