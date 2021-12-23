@@ -9,6 +9,14 @@ odoo.define('carezza_custom_access_inventory.portal_shipdate', function (require
 
 	});
 
+
+	$(document).ready(function(){
+	  $(".btn-submit").click(function(){
+	     $(this).removeClass("btn-primary");
+	    $(this).addClass("btn-success"); 
+	  });
+	});
+
 });
 
 

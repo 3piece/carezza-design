@@ -37,6 +37,7 @@ class CustomerPortal(CustomerPortal):
         picking_id = int(post.get('picking_id'))
         picking_id = request.env['stock.picking'].browse([picking_id])
         picking_id.ship_date = post.get('ship_date')
+        picking_id.is_upload = True 
         if file_name != '':
             file = post.get('attachment')
             file_name = post.get('attachment',False).filename
