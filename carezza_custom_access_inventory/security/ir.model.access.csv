@@ -20,3 +20,4 @@ access_stock_location_portal,access_stock_location_portal,stock.model_stock_loca
 access_product_template_portal,access_product_template_portal,product.model_product_template,base.group_portal,1,1,1,1
 access_product_product_portal,access_product_product,product.model_product_product,base.group_portal,1,1,1,1
 access_uom_uom_portal,access_uom_uom_portal,product.model_uom_uom,base.group_portal,1,1,1,1
+access_warehouse_portal,access_warehouse_portal,model_stock_warehouse,base.group_portal,1,1,1,1
