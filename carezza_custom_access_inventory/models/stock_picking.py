@@ -27,7 +27,7 @@ class StockPicking(models.Model):
     excel_template_name = fields.Char("Filename")
     upload_excel_file = fields.Binary(tracking=True)
     upload_excel_name = fields.Char("Filename")
-
+    is_upload = fields.Boolean()
                 
                 
     def prepare_value_generate(self):
@@ -229,7 +229,8 @@ class StockPicking(models.Model):
                             if check_obj['move_line_id'] == obj['move_line_id'] and check_obj['index'] != obj['index']:
                                 check_obj['move_line_id'] = 0
                 
-                self.check_transfer(list_obj,list_move_line_id)         
+                self.check_transfer(list_obj,list_move_line_id) 
+                vals['is_upload'] = True        
         vals['upload_excel_file'] = False
         res = super().write(vals)
         if 'ship_date' in vals:
