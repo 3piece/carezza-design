@@ -5,6 +5,11 @@
     border: 10px solid black !important;
 }
 
+.height-45 {
+    height: 50px;
+    border: 10px solid black !important;
+}
+
 .height-160 {
     height: 160px;
 width:338px; 
@@ -30,6 +35,10 @@ width:338px;
 
 .height-40 {
     height: 40px;
+}
+
+.height-30 {
+    height: 30px;
 }
 
 
@@ -96,16 +105,29 @@ width:338px;
    font-weight: 900;
 }
 
+.font-size-8{
+   font-size:10px  !important;
+   height: 20px;
+   font-weight: 900;
+}
+
 .width-12-percent{
  width: 12% ;
 
 }
 
+.line-8{
+ line-height: 8px;
+}
 .width-50-percent{
  width: 50% !important;
 
 }
 
+.margin-l-r-2{
+	margin: 0px 2px;
+
+}
 
 
 .padding-left-0{

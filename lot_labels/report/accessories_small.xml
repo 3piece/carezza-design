@@ -6,40 +6,43 @@
 				<table class="table-bordered table-60mm-format" style='margin:auto'
 					t-if="picking.move_lines">
 					<tr class='font-header-16'>
-						<td class=" height-95 text-center align-middle" colspan='2'>
+						<td class=" height-45 text-center align-middle" colspan='2'>
 							<strong t-esc="move.product_id.name" />					
 						</td>
+						
 					</tr>
 		
-					<tr class='height-40'>
-						<td  style='width:50%' class="text-left align-middle font-small-material">
+					<tr class='height-30'>
+						<td style='width:20%' class="text-left align-middle font-small-material">
 							<strong>Color :</strong>
 						</td>
-						<td  style='width:50%'
-							class="align-middle font-size-12 border-left-0">
+						<td style='width:78%' 
+							class="align-middle font-size-8 border-left-0">
 							<strong t-esc="move.product_id.attribute_value" />
 						</td>
+						
+						
 					</tr>
 		
-					<tr class='height-40'>
+					<tr class='height-30'>
 						<td class="text-left align-middle font-small-material">
 							<strong>APO: </strong>
 						</td>
-						<td 
-							class="align-middle font-size-12 border-left-0">
+						<td  
+							class="align-middle font-size-8 border-left-0">
 							<span t-field="move_line.lot_id.po_id.name"></span>	
 						</td>
 					</tr>
 		
 					
 		
-					<tr class='height-40'>
+					<tr class='line-8 height-30'>
 						<td 
 							class="text-left align-middle width-13-percent">
 							<strong class='font-small-material' style='margin-right:5px'>Ship Date: </strong>
 							
 							<t t-if='move_line.lot_id.ship_date'>
-								<span t-field="move_line.lot_id.ship_date" 
+								<span t-field="move_line.lot_id.ship_date" class='font-size-8 margin-l-r-2'
 									t-options='{"format": "dd MMM yyyy"}'></span>
 							</t>
 							<t t-else="">
@@ -49,21 +52,21 @@
 						</td>
 		
 						<td 
-							class="text-left align-middle  font-size-12 width-13-percent">
+							class="text-left align-middle  font-size-8 width-13-percent">
 							<strong class='font-small-material' style='margin-right:5px'>Quantity:</strong>
 							<t t-if="move_line.qty_done >0">
-								<span t-field="move_line.qty_done" class='font-size-12  align-middle'></span>
+								<span t-field="move_line.qty_done" class='font-size-8  align-middle'></span>
 							</t>
 							<t t-else="">
-								<span t-field="move_line.product_uom_qty" class='font-size-12  align-middle'></span>
+								<span t-field="move_line.product_uom_qty" class='font-size-8  align-middle'></span>
 							</t>	
 		
-							<span t-field="move_line.product_uom_id" class='font-size-12  align-middle'></span>
+							<span t-field="move_line.product_uom_id" class='font-size-8  align-middle'></span>
 						</td>
 					</tr>
 		
 					<t t-if="move_line.product_id.tracking != 'none'">
-						<tr class='height-40 border-bottom-10'>
+						<tr class='height-30 border-bottom-10'>
 							<td class="text-center align-middle padding-0" colspan="2">
 								<t t-if="move_line.lot_id.name">
 									<div class='padding-top-bot-8'>
@@ -81,7 +84,7 @@
 					</t>
 		
 					<t t-if="move_line.product_id.tracking == 'none'">
-						<tr class='height-40 border-bottom-10 padding-0'>
+						<tr class='height-30 border-bottom-10 padding-0'>
 							<td class="text-center align-middle padding-0" colspan="2">
 								<t t-if="move_line.product_id.barcode">
 									<div class='padding-top-bot-8'>
