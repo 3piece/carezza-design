@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ir_create_order_rule" model="ir.cron">
+        <field name="name">Cron Import</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_product_template"/>
+        <field name="code">model.cron_import()</field>
+        <field name="state">code</field>
+        <field name="active" eval="True"></field>
+    </record>
+</odoo>
