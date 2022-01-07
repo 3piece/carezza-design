@@ -213,6 +213,11 @@ color: gray;font-size:14px;
 border-left: 0px !important
 }
 
+.border-top-0{
+border-top: 0px !important
+}
+
+
 .border-right-white{
  border-right-color: white !important;
 }
@@ -234,3 +239,14 @@ width: max-content;
 
 .mg-left-5{
 margin-left:5px}
+
+.leather-center{
+    margin-top: 10px;
+    position: absolute;
+    height: 48px;
+    border: 0px !important;
+}
+
+.border-tr{
+border: 2px solid black !important;
+}
