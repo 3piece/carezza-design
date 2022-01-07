@@ -170,6 +170,11 @@ border-left: 0px !important;
   border-bottom-width: 10px;
 }
 
+.border-black{
+	border :2px solid black !important;
+}
+
+
 .table-format {
     width: 595px;
     font-weight: bold !important;
