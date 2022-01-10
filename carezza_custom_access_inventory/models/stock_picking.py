@@ -147,7 +147,7 @@ class StockPicking(models.Model):
                     list_id_updated.append(id_updated)       
         for detail in list_obj:
             picking_ids = detail['purchase_id'].picking_ids.filtered(lambda picking: picking.state not in [ 'draft','done','cancel'])
-            if self.id not in picking_ids.ids:
+            if self.id in picking_ids.ids:
                 self.create_move_line(self,detail,list_id_updated)
         
         #Process remove and Create  current Picking not belong PO
@@ -241,33 +241,4 @@ class StockPicking(models.Model):
         #self.upload_excel_file = False            
         return res
 
-
-                    #move._action_confirm()
-                    #move._action_done()
-#
-#
-
-#
-#
-#
-#     def test_details_insert(self):
-#         details = [{
-#                     'picking_name' : 'UnI/UNI-Cust-TTF/00351',
-#                     'product_name': "LG-1310-C",
-#                     'product_id': 824,
-#                     'demand_qty': 1,
-#                     'pallet_number': 1,
-#                     'hides': 10,
-#                     'crud' : 'update'}]
-#         self.check_transfer(details)
-#
-#     def create_new_transfer(self,details=None):
-#         details = [{
-#                     'picking_name' : 'UnI/UNI-Cust-TTF/00351',
-#                     'product_name': "LG-1310-C",
-#                     'product_id': 824,
-#                     'demand_qty': 1,
-#                     'pallet_number': 1,
-#                     'hides': 10,
-#                     'crud' : 'update'}]
 
