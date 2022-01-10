@@ -5,11 +5,6 @@
     border: 10px solid black !important;
 }
 
-.height-45 {
-    height: 50px;
-    border: 10px solid black !important;
-}
-
 .height-160 {
     height: 160px;
 width:338px; 
@@ -35,10 +30,6 @@ width:338px;
 
 .height-40 {
     height: 40px;
-}
-
-.height-30 {
-    height: 30px;
 }
 
 
@@ -105,27 +96,18 @@ width:338px;
    font-weight: 900;
 }
 
-.font-size-8{
-   font-size:10px  !important;
-   height: 20px;
-   font-weight: 900;
-}
-
 .width-12-percent{
  width: 12% ;
 
 }
 
-.line-8{
- line-height: 8px;
-}
 .width-50-percent{
  width: 50% !important;
 
 }
 
-.margin-l-r-2{
-	margin: 0px 2px;
+.width-81{
+ width: 81px;
 
 }
 
@@ -169,11 +151,6 @@ border-left: 0px !important;
   border-bottom-color: black;
   border-bottom-width: 10px;
 }
-
-.border-black{
-	border :2px solid black !important;
-}
-
 
 .table-format {
     width: 595px;
@@ -240,11 +217,6 @@ color: gray;font-size:14px;
 border-left: 0px !important
 }
 
-.border-top-0{
-border-top: 0px !important
-}
-
-
 .border-right-white{
  border-right-color: white !important;
 }
@@ -266,14 +238,3 @@ width: max-content;
 
 .mg-left-5{
 margin-left:5px}
-
-.leather-center{
-    margin-top: 10px;
-    position: absolute;
-    height: 48px;
-    border: 0px !important;
-}
-
-.border-tr{
-border: 2px solid black !important;
-}
