@@ -21,3 +21,8 @@ access_product_template_portal,access_product_template_portal,product.model_prod
 access_product_product_portal,access_product_product,product.model_product_product,base.group_portal,1,1,1,1
 access_uom_uom_portal,access_uom_uom_portal,product.model_uom_uom,base.group_portal,1,1,1,1
 access_warehouse_portal,access_warehouse_portal,model_stock_warehouse,base.group_portal,1,1,1,1
+access_stock_location_route_portal,access_stock_location_route_portal,stock.model_stock_location_route,base.group_portal,1,1,1,1
+access_product_category_portal,access_product_category_portal,product.model_product_category,base.group_portal,1,1,1,1
+access_stock_rule_portal,access_stock_rule_portal,stock.model_stock_rule,base.group_portal,1,1,1,1
+access_stock_putaway_rule_portal,access_stock_putaway_rule_portal,stock.model_stock_putaway_rule,base.group_portal,1,1,1,1
+access_stock_warehouse_orderpoint_portal,access_stock_warehouse_orderpoint,stock.model_stock_warehouse_orderpoint,base.group_portal,1,1,1,1

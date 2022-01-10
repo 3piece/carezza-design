@@ -36,11 +36,11 @@
 			      	 
 			      	 <div>
 			      	 	<input  type="hidden" name="operation_type_value" id = "operation_type_value"/>
-			      	 	<strong>Operation Type: </strong>
+			      	 	<strong>Destination Location: </strong>
 						<select id="operation_type" required="">
 								<option></option>
 	                            <t t-foreach="stock_picking_types" t-as="ptav">
-	                            	<t t-set='full_name'  t-value="ptav.warehouse_id.name+ ' ' + ptav.name"></t>
+	                            	<t t-set='full_name'  t-value="ptav.name"></t>
 	                                <option t-att-value="ptav.id"
 	                                    t-att-data-value_id="ptav.id"
 	                                    t-att-data-value_name="ptav.name">

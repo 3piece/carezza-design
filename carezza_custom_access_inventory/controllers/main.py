@@ -4,6 +4,7 @@ import json
 import logging
 from odoo.addons.purchase.controllers.portal import CustomerPortal
 from odoo.addons.web.controllers.main import ReportController
+from odoo.exceptions import AccessError,ValidationError
 from odoo.http import request
 from odoo import fields, http, SUPERUSER_ID, tools, _
 import base64
@@ -16,7 +17,7 @@ class CustomerPortal(CustomerPortal):
        response = super(CustomerPortal, self).portal_my_purchase_order(order_id, access_token, **kw) 
        if 'order' in response.qcontext:
            response.qcontext['pickings'] = response.qcontext['order'].picking_ids.filtered(lambda picking: picking.state not in [ 'draft','done','cancel'])
-           stock_picking_types = request.env['stock.picking.type'].search([('code','=','incoming')])
+           stock_picking_types = request.env['stock.warehouse'].search([])
            response.qcontext['stock_picking_types'] = stock_picking_types
        return response
           
@@ -25,10 +26,29 @@ class CustomerPortal(CustomerPortal):
         order = request.env['purchase.order'].browse([int(post['order'])])
         picking_id = order.picking_ids.filtered(lambda picking: picking.state not in [ 'draft','done','cancel'])
         if picking_id:
-            new_picking = picking_id[0].copy()
-            new_picking.action_confirm()
+            new_picking = picking_id[0].sudo().copy()
+            
+            new_picking.is_upload = False
+            #new_picking.picking_type_id = int(post.get('operation_type_value'))
             new_picking.ship_date = post.get('ship_date')
+            warehouse = request.env['stock.warehouse'].search([('id','=',post.get('operation_type_value'))])
+            operation_type = warehouse.stock_po_picking_type_id
+            if not operation_type:
+                raise ValidationError('%s not set default operation, pls check in config warehouse'%warehouse.name)
+            
+            new_picking.location_id = operation_type.default_location_src_id.id
+            new_picking.location_dest_id = operation_type.default_location_dest_id.id
+            for stock_move in new_picking.move_ids_without_package:
+                stock_move.location_id = operation_type.default_location_src_id.id
+                stock_move.location_dest_id = operation_type.default_location_dest_id.id
+            
+            for stock_move_line in new_picking.move_line_ids_without_package:
+                stock_move_line.location_id = operation_type.default_location_src_id.id
+                stock_move_line.location_dest_id = operation_type.default_location_dest_id.id
+            
+                      
             url = (request.httprequest.referrer and request.httprequest.referrer + "#create-transfer")
+            new_picking.action_confirm()
             return request.redirect(url)
     
     @http.route('/picking_upload_csv', type='http', method='POST', auth="user",website=True)
