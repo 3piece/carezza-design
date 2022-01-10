@@ -5,7 +5,7 @@
 
 			<table class="table-bordered table-format" t-if="picking.move_lines" >
 				<tr >
-					<th colspan="1" class=" text-center align-middle height-95 font-header">
+					<th colspan="6" class=" text-center align-middle height-95 font-header">
 						<strong t-esc="move.product_id.name" />
 						<span>-</span>
 						<strong t-esc="move.product_id.attribute_value" />
@@ -51,7 +51,7 @@
 						<span t-if='move_line.hides > 0' t-field="move_line.hides"></span>
 
 					</td>
-					<td colspan="2" class="text-left align-middle  border-left-0 label-leather">
+					<td colspan="2" class="text-right align-middle  border-left-0 label-leather">
 						<strong style='margin-right:10px'>Hides</strong>
 					</td>
 				</tr>
