@@ -5,7 +5,7 @@ import pandas as pd
 import base64
 import io
 import csv
-
+from datetime import datetime, timedelta
 import xlrd
 import tempfile
 import binascii
@@ -153,10 +153,9 @@ class StockPicking(models.Model):
         #Process remove and Create  current Picking not belong PO
         for detail in list_obj:      
             picking_ids = detail['purchase_id'].picking_ids.filtered(lambda picking: picking.state not in [ 'draft','done','cancel']).sorted(key=lambda r: r.id, reverse=True)
-
-
             if self.id not in picking_ids.ids and picking_ids:
                 #self.remove_move_line(picking_ids[0],[0])
+                picking_ids[0].ship_date = self.ship_date
                 self.create_move_line(picking_ids[0],detail,False)
                              
                      
@@ -237,6 +236,7 @@ class StockPicking(models.Model):
             for stock_move_line in self.move_line_ids_without_package:
                 ship_date = self.ship_date
                 stock_move_line.lot_id.ship_date = ship_date 
+                self.scheduled_date = self.ship_date + timedelta(days=14)
                     
         #self.upload_excel_file = False            
         return res
