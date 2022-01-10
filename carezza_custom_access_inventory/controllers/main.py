@@ -25,7 +25,7 @@ class CustomerPortal(CustomerPortal):
         order = request.env['purchase.order'].browse([int(post['order'])])
         picking_id = order.picking_ids.filtered(lambda picking: picking.state not in [ 'draft','done','cancel'])
         if picking_id:
-            new_picking = picking_id[0].copy()
+            new_picking = picking_id[0].sudo().copy()
             new_picking.action_confirm()
             new_picking.ship_date = post.get('ship_date')
             url = (request.httprequest.referrer and request.httprequest.referrer + "#create-transfer")
