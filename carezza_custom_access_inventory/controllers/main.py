@@ -27,6 +27,7 @@ class CustomerPortal(CustomerPortal):
         if picking_id:
             new_picking = picking_id[0].sudo().copy()
             new_picking.action_confirm()
+            new_picking.is_upload = False
             new_picking.ship_date = post.get('ship_date')
             url = (request.httprequest.referrer and request.httprequest.referrer + "#create-transfer")
             return request.redirect(url)
