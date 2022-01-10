@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from odoo.addons.odoo_csv_tools.lib import mapper
-from odoo.addons.odoo_csv_tools.lib.transform import Processor
+from odoo_csv_tools.lib import mapper
+from odoo_csv_tools.lib.transform import Processor
 from .prefix import *
 from re import sub as re_sub
 
