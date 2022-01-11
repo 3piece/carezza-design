@@ -70,7 +70,7 @@
 							<td class="text-center align-middle padding-0" colspan="2">
 								<t t-if="move_line.lot_id.name">
 									<div class=''>
-										<img class='img-barcode'
+										<img class='padding-top-5 img-barcode'
 											t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.lot_id.name, 600, 150)"
 											alt="Barcode" />
 										<span class='label-barcode' t-esc="move_line.lot_id.name" />
@@ -90,7 +90,7 @@
 									<div >
 										<img
 											t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', move_line.product_id.barcode, 600, 150)"
-											class='img-barcode' alt="Barcode" />
+											class='padding-top-5 img-barcode' alt="Barcode" />
 										<span t-esc="move_line.product_id.barcode"
 											class='label-barcode' />
 									</div>
