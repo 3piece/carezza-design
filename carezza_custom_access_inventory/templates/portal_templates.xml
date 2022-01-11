@@ -64,7 +64,7 @@
 			<h1>Transfers</h1>
 			
 			<!-- Create Transfer -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+			<button t-if="order.state != 'done'"  type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 			  <i class="fa fa-plus"></i>
 			</button>		
 			<table class="table table-sm" style='margin-top:10px'>
