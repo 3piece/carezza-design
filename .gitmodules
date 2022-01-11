@@ -1,0 +1,4 @@
+[submodule "tfrancoi/odoo_csv_import"]
+	path = tfrancoi/odoo_csv_import
+	url = git@github.com:tfrancoi/odoo_csv_import.git
+	branch = master
