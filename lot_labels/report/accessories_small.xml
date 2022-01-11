@@ -10,8 +10,7 @@
 							<strong t-esc="move.product_id.name" />					
 						</td>
 						
-					</tr>
-		
+					</tr>		
 					<tr class='height-30 line-14'>
 						<td style='width:20%' class="text-left align-middle font-small-material border-black">
 							<strong>Color :</strong>
@@ -19,11 +18,8 @@
 						<td style='width:78%' 
 							class="align-middle font-size-8 border-left-0 ">
 							<strong t-esc="move.product_id.attribute_value"  class='mg-left-5'/>
-						</td>
-						
-						
-					</tr>
-		
+						</td>												
+					</tr>	
 					<tr class='height-30 line-14'>
 						<td class="text-left align-middle font-small-material border-black">
 							<strong>APO: </strong>
@@ -32,9 +28,7 @@
 							class="align-middle font-size-8 border-left-0 mg-left-5">
 							<span t-field="move_line.lot_id.po_id.name" class='mg-left-5'></span>	
 						</td>
-					</tr>
-		
-					
+					</tr>					
 		
 					<tr class='line-6 height-30'>
 						<td 
