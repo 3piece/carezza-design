@@ -64,7 +64,7 @@
 			<h1>Transfers</h1>
 			
 			<!-- Create Transfer -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+			<button t-if="order.state != 'done'"  type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 			  <i class="fa fa-plus"></i>
 			</button>		
 			<table class="table table-sm" style='margin-top:10px'>
@@ -111,10 +111,10 @@
 								</td>
 
 								<td>									
-									<button t-if='picking.is_upload' type="submit" class="btn btn-success btn-submit">
+									<button t-if="picking.is_upload and order.state != 'done'" type="submit" class="btn btn-success btn-submit">
 										Submit
 									</button>
-									<button t-if='not picking.is_upload' type="submit" class="btn btn-primary btn-submit">
+									<button t-if="not picking.is_upload and order.state != 'done'" type="submit" class="btn btn-primary btn-submit">
 										Submit
 									</button>
 								</td>
@@ -137,6 +137,4 @@
 
 	</template>
 	<!-- portal_my_purchase_order -->
-
-
 </odoo>
