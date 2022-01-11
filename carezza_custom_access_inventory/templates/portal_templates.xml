@@ -7,8 +7,7 @@
 		priority="20">
 
 		<xpath expr="//div[hasclass('card-body')]/div[2]"
-			position="after">
-			
+			position="after">	
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
@@ -23,8 +22,7 @@
 							method="post" enctype="multipart/form-data"
 							class="o_mark_required" data-mark="*">
 		      <div class="modal-body">
-		      	<div>
-		      	
+		      	<div>		 
 		      		<input  type="hidden" name="order" t-att-value='order.id'/>
 		      		<input type="hidden" name="csrf_token"
 										t-att-value="request.csrf_token()" />
@@ -47,8 +45,7 @@
 	                                    <span t-esc='full_name'/>
 	                                </option>
 	                            </t>
-	                        </select>		      	 
-			      	 
+	                        </select>		      	 			      	 
 			      	 </div>
 		      	 </div>
 		        
@@ -61,10 +58,8 @@
 		    </div>
 		  </div>
 		</div>
-			<h1>Transfers</h1>
-			
+			<h1>Transfers</h1>		
 			<!-- Create Transfer -->
-			
 			<button t-if="order.state != 'done'" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 			  <i class="fa fa-plus"></i>
 			</button>		
@@ -74,7 +69,6 @@
 						<th>Reference</th>
 						<th>Ship Date</th>
 						<th>Upload</th>
-						
 						<th></th>
 						<th>Template</th>
 						<th>Lot Labels</th>
@@ -126,18 +120,14 @@
 								<td>
 									<a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-att-href="'/print_lot_label?picking_id=%s' % (picking.id)"  title="Print" target="_blank"><i class="fa fa-print"/></a>
 								</td>
-
 							</tr>
 						</form>
 					</t>
 				</tbody>
 			</table>
-
-
 		</xpath>
 
 	</template>
 	<!-- portal_my_purchase_order -->
-
 
 </odoo>
