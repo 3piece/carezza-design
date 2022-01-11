@@ -175,6 +175,12 @@ border-left: 0px !important;
  padding:8px 0px 8px 0px !important;
 }
 
+.line-6{
+ line-height: 6px;
+}
+.line-14{
+	line-height: 14px;
+}
 .mg-top-44{
 	margin-top:44px
 }
