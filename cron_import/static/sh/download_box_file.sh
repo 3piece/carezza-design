@@ -12,7 +12,7 @@ filepoint_po='drvyqoce396m39eqj2nhhqdcpxq9fuz6'  # PO
 #https://app.box.com/s/drvyqoce396m39eqj2nhhqdcpxq9fuz6  # Odoo 1.1 PO only. MPO_APO Data_Import (65&co.).csv
 #https://app.box.com/s/xkepsq6cixu3f934ltvbprsxexrl4k7o # Odoo 1.2 PO Receipt. MPO_APO Data_Import (65&co.).csv
 timestamp=$(date +'%y%m%d-%H%M')
-root_path="/home/pi3ce/03_DevProjects/carezza_dev/carezza-design/import_assist/"
+root_path='/home/odoo/imports/'  #"../"
 output_path=${root_path}'origin/source_files/'
 proc_path=${output_path}'processed/'
 po_file='po'
@@ -22,6 +22,7 @@ temp_file='.tmpfile'
 
 # echo $box_prefix$filepoint
 #echo ${output_path}${po_file}_${timestamp}.${file_type}
+
 for box_file in ${filepoint_po} ${filepoint_receipt}
 do
   echo "Box File | ${box_prefix}${box_file}"
