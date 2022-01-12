@@ -31,8 +31,8 @@ class OdooProcessor(object):
         # db_name = 'carezza-design-uat-dev-01-3609817'
         # host = 'carezza-design-uat-dev-02-3625399.dev.odoo.com'
         # db_name = 'carezza-design-uat-dev-02-3625399'
-        host = 'carezza-design-uat-v14-s2116-3625396.dev.odoo.com'
-        db_name = 'carezza-design-uat-v14-s2116-3625396'
+        host = 'carezza-design-uat-v14-s2116-3971842.dev.odoo.com'
+        db_name = 'carezza-design-uat-v14-s2116-3971842'
         username = 'admin'
         password = 'accesscar253'
 
