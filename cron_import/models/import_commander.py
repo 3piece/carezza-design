@@ -6,8 +6,8 @@ from shutil import move
 from datetime import datetime, timedelta
 
 
-from .convert_po import convert_data
-from .process_records import OdooProcessor
+from convert_po import convert_data
+from process_records import OdooProcessor
 # def move_file(input_foldeder, input_file, output_folder):
 #
 #     return True
