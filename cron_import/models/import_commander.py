@@ -6,8 +6,8 @@ from shutil import move
 from datetime import datetime, timedelta
 
 
-from convert_po import convert_data
-from process_records import OdooProcessor
+from . import convert_po
+from . import process_records
 # def move_file(input_foldeder, input_file, output_folder):
 #
 #     return True
@@ -20,10 +20,10 @@ from process_records import OdooProcessor
 # python ./import_commander.py -i ../origin/source_files/ -o ../output_3/
 
 def run_stack():
-    processor = OdooProcessor()
+    processor = process_records.OdooProcessor()
     po_suffix = 'po'
     receipts_suffix = 'rcpt'
-    timestamp = (datetime.now() + timedelta(hours=1)).strftime("%y%m%d-%H%M")
+    timestamp = datetime.now().strftime("%y%m%d-%H%M")
     export_list = []
     root_path = '/home/odoo/imports/'
     # lib_path = f'{root_path}lib/'
@@ -55,7 +55,7 @@ def run_stack():
     if proc_pos:
         print('Processing pos')
         try:
-            processor = OdooProcessor()
+            processor = process_records.OdooProcessor()
             processor.process_pos()
         except Exception as e:
             print(f"Failed to process PO's: {e}")
