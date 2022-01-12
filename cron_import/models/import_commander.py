@@ -28,7 +28,9 @@ def run_stack():
     export_list = []
 
     # import files
-    run('/home/pi3ce/03_DevProjects/carezza_dev/carezza-design/import_assist/lib/download_box_file.sh')
+    #run('/home/pi3ce/03_DevProjects/carezza_dev/carezza-design/import_assist/lib/download_box_file.sh')
+    run('/cron_import/static/sh/download_box_file.sh')
+    
     # get filename(s)
     proc_pos = False
     for file_path in Path(args.input).glob(f'{po_suffix}*.csv'):
@@ -79,7 +81,7 @@ def run_stack():
             print(f"Failed to process PO's: {e}")
     #     print('closing pos')
         # run(f'{args.output}purchase_order_status_done.sh')
-        run('/home/pi3ce/03_DevProjects/carezza_dev/carezza-design/import_assist/output_3/move_logs.sh')
+        run('/cron_import/static/sh/move_logs.sh')
 
     print(export_list)
     print("--== FINISHED ==--")
