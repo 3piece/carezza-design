@@ -49,7 +49,7 @@ class ProductTemplate(models.Model):
 
                                 
     @api.model
-    def cron_import(self):           
+    def cron_import(self):          
         run_stack()
 
         
