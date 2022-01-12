@@ -29,8 +29,12 @@ def run_stack():
 
     # import files
     #run('/home/pi3ce/03_DevProjects/carezza_dev/carezza-design/import_assist/lib/download_box_file.sh')
-    run('/cron_import/static/sh/download_box_file.sh')
+    #run('/cron_import/static/sh/download_box_file.sh')
     
+    run('src/user/cron_import/static/sh/download_box_file.sh')
+    
+    print("TEST!!!!!!!!!!!!!!!!!!!!!!")
+    print("TEST!!!!!!!!!!!!!!!!!!!!!!")
     # get filename(s)
     proc_pos = False
     for file_path in Path(args.input).glob(f'{po_suffix}*.csv'):
