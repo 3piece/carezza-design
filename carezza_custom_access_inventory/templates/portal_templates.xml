@@ -107,16 +107,21 @@
 										t-att-value='picking.id' name="picking_id" />
 									<input id="attachment"  type="file"
 										multiple="true" name="attachment" />
+										
+									
 
 								</td>
 
 								<td>									
-									<button t-if="picking.is_upload and order.state != 'done'" type="submit" class="btn btn-success btn-submit">
+									<button t-if="picking.is_upload and order.state != 'done'" type="submit" class="btn btn-success btn-submit btn-show">
+										Submited
+									</button>
+									<div style='margin-top:10px' class='submmited-file'></div>
+									<button t-if="not picking.is_upload and order.state != 'done'" type="submit" class="btn btn-primary btn-submit btn-show">
 										Submit
 									</button>
-									<button t-if="not picking.is_upload and order.state != 'done'" type="submit" class="btn btn-primary btn-submit">
-										Submit
-									</button>
+									<div style='margin-top:10px' class='submmited-file'></div>
+									
 								</td>
 								<td>																													
 									<a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-att-href="'/report/xlsx/report_xlsx.stock_picking_xlsx/%s' % (picking.id)"  title="Print" target="_blank"><i class="fa fa-print"/></a>
