@@ -236,7 +236,8 @@ class StockPicking(models.Model):
             for stock_move_line in self.move_line_ids_without_package:
                 ship_date = self.ship_date
                 stock_move_line.lot_id.ship_date = ship_date 
-                self.scheduled_date = self.ship_date + timedelta(days=14)
+                if ship_date:
+                    self.scheduled_date = ship_date + timedelta(days=14)
                     
         #self.upload_excel_file = False            
         return res
