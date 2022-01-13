@@ -276,7 +276,10 @@ class OdooProcessor(object):
         return left_elements, right_elements
 
     def process_pos(self):
-        po_file = '/home/pi3ce/03_DevProjects/carezza_dev/carezza-design/import_assist/output_3/purchase.order.csv'
+        root_path = '/home/odoo/imports/'
+        working_path = f'{root_path}origin/working/'
+        po_file = f'{working_path}purchase.order.csv'
+
         print(f'Processing POs from: {po_file}')
 
         df = pd.read_csv(po_file, usecols=['id', 'status_switch'], sep=';')

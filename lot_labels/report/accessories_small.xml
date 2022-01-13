@@ -32,7 +32,7 @@
 		
 					<tr class='line-6 height-30'>
 						<td 
-							class="text-left align-middle width-13-percent">
+							class="text-left align-middle width-42">
 							<strong class='font-small-material' style='margin-right:5px'>Ship Date: </strong>
 							
 							<t t-if='move_line.lot_id.ship_date'>
@@ -46,7 +46,7 @@
 						</td>
 		
 						<td 
-							class="text-left align-middle  font-size-8 width-13-percent">
+							class="text-left align-middle  font-size-8 width-42">
 							<strong class='font-small-material' style='margin-right:5px'>Quantity:</strong>
 							<t t-if="move_line.qty_done >0">
 								<span t-field="move_line.qty_done" class='font-size-8  align-middle'></span>
