@@ -38,6 +38,7 @@ class CustomerPortal(CustomerPortal):
             
             new_picking.location_id = operation_type.default_location_src_id.id
             new_picking.location_dest_id = operation_type.default_location_dest_id.id
+            new_picking.picking_type_id = operation_type
             for stock_move in new_picking.move_ids_without_package:
                 stock_move.location_id = operation_type.default_location_src_id.id
                 stock_move.location_dest_id = operation_type.default_location_dest_id.id
