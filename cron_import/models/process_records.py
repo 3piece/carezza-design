@@ -31,10 +31,12 @@ class OdooProcessor(object):
         # db_name = 'carezza-design-uat-dev-01-3609817'
         # host = 'carezza-design-uat-dev-02-3625399.dev.odoo.com'
         # db_name = 'carezza-design-uat-dev-02-3625399'
-        host = 'carezza-design-uat-v14-s2116-3625396.dev.odoo.com'
-        db_name = 'carezza-design-uat-v14-s2116-3625396'
+        # host = 'carezza-design-uat-v14-s2116-3971842.dev.odoo.com'
+        # db_name = 'carezza-design-uat-v14-s2116-3971842'
+        host = 'carezza-design-uat-v14-s2214-3922191.dev.odoo.com'
+        db_name = 'carezza-design-uat-v14-s2214-3922191'
         username = 'admin'
-        password = 'accesscar253'
+        password = 'strategiccar253'
 
         self.odoo = odoorpc.ODOO(host=host, port=port, protocol='jsonrpc+ssl')  #protocol='jsonrpc'  - port 80
             # .login(db_name, username, password)
