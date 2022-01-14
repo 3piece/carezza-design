@@ -1,0 +1,23 @@
+.dislay-none{
+ display:none
+}
+
+.dislay-block{
+ display:block
+}
+
+.btn-span{
+    padding: 10px;
+    display: inline;
+    border-radius: 2px;
+    font-family: "Arial";
+    border: 0;
+    margin: 0 10px;
+    background: red;
+    font-size: 15px;
+    line-height: 15px;
+    color: white;
+    width: auto;
+    height: auto;
+    box-sizing: content-box;
+}

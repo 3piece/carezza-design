@@ -93,13 +93,12 @@ class CustomerPortal(CustomerPortal):
         order = request.env['purchase.order'].browse([int(post['order'])])
         picking_id = order.picking_ids.filtered(lambda picking: picking.state not in [ 'draft','done','cancel'])
         if picking_id:
-            new_picking = picking_id[0].sudo().copy()
-            
-            new_picking.is_upload = False
-            #new_picking.picking_type_id = int(post.get('operation_type_value'))
-            new_picking.ship_date = post.get('ship_date')
             warehouse = request.env['stock.warehouse'].search([('id','=',post.get('operation_type_value'))])
             operation_type = warehouse.stock_po_picking_type_id
+            new_picking = picking_id[0].sudo().copy({'picking_type_id': operation_type.id})
+            new_picking.is_upload = False
+
+            new_picking.ship_date = post.get('ship_date')
             if not operation_type:
                 raise ValidationError('%s not set default operation, pls check in config warehouse'%warehouse.name)
             
