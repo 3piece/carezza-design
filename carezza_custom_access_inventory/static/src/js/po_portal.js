@@ -9,19 +9,22 @@ odoo.define('carezza_custom_access_inventory.portal_shipdate', function (require
 
 	$(".ship-date").change(function(){
           var element = $(this).parent().next().next().children()
-          element[0].classList.add("dislay-block");
-          element[0].classList.remove('dislay-none')
- 	  element[1].classList.remove("dislay-block");
-          element[1].classList.add('dislay-none')
+	  debugger;
+          element[0].classList.add("pointer-visible");
+          element[0].classList.remove('pointer-none')
+
+          element[1].classList.add('display-none')
+          element[1].classList.remove('display-block')
+
 	});
 
 	$(document).ready(function(){
 	  $(".btn-submit").click(function(){
-	     $(this).removeClass("btn-primary");
-	    $(this).addClass("btn-success"); 
-	    $(this).next().addClass('dislay-block') 
-            $(this).next().removeClass('dislay-none') 
-            $(this).addClass('dislay-none')
+            $(this).addClass('pointer-none')
+	    debugger
+            var a =  $(this).next()
+	    $(this).next().addClass('display-block')	
+           $(this).next().removeClass('display-none')
 	  });
 	});
 
