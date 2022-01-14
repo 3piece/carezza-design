@@ -1,9 +1,18 @@
-.dislay-none{
- display:none
+.pointer-none{
+ pointer-events: none;
+ opacity: 0.65;
+}
+
+.pointer-visible{
+ pointer-events: visible;
 }
 
 .dislay-block{
  display:block
+}
+
+.display-none{
+ display:none
 }
 
 .btn-span{
