@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
+<template id="purchase.portal_my_home_purchase" name="Show Purchase Orders" customize_show="True" inherit_id="portal.portal_my_home" priority="25">
+    <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+        <t t-call="portal.portal_docs_entry">
+            <t t-set="title">Purchase Orders</t>
+            <t t-set="url" t-value="'/my/purchase?filterby=purchase'"/>
+            <t t-set="placeholder_count" t-value="'purchase_count'"/>
+        </t>
+    </xpath>
+  </template>
+  
 	<template id="portal.portal_layout" name="Portal Layout">
 		<t t-call="portal.frontend_layout">
 			<t t-set="is_portal" t-value="True" />

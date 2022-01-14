@@ -13,7 +13,10 @@ odoo.define('carezza_custom_access_inventory.portal_shipdate', function (require
 	$(document).ready(function(){
 	  $(".btn-submit").click(function(){
 	     $(this).removeClass("btn-primary");
+	    debugger;
 	    $(this).addClass("btn-success"); 
+	     var a = $(this).next()
+	    $(this).next().append('<p>Tranfer submited</p>');    
 	  });
 	});
 
