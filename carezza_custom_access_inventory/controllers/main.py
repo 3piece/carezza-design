@@ -32,7 +32,7 @@ class CustomerPortal(CustomerPortal):
         }
         # default sort by value
         if not sortby:
-            sortby = 'date'
+            sortby = 'name'
         order = searchbar_sortings[sortby]['order']
 
         searchbar_filters = {
@@ -43,7 +43,7 @@ class CustomerPortal(CustomerPortal):
         }
         # default filter by value
         if not filterby:
-            filterby = 'all'
+            filterby = 'purchase'
         domain += searchbar_filters[filterby]['domain']
 
         # count for pager
