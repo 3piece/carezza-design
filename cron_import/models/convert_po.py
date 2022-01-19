@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo_csv_tools.lib import mapper
 from odoo_csv_tools.lib.transform import Processor
-from .prefix import *
+from prefix import *
 from re import sub as re_sub
 
 # Custom import
@@ -72,6 +72,20 @@ def format_po_number(po_number):
     po_number = po_number[11:15]
     # return '{}-{}{}-{}'.format(po_type_char, po_year, po_month, po_number)
     return '{}{}-{}'.format(po_year, po_month, po_number)
+
+
+def get_po_type(po_number):
+    """ Receives an MPO number: 'MPO21/03/000126', returns a type 'material'
+
+    Args:
+        po_number (string): The MPO/APO number exported by Aspiring: 'MPO21/03/000126'
+
+    Returns:
+         PO type (string): 'material' or 'accessory' (default)
+    """
+    po_type_char = po_number[0:1]
+    po_type = 'material' if po_type_char == 'M' else 'accessory'
+    return po_type
 
 
 # def get_po_type(po_number):
@@ -155,6 +169,7 @@ def convert_data(import_file, output_folder='./', encoding='UTF-8', delimiter=',
         'notes': mapper.val('Remarks  (PO)'),
         'user_id': mapper.val('Resp. By  (PO)'),
         'po_date': mapper.val('PO Date', postprocess=lambda x: datetime.strptime(x, "%d/%b/%Y").strftime("%Y-%m-%d " + local_time)),
+        'material_type': mapper.val('MPO/APO No.', postprocess=lambda x: get_po_type(x)),
         'status_switch': mapper.val('Status  (PO)')
     }
 
