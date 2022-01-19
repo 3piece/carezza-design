@@ -10,4 +10,4 @@ ts_hour=$(date +'%y%m%d-%H')
 mkdir ${export_path}${timestamp}
 mv ${working_path}*.log ${export_path}${timestamp}/
 mv ${working_path}*.bis ${export_path}${timestamp}/
-mv ${processed_path}${ts_hour}* ${export_path}${timestamp}/
+cp ${processed_path}${ts_hour}* ${export_path}${timestamp}/
