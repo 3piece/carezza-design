@@ -83,7 +83,7 @@
 					<t t-foreach="pickings" t-as="picking">
 						<form id="hr_recruitment_form" action="/picking_upload_csv"
 							method="post" enctype="multipart/form-data"
-							class="o_mark_required" data-mark="*">
+							class="o_mark_required form-rs" data-mark="*">
 							<tr>
 								<td>
 									<span t-esc='picking.name'></span>
@@ -111,7 +111,7 @@
 									<input type="hidden" id="picking_id"
 										t-att-value='picking.id' name="picking_id" />
 									<t t-if="order.state not in  ['done','cancel']">	
-										<input id="attachment"  type="file"
+										<input id="attachment"  type="file"  class='attachment-excel'
 											multiple="true" name="attachment" />
 									</t>	
 								</td>
