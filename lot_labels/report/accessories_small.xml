@@ -5,7 +5,7 @@
 			<div style='padding-top:80px'>
 				<table class="table-bordered table-60mm-format" style='margin:auto'
 					t-if="picking.move_lines">
-					<tr class='font-header-16'>
+					<tr class='font-header-16 line-30'>
 						<td class=" height-45 text-center align-middle" colspan='2'>
 							<strong t-esc="move.product_id.name" />					
 						</td>
