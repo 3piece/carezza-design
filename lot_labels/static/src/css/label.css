@@ -180,10 +180,13 @@ border-left: 0px !important;
 }
 
 .line-6{
- line-height: 8px;
+ line-height: 12px;
 }
 .line-14{
-	line-height: 16px;
+	line-height: 20px;
+}
+.line-30{
+	line-height: 30px;
 }
 .mg-top-44{
 	margin-top:44px
