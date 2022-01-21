@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="report assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/lot_labels/static/src/css/label.css"/>
+		</xpath>
+    </template>
+    <template id="asset_label" name="report assets" inherit_id="web.internal_layout">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/lot_labels/static/src/css/label.css"/>
+		</xpath>
+    </template>    
+    
+</odoo>

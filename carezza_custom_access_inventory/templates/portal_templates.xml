@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="portal_my_purchase_order_transfer"
+		name="Portal: My Purchase Order Transfer"
+		inherit_id="purchase.portal_my_purchase_order" customize_show="True"
+		priority="20">
+
+		<xpath expr="//div[hasclass('card-body')]/div[2]"
+			position="after">
+			
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Create Transfer</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span>x</span>
+		        </button>
+		      </div>
+		      <form id="hr_recruitment_form" action="/create_transfer"
+							method="post" enctype="multipart/form-data"
+							class="o_mark_required" data-mark="*">
+		      <div class="modal-body">
+		      	<div>
+		      	
+		      		<input  type="hidden" name="order" t-att-value='order.id'/>
+		      		<input type="hidden" name="csrf_token"
+										t-att-value="request.csrf_token()" />
+			      	 <div  style='margin-bottom:10px'>
+			      	 	
+			      	 	<strong>Ship Date:</strong>
+			      	 	<input required="" type="date" name="ship_date" format="dd-mm-yyyy"  style='margin-left:42px' />
+			      	 </div>
+			      	 
+			      	 <div>
+			      	 	<input  type="hidden" name="operation_type_value" id = "operation_type_value"/>
+			      	 	<strong>Destination Location: </strong>
+						<select id="operation_type" required="">
+								<option></option>
+	                            <t t-foreach="stock_picking_types" t-as="ptav">
+	                            	<t t-set='full_name'  t-value="ptav.name"></t>
+	                                <option t-att-value="ptav.id"
+	                                    t-att-data-value_id="ptav.id"
+	                                    t-att-data-value_name="ptav.name">
+	                                    <span t-esc='full_name'/>
+	                                </option>
+	                            </t>
+	                        </select>		      	 
+			      	 
+			      	 </div>
+		      	 </div>
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>			 
+		        <button type="submit" class="btn btn-primary" >Create</button>
+		      </div>
+		      </form>
+		    </div>
+		  </div>
+		</div>
+			<h1>Transfers</h1>
+			
+			<!-- Create Transfer -->
+			<button t-if="order.state not in  ['done','cancel']"  type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+			  <i class="fa fa-plus"></i>
+			</button>		
+			<table class="table table-sm" style='margin-top:10px'>
+				<thead class="bg-100">
+					<tr>
+						<th>Reference</th>
+						<th>Ship Date</th>
+						<th>Upload</th>
+						
+						<th></th>
+						<th>Template</th>
+						<th>Lot Labels</th>
+					</tr>
+				</thead>
+				<tbody>
+					<t t-foreach="pickings" t-as="picking">
+						<form id="hr_recruitment_form" action="/picking_upload_csv"
+							method="post" enctype="multipart/form-data"
+							class="o_mark_required" data-mark="*">
+							<tr>
+								<td>
+									<span t-esc='picking.name'></span>
+								</td>
+								<td>
+									<t t-if="order.state not in  ['done','cancel']">
+										<input t-att-value='picking.ship_date' type="date" class='ship-date'
+										name="ship_date" style='width:81%' />
+									</t>
+									<t t-if="order.state  in  ['done','cancel']">
+									    <span t-field='picking.ship_date'></span>
+									</t>
+									
+									<input type="hidden" name="csrf_token"
+										t-att-value="request.csrf_token()" />
+									<input type="hidden" id="picking_id"
+										t-att-value='picking.id' name="picking_id" />
+									
+								</td>
+
+								<td>
+
+									<input type="hidden" name="csrf_token"
+										t-att-value="request.csrf_token()" />
+									<input type="hidden" id="picking_id"
+										t-att-value='picking.id' name="picking_id" />
+									<t t-if="order.state not in  ['done','cancel']">	
+										<input id="attachment"  type="file"
+											multiple="true" name="attachment" />
+									</t>	
+								</td>
+
+								<td>									
+<!-- 									<button t-if="picking.is_upload and order.state != 'done'" type="submit" class="btn btn-success btn-submit btn-show">
+										Submit
+									</button> -->
+									<!-- <div style='margin-top:10px' class='submmited-file'></div> -->
+									<!-- <button t-if="not picking.is_upload and order.state != 'done'" type="submit" class="btn btn-primary btn-submit btn-show">
+										Submit
+									</button> -->
+									<t t-if="order.state not in  ['done','cancel']">
+									<button  type="submit" class="btn btn-primary btn-submit btn-show">
+										Submit
+									</button>
+									<span style = 'color: green;' class="fa fa-check-square note display-none" ></span>
+									<!-- <p class='btn btn-success btn-submit btn-show dislay-none'>Transfers submitted</p> -->
+									</t>
+								</td>
+								<td>																													
+									<a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-att-href="'/report/xlsx/report_xlsx.stock_picking_xlsx/%s' % (picking.id)"  title="Print" target="_blank"><i class="fa fa-print"/></a>
+								</td>	
+									
+								<td>
+									<a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-att-href="'/print_lot_label?picking_id=%s' % (picking.id)"  title="Print" target="_blank"><i class="fa fa-print"/></a>
+								</td>
+
+							</tr>
+						</form>
+					</t>
+				</tbody>
+			</table>
+
+
+		</xpath>
+
+	</template>
+	<!-- portal_my_purchase_order -->
+</odoo>
