@@ -3,7 +3,7 @@
 	<data>
 		<template id="ukfr_fabric">
 			<table class="table-bordered table-format" t-if="picking.move_lines" >
-				<tr class='height-95' >
+				<tr class='height-95' style='white-space: nowrap;'>
 					<td class="text-center"
 						colspan="7">
 						<div class='font-header mg-top-44 mg-bot-32'>
