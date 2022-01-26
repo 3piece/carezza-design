@@ -1,5 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+<template id="purchase.portal_my_purchase_orders" name="Portal: My Purchase Orders">
+    <t t-call="portal.portal_layout">
+      <t t-set="breadcrumbs_searchbar" t-value="True"/>
+      <t t-call="portal.portal_searchbar"/>
+      <t t-if="orders" t-call="portal.portal_table">
+        <thead>
+          <tr class="active">
+            <th>Purchase Orders #</th>
+            <th style='display:none' class="text-right">Confirmation Date</th>
+            <th style='display:none'></th>
+            <th class="text-right">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <t t-foreach="orders" t-as="order">
+            <tr>
+              <td>
+                <a t-att-href="order.get_portal_url()">
+                  <t t-esc="order.name"/>
+               </a>
+              </td>
+              <td style='display:none' class="text-right">
+                <span t-field="order.date_approve"/>
+              </td>
+              <td style='display:none'>
+                <t t-if="order.invoice_status == 'to invoice'">
+                  <span class="badge badge-info"><i class="fa fa-fw fa-file-text"/> Waiting for Bill</span>
+                </t>
+                <t t-if="order.state == 'cancel'">
+                  <span class="badge badge-secondary"><i class="fa fa-fw fa-remove"/> Cancelled</span>
+                </t>
+              </td>
+              <td class="text-right">
+                <span t-field="order.amount_total" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+              </td>
+            </tr>
+          </t>
+        </tbody>
+      </t>
+    </t>
+  </template>
+
+
 	<template id="rfq_purchase"
 		inherit_id="purchase.report_purchasequotation_document">
 		<xpath expr="//span[@t-field='order_line.date_planned']"
