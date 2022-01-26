@@ -12,6 +12,8 @@ border: 10px solid black !important;
 }
 .line-height-35{
     line-height: 35px;
+	word-wrap: normal;
+	max-width: 180px;
 }
 
 .line-height-40{
