@@ -25,10 +25,10 @@
 			<xpath expr="//field[@name='lot_ids']" position="after">
 				<field name="currency_id"  invisible='1'/>
 				<field name="group_id" invisible='1' />
-				<field name="invoice_number" />
-				<field name="invoice_date" />
-				<field name="invoice_amount"  widget="monetary" options="{'currency_field': 'currency_id'}"/>
-				<field name="average_skin_size" />	
+				<field name="invoice_number" optional='hide'/>
+				<field name="invoice_date"  optional='hide' />
+				<field name="invoice_amount"  optional='hide' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+				<field name="average_skin_size" optional='hide' />	
 			</xpath>
 
 
