@@ -3,7 +3,9 @@ from boxsdk import OAuth2, Client
 from subprocess import run
 from json import loads
 # import yaml
-# import logging
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class UploadToBox:
@@ -26,7 +28,7 @@ class UploadToBox:
 
         result_json = loads(result_json_string)
 
-        print(f'The new access token is: {result_json["access_token"]}')
+        _logger.info(f'The new access token is: {result_json["access_token"]}')
         auth = OAuth2(
             client_id=UploadToBox.client_id,
             client_secret=UploadToBox.client_secret,
@@ -37,13 +39,13 @@ class UploadToBox:
         source_folder = f'{UploadToBox.BASE_FOLDER}{timestamp}/'
 
         subfolder = client.folder(UploadToBox.folder_id).create_subfolder(timestamp)
+        _logger.debug("uploaded to Box folder: %s", subfolder)
         for file_path in Path(source_folder).glob('*'):
-            print(f'path: {file_path.parent} | file: {file_path.name}')
-            new_file = client.folder(subfolder).upload(file_path)
-            print('File "{0}" uploaded to Box with file ID {1}'.format(new_file.name, new_file.id))
-        print(f'All files uploaded to Box folder: {subfolder}')
+            _logger.info(f'path: {file_path.parent} | file: {file_path.name}')
+            new_file = client.folder(subfolder.id).upload(file_path)
+            _logger.info('File "{0}" uploaded to Box with file ID {1}'.format(new_file.name, new_file.id))
+        _logger.info(f'All files uploaded to Box folder: {subfolder}')
 
         #  get API App Access token using curl (no python func avialable). Not sure how long the expires is ~60 minutes. Can I use more than once - not sure?
         #  curl --location --request POST 'https://api.box.com/oauth2/token' --header 'content-type: application/x-www-form-urlencoded' --data-urlencode 'client_id=iu1g37vyi26a2xlymzvrzytj477mmmbc' --data-urlencode 'client_secret=zCmPNy7Fa0KL9KWERpKeiMgN1N5lTzLD' --data-urlencode 'grant_type=client_credentials' --data-urlencode 'box_subject_type=enterprise' --data-urlencode 'box_subject_id=833621239'
         #  example response: {"access_token":"kYs5HU34N10yPtj7JeGU4mVFKLedkw7b","expires_in":3751,"restricted_to":[],"token_type":"bearer"}
-
