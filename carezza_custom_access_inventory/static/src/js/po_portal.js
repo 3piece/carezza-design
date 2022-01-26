@@ -18,15 +18,30 @@ odoo.define('carezza_custom_access_inventory.portal_shipdate', function (require
 
 	});
 
+	$(".attachment-excel").change(function(){
+          var element = $(this).parent().next().children()
+	  debugger;
+          element[0].classList.add("pointer-visible");
+          element[0].classList.remove('pointer-none')
+
+          element[1].classList.add('display-none')
+          element[1].classList.remove('display-block')
+
+	});
+
 	$(document).ready(function(){
 	  $(".btn-submit").click(function(){
             $(this).addClass('pointer-none')
 	    debugger
             var a =  $(this).next()
 	    $(this).next().addClass('display-block')	
-           $(this).next().removeClass('display-none')
+            $(this).next().removeClass('display-none')
+		 
 	  });
+
+
 	});
+
 
 });
 
