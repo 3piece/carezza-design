@@ -4,7 +4,7 @@
 		<template id="ukfr_fabric">
 			<table class="table-bordered table-format" t-if="picking.move_lines" >
 				<tr class='height-95' >
-					<td class="text-center"
+					<td class="text-center header-595"
 						colspan="7">
 						<div class='font-header mg-top-44 mg-bot-32'>
 							<strong t-esc="move.product_id.name" />

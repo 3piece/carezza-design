@@ -4,8 +4,8 @@
 		<template id="fabric">
 			<table class="table-bordered table-format"
 				t-if="picking.move_lines">
-				<tr class='font-header '>
-					<td class=" height-95 text-center align-middle" colspan="4">
+				<tr class='font-header' >
+					<td class=" height-95 text-center align-middle header-595" colspan="4">
 						<strong t-esc="move.product_id.name" />
 						<span>-</span>
 						<strong t-esc="move.product_id.attribute_value" />

@@ -10,7 +10,17 @@
 width:338px; 
 border: 10px solid black !important;
 }
+.line-height-35{
+    line-height: 40px;
+    max-width: 180px;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+}
 
+.line-height-40{
+    line-height: 40px;
+}
 
 .height-160-no-border {
     height: 160px;
@@ -158,11 +168,17 @@ border-left: 0px !important;
     aspect-ratio: 138/100;
     border: 4px solid black !important;
 }
+.header-595{
+max-width: 595px;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+}
 
 .table-60mm-format {
     width: 180px;
     font-weight: bold !important;
-    aspect-ratio: 1/1;
+    min-height: 220px;
     border: 4px solid black !important;
 }
 
@@ -182,8 +198,8 @@ border-left: 0px !important;
 .line-6{
  line-height: 12px;
 }
-.line-14{
-	line-height: 20px;
+.line-25{
+	line-height: 25px;
 }
 .line-30{
 	line-height: 30px;

@@ -6,13 +6,12 @@
 				<table class="table-bordered table-60mm-format" style='margin:auto'
 					t-if="picking.move_lines">
 					<tr class='font-header-16 line-30'>
-						<td class=" height-45 text-center align-middle" colspan='2'>
+						<td class="line-height-35 text-center align-middle" colspan='2'>
 							<strong t-esc="move.product_id.name" />					
 						</td>
-						
 					</tr>
 		
-					<tr class='height-30 line-14'>
+					<tr class='height-30 line-25'>
 						<td style='width:20%' class="text-left align-middle font-small-material border-black">
 							<strong>Color :</strong>
 						</td>
@@ -24,7 +23,7 @@
 						
 					</tr>
 		
-					<tr class='height-30 line-14'>
+					<tr class='height-30 line-25'>
 						<td class="text-left align-middle font-small-material border-black">
 							<strong>APO: </strong>
 						</td>
@@ -66,8 +65,8 @@
 					</tr>
 		
 					<t t-if="move_line.product_id.tracking != 'none'">
-						<tr class='height-30 border-bottom-10'>
-							<td class="text-center align-middle padding-0" colspan="2">
+						<tr class='height-40 border-bottom-10 line-height-40'>
+							<td class="text-center align-middle padding-0 " colspan="2">
 								<t t-if="move_line.lot_id.name">
 									<div class=''>
 										<img class='padding-top-5 img-barcode'
@@ -84,7 +83,7 @@
 					</t>
 		
 					<t t-if="move_line.product_id.tracking == 'none'">
-						<tr class='height-30 border-bottom-10 padding-0'>
+						<tr class='height-40 line-height-40 border-bottom-10 padding-0'>
 							<td class="text-center align-middle padding-0" colspan="2">
 								<t t-if="move_line.product_id.barcode">
 									<div >
