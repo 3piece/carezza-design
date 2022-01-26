@@ -9,5 +9,13 @@
 				<attribute name="readonly">1</attribute>
 	      </xpath>      	      
     </field>
-  </record>      
+  </record>   
+  
+    <record model="ir.actions.act_window" id="stock.dashboard_open_quants"> <!-- Used in dashboard -->
+        <field name="name">Stock On Hand</field>
+        <field name="context">{'search_default_internal_loc': 1, 'search_default_productgroup':1, 'search_default_locationgroup':0}</field>
+        <field name="res_model">stock.quant</field>
+    </record>     
 </odoo>
+
+
