@@ -4,7 +4,7 @@ from glob import glob
 from pathlib import Path
 from subprocess import run
 from shutil import move
-from shutil import copytree
+from shutil import copy
 from datetime import datetime, timedelta
 
 
@@ -37,8 +37,10 @@ def run_stack():
     module_path = '/home/odoo/src/user/cron_import/'
     script_path = f'{module_path}static/sh/'
     export_path = f'{root_path}origin/exports/'
-    
+
+
     run(f'{script_path}download_box_file.sh')
+
 
     # get filename(s)
     proc_pos = False
@@ -82,11 +84,14 @@ def run_stack():
         filelist = glob(f'{working_path}*.bis')
         for single_file in filelist:
             move(single_file, target_folder)
-        copytree(f'{processed_dir}{timestamp}/', target_folder, dirs_exist_ok=True)
+        filelist = glob(f'{processed_dir}{timestamp}*')
+        for single_file in filelist:
+            copy(single_file, target_folder)
+        # copytree(f'{processed_dir}{timestamp}/', target_folder, dirs_exist_ok=True)
         print('Completed moving files and logs')
         # --- move_logs.py --- END
 
-        box = upload_to_box()
+        box = upload_to_box.UploadToBox()
         box.upload(timestamp)
 
         # mv f'/home/odoo/imports/origin/working/*.log' '/home/odoo/imports/origin/exports/ts/'

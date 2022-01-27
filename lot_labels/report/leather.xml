@@ -4,8 +4,8 @@
 		<template id="leather">
 
 			<table class="table-bordered table-format" t-if="picking.move_lines" >
-				<tr style='white-space: nowrap;'>
-					<th colspan="6" class=" text-center align-middle height-95 font-header">
+				<tr>
+					<th colspan="6" class=" header-595 text-center align-middle height-95 font-header">
 						<strong t-esc="move.product_id.name" />
 						<span>-</span>
 						<strong t-esc="move.product_id.attribute_value" />
