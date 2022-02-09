@@ -1,11 +1,7 @@
 @media print {body { zoom: 300%; }}
 
 .td-div {
-    height: 90px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    max-height: 95px;
 }
 
 span.line {
@@ -13,7 +9,6 @@ span.line {
 }
 
 .height-95 {
-    height: 95px;
     border: 10px solid black !important;
 }
 
@@ -184,10 +179,6 @@ border-left: 0px !important;
 }
 
 .header-595{
-    max-width: 595px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .table-60mm-format {
