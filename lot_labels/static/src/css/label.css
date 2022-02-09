@@ -2,14 +2,16 @@
 
 .td-div {
     max-height: 95px;
+
 }
 
 span.line {
-  display: inline-block;
+  /*display: inline-block;*/
 }
 
 .height-95 {
     border: 10px solid black !important;
+    min-height: 95px;
 }
 
 .height-160 {
