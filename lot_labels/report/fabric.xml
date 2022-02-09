@@ -6,6 +6,7 @@
 				t-if="picking.move_lines">
 				<tr class='font-header' >
 					<td class=" height-95 text-center align-middle header-595" colspan="4">
+						<span class="span-95"></span>
 						<div class="td-div">
 							<span class="line"><strong t-esc="move.product_id.name" /></span>
 							<span>-</span>

@@ -9,6 +9,10 @@ span.line {
   /*display: inline-block;*/
 }
 
+.span-95 {
+    height: 95px;
+}
+
 .height-95 {
     border: 10px solid black !important;
     min-height: 95px;
