@@ -1,21 +1,34 @@
 @media print {body { zoom: 300%; }}
 
-.height-95 {
+.td-div {
+    max-height: 95px;
+
+}
+
+span.line {
+  /*display: inline-block;*/
+}
+
+.span-95 {
     height: 95px;
+}
+
+.height-95 {
     border: 10px solid black !important;
+    min-height: 95px;
 }
 
 .height-160 {
     height: 160px;
-width:338px; 
-border: 10px solid black !important;
+    width:338px;
+    border: 10px solid black !important;
 }
 .line-height-35{
     line-height: 40px;
     max-width: 180px;
- overflow: hidden;
- text-overflow: ellipsis;
- white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
 }
 
 .line-height-40{
@@ -24,7 +37,7 @@ border: 10px solid black !important;
 
 .height-160-no-border {
     height: 160px;
-width:338px; 
+    width:338px;
 
 }
 
@@ -63,6 +76,7 @@ width:338px;
  font-size:12px;
  color: gray  !important;
  padding-left: 15px !important;
+ display: inline-block;
  display: inline-block;
  height:100%;
 
@@ -167,12 +181,10 @@ border-left: 0px !important;
     font-weight: bold !important;
     aspect-ratio: 138/100;
     border: 4px solid black !important;
+    table-layout: fixed;
 }
+
 .header-595{
-max-width: 595px;
- overflow: hidden;
- text-overflow: ellipsis;
- white-space: nowrap;
 }
 
 .table-60mm-format {
