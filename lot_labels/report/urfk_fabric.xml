@@ -6,6 +6,7 @@
 				<tr class='height-95' >
 					<td class="text-center header-595"
 						colspan="7">
+						<span class="span-95"></span>
 						<div class='font-header td-div'>
 							<span class="line"><strong t-esc="move.product_id.name" /></span>
 							<span>-</span>
