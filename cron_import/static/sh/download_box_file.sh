@@ -25,7 +25,7 @@ temp_file='.tmpfile'
 #echo ${output_path}${po_file}_${timestamp}.${file_type}
 
 for box_file in ${filepoint_po}
-# ${filepoint_receipt}
+# ${filepoint_receipt}  #  - removed Receipt file as no longer importing receipts
 do
   echo "Box File | ${box_prefix}${box_file}"
   curl -L ${box_prefix}${box_file} --output ${output_path}${temp_file}
