@@ -154,9 +154,10 @@ def convert_data(import_file, output_folder='./', encoding='UTF-8', delimiter=',
         # 'id': mapper.m2o(PURCHASE_ORDER_PREFIX, 'MPO/APO No.'),
         'origin': mapper.val('MPO/APO No.'),
         'name': mapper.val('MPO/APO No.', postprocess=lambda x: format_po_number(x)),
-        'partner_id/id': mapper.m2o_map(PURCHASE_VENDOR_PARTNER_PREFIX, mapper.val(
-            'Supplier',
-            postprocess=lambda x: PURCHASE_VENDOR_NAME_PREFIX + re_sub(r"[^a-zA-Z0-9_-]+", "", x.strip().replace(" ", "_")))),
+        'partner_id': mapper.val('Supplier'),
+        # 'partner_id/id': mapper.m2o_map(PURCHASE_VENDOR_PARTNER_PREFIX, mapper.val(
+        #     'Supplier',
+        #     postprocess=lambda x: PURCHASE_VENDOR_NAME_PREFIX + re_sub(r"[^a-zA-Z0-9_-]+", "", x.strip().replace(" ", "_")))),
         # 'po_type': mapper.val('MPO/APO No.', postprocess=lambda x: get_po_type(x)),
         # 'name': mapper.concat(' ','Firstname','Lastname'),
         'currency_id': mapper.val('Purchase Currency'),
