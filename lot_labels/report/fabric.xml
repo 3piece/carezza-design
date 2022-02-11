@@ -6,14 +6,17 @@
 				t-if="picking.move_lines">
 				<tr class='font-header' >
 					<td class=" height-95 text-center align-middle header-595" colspan="4">
-						<strong t-esc="move.product_id.name" />
-						<span>-</span>
-						<strong t-esc="move.product_id.attribute_value" />
+						<span class="span-95"></span>
+						<div class="td-div">
+							<span class="line"><strong t-esc="move.product_id.name" /></span>
+							<span>-</span>
+							<span class="line"><strong t-esc="move.product_id.attribute_value" /></span>
+						</div>
 					</td>
 				</tr>
 
 				<tr class='height-60'>
-					<td class="text-left align-middle font-label-fabric">
+					<td class="width-81 text-left align-middle font-label-fabric">
 						<strong>MPO :</strong>
 					</td>
 					<td colspan='3'
