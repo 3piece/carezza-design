@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ir_create_order_rule" model="ir.cron">
+        <field name="name">Auto Create Reorder Rule</field>
+        <field name="interval_number">7</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_product_template"/>
+        <field name="code">model.cron_auto_generate_ro()</field>
+        <field name="state">code</field>
+        <field name="active" eval="True"></field>
+    </record>
+    
+    <record id="ir_reset_seq_lot" model="ir.cron">
+        <field name="name">Reset Seq Lot every month</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_product_template"/>
+        <field name="code">model.cron_auto_generate_ro()</field>
+        <field name="state">code</field>
+        <field name="active" eval="True"></field>
+    </record>    
+</odoo>

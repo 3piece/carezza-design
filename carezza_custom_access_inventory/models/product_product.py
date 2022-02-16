@@ -32,7 +32,7 @@ class ProductProduct(models.Model):
                 _logger.info('No external_id updated for model: %s with id: %s. To update, set safe=False',
                              len(current_ids), model, id)
         else:
-            model_data.create({'name': external_id, 'module': prefix, 'model': model, 'res_id': id.id})
+            model_data.sudo().create({'name': external_id, 'module': prefix, 'model': model, 'res_id': id.id})
             _logger.info('Add external_id for model: %s, for id: %s, with external_id: %s', model, id.id,
                          prefix + '.' + external_id)
         return True
