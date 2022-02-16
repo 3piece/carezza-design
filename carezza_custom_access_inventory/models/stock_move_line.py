@@ -24,7 +24,7 @@ class StockMoveLine(models.Model):
             picking_id = context['default_picking_id']
         move_id = self.env['stock.move'].search([('product_id','=',self.product_id.id),('picking_id','=',picking_id)])
         qty_need = move_id.product_uom_qty- move_id.reserved_availability
-        quants = self.env['stock.quant']._gather(self.product_id,self.location_id,self.lot_id)
+        quants = self.env['stock.quant'].sudo()._gather(self.product_id,self.location_id,self.lot_id)
         available_quantity = self.check_available_quantity(self.product_id,self.location_id,qty_need,self.lot_id)
         if available_quantity:
             if available_quantity > qty_need:
@@ -38,7 +38,7 @@ class StockMoveLine(models.Model):
         if 'create_auto' not in vals:
             if 'product_uom_qty' in vals: 
                 if res.lot_id:
-                    quants = self.env['stock.quant']._gather(res.product_id,res.location_id,res.lot_id)  
+                    quants = self.env['stock.quant'].sudo()._gather(res.product_id,res.location_id,res.lot_id)  
                     current_reserved_quantity = quants.reserved_quantity
                     reserved_quantity = vals['product_uom_qty'] 
                     quants.reserved_quantity  = current_reserved_quantity + reserved_quantity      
