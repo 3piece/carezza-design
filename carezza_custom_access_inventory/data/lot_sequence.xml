@@ -7,7 +7,7 @@
             <field name="code">lot.generation</field>
             <field name="prefix">%(y)s%(month)s-</field>
             <field name="padding">5</field>
-            <field name="range_reset">monthly</field>
+            <!-- <field name="range_reset">monthly</field> -->
             <field name="use_date_range">False</field>   
         </record>
 
