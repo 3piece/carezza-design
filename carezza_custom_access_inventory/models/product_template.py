@@ -74,7 +74,7 @@ class ProductTemplate(models.Model):
                 ir_model_data = self.env['ir.model.data'].search([('res_id','=', product.id),
                                                                   ('model','=','product.product')])
                 
-                ir_model_data.name =  external_id
+                ir_model_data.sudo().name =  external_id
                 
                 
     
