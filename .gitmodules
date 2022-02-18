@@ -2,3 +2,8 @@
 	path = tfrancoi/odoo_csv_import
 	url = git@github.com:tfrancoi/odoo_csv_import.git
 	branch = master
+
+[submodule "OCA/stock-logistics-workflow"]
+	path = OCA/stock-logistics-workflow
+	url = git@github.com:OCA/stock-logistics-workflow.git
+	branch = 14.0
