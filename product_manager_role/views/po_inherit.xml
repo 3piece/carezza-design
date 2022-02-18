@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="purchase_order_new_field_form_view"
+		model="ir.ui.view">
+		<field name="name">purchase.order.search.inherit</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form" />
+		<field name="arch" type="xml">
+
+			<xpath expr="//field[@name='currency_id']" position="before">
+				<field name='material_type'></field>
+			</xpath>
+					
+			<xpath expr="//field[@name='date_order']" position="before">
+				<field name='po_date' string='PO Date'></field>
+			</xpath>
+				
+			<xpath expr="//field[@name='date_order']" position="replace">
+				<field name="date_order" widget="date"
+					attrs="{'invisible': [('state','=','purchase')]}" />
+			</xpath>
+
+			<xpath expr="//field[@name='date_planned']" position="replace">
+				<field name="date_planned" widget="date"
+					attrs="{'readonly': [('state', 'not in', ('draft', 'sent', 'to approve', 'purchase'))]}" />
+			</xpath>
+			
+			<xpath expr="//field[@name='date_approve']" position="replace">
+				<field name="date_approve" widget="date" />
+			</xpath>			
+
+
+			<xpath expr="//tree/field[@name='date_planned']"
+				position="replace">
+				<field name="date_planned" widget="date" optional="hide"
+					attrs="{'required': [('display_type', '=', False)]}" force_save="1" />
+			</xpath>
+		</field>
+	</record>
+
+
+	<record id="purchase_order_tree_view"
+		model="ir.ui.view">
+		<field name="name">purchase.order.tree.inherit</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_view_tree" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='name']" position="after">
+				<field name='material_type'></field>
+				<field name='po_date'></field>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="purchase_order_kpis_tree_view"
+		model="ir.ui.view">
+		<field name="name">purchase.order.kpis.tree.inherit</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_kpis_tree" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='name']" position="after">
+				<field name='material_type'></field>
+				<field name='po_date'></field>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="sotck_purchase_order_view_form_inherit"
+		model="ir.ui.view">
+		<field name="name">purchase.order.search.inherit</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id"
+			ref="purchase_stock.purchase_order_view_form_inherit" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='effective_date']"
+				position="replace">
+				<field name="effective_date"
+					attrs="{'invisible': [('effective_date', '=', False)]}"
+					widget="date" />
+			</xpath>
+
+		</field>
+	</record>
+
+        
+        <record id="po_carezza_search_view" model="ir.ui.view">
+            <field name="name">po.search.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='order_date']" position="after">
+                	<separator/>
+                    <filter name="material_type_material" string="Material" domain="[('material_type','=','material')]"/>
+                    <filter name="material_type_accessory" string="Accessory" domain="[('material_type','=','Accessory')]"/>
+                </xpath>
+            </field>
+        </record>
+        
+         <record id="po_carezza_search_filter_view" model="ir.ui.view">
+            <field name="name">po.search.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='order_date']" position="after">
+                	<separator/>
+                    <filter name="material_type_material" string="Material" domain="[('material_type','=','material')]"/>
+                    <filter name="material_type_accessory" string="Accessory" domain="[('material_type','=','Accessory')]"/>
+                	<separator/>
+                </xpath>
+            </field>
+        </record>                   
+	<!-- purchase_stock.purchase_order_view_form_inherit -->
+
+</odoo>
