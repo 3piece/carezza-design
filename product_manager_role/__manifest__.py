@@ -39,8 +39,9 @@
     'depends': ['base','product'],
 
     'data': [
-        'security/ir.model.access.csv',
+        
         'security/group_security.xml',
+        'security/ir.model.access.csv',
         
         
         
