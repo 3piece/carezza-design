@@ -13,12 +13,21 @@ span.line {
     height: 95px;
 }
 
+.span-160 {
+    height: 95px;
+}
+
+.td-div-160 {
+    max-height: 160px;
+}
+
 .height-95 {
     border: 10px solid black !important;
     min-height: 95px;
 }
 
 .height-160 {
+    min-hieght: 160px;
     height: 160px;
     width:338px;
     border: 10px solid black !important;
