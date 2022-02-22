@@ -186,7 +186,7 @@ class StockPicking(models.Model):
             #full_name = df['Display Name'][index]
             
             if  math.isnan(df['Box / Roll / Pallet No'][index]):
-                box = 1
+                box = 0
             else:
                 box = df['Box / Roll / Pallet No'][index]
 
@@ -196,7 +196,7 @@ class StockPicking(models.Model):
                 hides = df['Hides'][index]
             
             if  math.isnan(df['Quantity'][index]):
-                quantity = 1
+                quantity = 0
             else:
                 quantity = df['Quantity'][index]
                        
