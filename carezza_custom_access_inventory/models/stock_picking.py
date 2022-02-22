@@ -175,7 +175,6 @@ class StockPicking(models.Model):
         fp.seek(0)
         df = pd.read_excel(fp.name, engine='openpyxl')
         df = df.to_dict()
-        print(df)
         count_lop = len(df['Hides'])
         list_move_line_id = []
         list_obj = []
@@ -185,6 +184,22 @@ class StockPicking(models.Model):
                 break;          
             #product_name = "[%s] "%df['Code'][index] + "%s "%df['Product Name'][index]+ "[%s]"+ df['Color'][index]
             #full_name = df['Display Name'][index]
+            
+            if  math.isnan(df['Box / Roll / Pallet No'][index]):
+                box = 0
+            else:
+                box = df['Box / Roll / Pallet No'][index]
+
+            if  math.isnan(df['Hides'][index]):
+                hides = 0
+            else:
+                hides = df['Hides'][index]
+            
+            if  math.isnan(df['Quantity'][index]):
+                quantity = 0
+            else:
+                quantity = df['Quantity'][index]
+                       
             code=""
             if isinstance(df['Code'][index], str):
                 code = '[%s] '%df['Code'][index]
@@ -207,9 +222,9 @@ class StockPicking(models.Model):
             'picking_name' : self.name,
             'purchase_id': purchase_id,
             'product_id': product_id,
-            'qty_done': df['Quantity'][index],
-            'pallet_number': df['Box / Roll / Pallet No'][index],
-            'hides': df['Hides'][index],
+            'qty_done': quantity,
+            'pallet_number': box,
+            'hides': hides,
             'move_line_id': int(df['Move line id'][index]) if math.isnan(df['Move line id'][index])!= True else False }
             list_obj.append(dict_val)
             if not math.isnan(df['Move line id'][index]):
