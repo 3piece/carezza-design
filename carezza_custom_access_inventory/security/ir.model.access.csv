@@ -28,4 +28,3 @@ access_stock_putaway_rule_portal,access_stock_putaway_rule_portal,stock.model_st
 access_stock_warehouse_orderpoint_portal,access_stock_warehouse_orderpoint,stock.model_stock_warehouse_orderpoint,base.group_portal,1,1,1,1
 access_product_variant,access_product_variant,product.model_product_template_attribute_line,base.group_user,1,1,1,1
 access_product_variant_value,access_product_variant_value,product.model_product_template_attribute_value,base.group_user,1,1,1,1
-access_ir_model_data,access_ir_model_data,base.model_ir_model_data,base.group_user,1,1,1,0
