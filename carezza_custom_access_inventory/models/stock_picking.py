@@ -175,7 +175,6 @@ class StockPicking(models.Model):
         fp.seek(0)
         df = pd.read_excel(fp.name, engine='openpyxl')
         df = df.to_dict()
-        print(df)
         count_lop = len(df['Hides'])
         list_move_line_id = []
         list_obj = []
@@ -185,6 +184,18 @@ class StockPicking(models.Model):
                 break;          
             #product_name = "[%s] "%df['Code'][index] + "%s "%df['Product Name'][index]+ "[%s]"+ df['Color'][index]
             #full_name = df['Display Name'][index]
+            a = math.isnan(df['Hides'][index])
+            
+            if  math.isnan(df['Box / Roll / Pallet No'][index]):
+                raise ValidationError("Box / Roll / Pallet No row %s should't empty"%index)
+
+            if  math.isnan(df['Hides'][index]):
+                raise ValidationError("Hides row %s should't empty"%index)
+            
+            if  math.isnan(df['Quantity'][index]):
+                raise ValidationError("Quantity row %s should't empty"%index)
+            
+                       
             code=""
             if isinstance(df['Code'][index], str):
                 code = '[%s] '%df['Code'][index]
