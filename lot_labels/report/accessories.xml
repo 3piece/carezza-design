@@ -17,9 +17,11 @@
 					</td>
 					<td style="border: 0px !important;"></td>
 					<td rowspan="4" class="text-center align-middle td-img-accessory">
+						<div class="img-acc-div">
 						<img
 							t-attf-src="/web/image/product.product/#{move_line.product_id.id}/image_256"
-							class="img img-fluid" style="width: 95%;height: auto;" alt="Product image" />
+							class="img img-fluid img-acc" style="width: 95%;height: auto;" alt="Product image" />
+						</div>
 					</td>
 				</tr>
 				<tr class='height-59'>
