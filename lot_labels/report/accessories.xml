@@ -6,11 +6,14 @@
 				<tr >
 					<td class="text-center height-160  header-595"
 						colspan="2">
-						<div class='font-header mg-top-44 mg-bot-32'>
-							<strong t-esc="move.product_id.name" />
+						<span class="span-95"></span>
+						<div class="acc-title-div">
+							<div class='font-header two-line-div'>
+								<strong t-esc="move.product_id.name" />
+							</div>
 						</div>
 
-						<div class='font-size-24 mg-bot-32'>
+						<div class='font-size-24'>
 							<strong t-esc="move.product_id.attribute_value" />
 						</div>
 						

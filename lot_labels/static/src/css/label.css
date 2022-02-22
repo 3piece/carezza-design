@@ -166,6 +166,16 @@ border-left: 0px !important;
     height: 300px;
 }
 
+.two-line-div {
+    line-height: 1.5em;
+    max-height: 3em;
+    overflow: hidden;
+}
+
+.acc-title-div {
+    min-height: 64px;
+}
+
 .img-barcode{
  width: 95%  !important;
  height: 30px  !important;
