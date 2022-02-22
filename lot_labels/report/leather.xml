@@ -6,9 +6,12 @@
 			<table class="table-bordered table-format" t-if="picking.move_lines" >
 				<tr>
 					<th colspan="6" class=" header-595 text-center align-middle height-95 font-header">
-						<strong t-esc="move.product_id.name" />
-						<span>-</span>
-						<strong t-esc="move.product_id.attribute_value" />
+						<span class="span-95"></span>
+						<div class="td-div">
+							<span class="line"><strong t-esc="move.product_id.name" /></span>
+							<span>-</span>
+							<span class="line"><strong t-esc="move.product_id.attribute_value" /></span>
+						</div>
 					</th>
 				</tr>
 

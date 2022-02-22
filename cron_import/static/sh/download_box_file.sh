@@ -8,7 +8,8 @@
 box_prefix='https://app.box.com/shared/static/'
 #filepoint='fsfjh4mcp81qsiby5c19mfym4npt1597'
 filepoint_receipt='xkepsq6cixu3f934ltvbprsxexrl4k7o'  # Receipt
-filepoint_po='drvyqoce396m39eqj2nhhqdcpxq9fuz6'  # PO
+#filepoint_po='drvyqoce396m39eqj2nhhqdcpxq9fuz6'  # PO - Deleted on 10 Feb 2022
+filepoint_po='zhtc87rpyrraj4gc3v9jg3xtcy7u96vf'  # PO - Added on 10 Feb 2022 |
 #https://app.box.com/s/drvyqoce396m39eqj2nhhqdcpxq9fuz6  # Odoo 1.1 PO only. MPO_APO Data_Import (65&co.).csv
 #https://app.box.com/s/xkepsq6cixu3f934ltvbprsxexrl4k7o # Odoo 1.2 PO Receipt. MPO_APO Data_Import (65&co.).csv
 timestamp=$(date +'%y%m%d-%H%M')
@@ -23,7 +24,8 @@ temp_file='.tmpfile'
 # echo $box_prefix$filepoint
 #echo ${output_path}${po_file}_${timestamp}.${file_type}
 
-for box_file in ${filepoint_po} ${filepoint_receipt}
+for box_file in ${filepoint_po}
+# ${filepoint_receipt}  #  - removed Receipt file as no longer importing receipts
 do
   echo "Box File | ${box_prefix}${box_file}"
   curl -L ${box_prefix}${box_file} --output ${output_path}${temp_file}
