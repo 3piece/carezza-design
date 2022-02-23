@@ -4,19 +4,19 @@
 		<template id="accessories_label">
 			<table class="table-bordered table-format" t-if="picking.move_lines" >
 				<tr >
-					<td class="text-center height-160  header-595"
-						colspan="2">
-						<span class="span-95"></span>
-						<div class="acc-title-div">
-							<div class='font-header two-line-div'>
-								<strong t-esc="move.product_id.name" />
+					<td class="text-center height-160" colspan="2">
+						<span class="span-160"></span>
+						<div class="td-div-160">
+							<div class="acc-title-div">
+								<div class='font-header two-line-div'>
+									<strong t-esc="move.product_id.name" />
+								</div>
+							</div>
+
+							<div class='font-size-24'>
+								<strong t-esc="move.product_id.attribute_value" />
 							</div>
 						</div>
-
-						<div class='font-size-24'>
-							<strong t-esc="move.product_id.attribute_value" />
-						</div>
-						
 					</td>
 					<td style="border: 0px !important;"></td>
 					<td rowspan="4" class="text-center align-middle td-img-accessory">

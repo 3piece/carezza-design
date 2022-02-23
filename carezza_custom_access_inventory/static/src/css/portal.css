@@ -15,6 +15,10 @@
  display:none
 }
 
+.text-submitted{
+    color: lightgrey;
+}
+
 .btn-span{
     padding: 10px;
     display: inline;

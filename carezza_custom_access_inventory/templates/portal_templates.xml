@@ -112,7 +112,7 @@
 										t-att-value='picking.id' name="picking_id" />
 									<t t-if="order.state not in  ['done','cancel']">	
 										<input id="attachment"  type="file"  class='attachment-excel'
-											multiple="true" name="attachment" />
+											multiple="true" name="attachment" data-show-upload="true" data-show-caption="true" />
 									</t>	
 								</td>
 

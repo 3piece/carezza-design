@@ -36,7 +36,7 @@
     'sequence': 40,
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
 
-    'depends': ['base','product'],
+    'depends': ['base','product','stock','purchase'],
 
     'data': [
         
