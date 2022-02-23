@@ -8,17 +8,17 @@ odoo.define('carezza_custom_access_inventory.portal_shipdate', function (require
 //    delete window.ready_to_submit;
 	function ready_to_submit(element){
 	    console.log("Ready");
-	    console.log(element);
+//	    console.log(element);
 	    element.find(".attachment-excel").removeClass("text-submitted")
 //	    element.closest(".attachment-excel").removeClass("text-submitted")
 	}
 
-//    delete window.sending();
+//    delete sending;
     function sending(element){
 	    console.log("sending");
-	    console.log(element);
-	    element.find(".attachment-excel").delay(800).val(null);
-	    element.find(".attachment-excel").addClass("text-submitted")
+//	    console.log(element);
+//	    element.find(".attachment-excel").val(null);
+	    element.find(".attachment-excel").addClass("text-submitted");
 //	    element.find(".attachment-excel").value = '';
 
 	}
@@ -61,13 +61,16 @@ odoo.define('carezza_custom_access_inventory.portal_shipdate', function (require
 
 	$(document).ready(function(){
 
-    //	$(".btn-submit").off("click");
+//    	$(".btn-submit").off("click");
 
         $(".btn-submit").click(function(){
                 $(this).addClass('pointer-none');
                 var a =  $(this).next();
                 $(this).next().addClass('display-block');
                 $(this).next().removeClass('display-none');
+                setTimeout(function() {
+                    $("#attachment").val(null);
+                }, 2000);
                 sending($(this).parent().parent());
         });
 
