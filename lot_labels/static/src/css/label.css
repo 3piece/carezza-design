@@ -101,6 +101,10 @@ span.line {
 
 }
 
+.text-submitted{
+    color: lightgrey;
+}
+
 
 .font-label-fabric{
  font-size:12px  !important;
