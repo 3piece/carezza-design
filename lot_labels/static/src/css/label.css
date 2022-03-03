@@ -257,6 +257,11 @@ border-left: 0px !important;
 	margin-bottom:32px
 }
 
+.acc-title-top-margin-div {
+    height: 32px;
+    min-height: 10px;
+}
+
 .table-bordered td{
 border: 2px solid black;
     overflow: hidden;

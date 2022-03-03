@@ -4,6 +4,12 @@
 		<template id="fabric">
 			<table class="table-bordered table-format"
 				t-if="picking.move_lines">
+				<colgroup>
+					<col style="width: 15%;" span="1"></col>
+					<col style="width: 35%;" span="1"></col>
+					<col style="width: 15%;" span="1"></col>
+					<col style="width: 35%;" span="1"></col>
+				</colgroup>
 				<tr class='font-header' >
 					<td class=" height-95 text-center align-middle header-595" colspan="4">
 						<span class="span-95"></span>
