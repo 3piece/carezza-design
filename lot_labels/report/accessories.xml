@@ -3,8 +3,15 @@
 	<data>
 		<template id="accessories_label">
 			<table class="table-bordered table-format" t-if="picking.move_lines" >
+				<colgroup>
+					<col style="width: 15%;" span="1"></col>
+					<col style="width: 40%;" span="1"></col>
+					<col style="width: 1%;" span="1"></col>
+					<col style="width: 44%;" span="1"></col>
+				</colgroup>
 				<tr >
 					<td class="text-center height-160" colspan="2">
+						<div class="acc-title-top-margin-div"></div>
 						<span class="span-160"></span>
 						<div class="td-div-160">
 							<div class="acc-title-div">
@@ -18,8 +25,8 @@
 							</div>
 						</div>
 					</td>
-					<td style="border: 0px !important;"></td>
-					<td rowspan="4" class="text-center align-middle td-img-accessory">
+					<td></td>
+					<td colspan="1" rowspan="4" class="text-center align-middle td-img-accessory">
 						<div class="img-acc-div">
 						<img
 							t-attf-src="/web/image/product.product/#{move_line.product_id.id}/image_256"
@@ -31,7 +38,7 @@
 						<td class=" align-middle font-label-accessory" >
 							<strong>APO :</strong>
 						</td>
-						<td  style='width:238px'  class="text-center align-middle font-size-24  border-left-0" >
+						<td colspan="2" style='width:238px'  class="text-center align-middle font-size-24  border-left-0" >
 							<span t-field="move_line.lot_id.po_id.name"></span>
 						</td>							
 				</tr>
@@ -40,7 +47,7 @@
 					<td class="align-middle font-label-accessory">
 						<strong>Quantity: </strong>
 					</td>
-					<td class=" text-center align-middle font-size-24 border-left-0" >
+					<td colspan="2" class=" text-center align-middle font-size-24 border-left-0" >
 						<t t-if="move_line.qty_done >0">
 							<span t-field="move_line.qty_done"></span>
 						</t>
@@ -57,7 +64,7 @@
 					<td class=" align-middle font-label-accessory">
 						<strong>Ship Date: </strong>
 					</td>
-					<td class="font-size-24 text-center align-middle border-left-0">
+					<td colspan="2" class="font-size-24 text-center align-middle border-left-0">
 						<t t-if='move_line.lot_id.ship_date'>
 							<span t-field="move_line.lot_id.ship_date"
 							t-options='{"format": "dd MMM yyyy"}'></span>
@@ -72,7 +79,7 @@
 					<td  class="align-middle  align-middle font-label-accessory" >
 						<strong>Supplier:</strong>
 					</td>
-					<td class="border-left-0 text-center align-middle font-size-24" >
+					<td colspan="2" class="border-left-0 text-center align-middle font-size-24" >
 						<t t-if="move_line.lot_id.supplier_id.name">
 							<span t-field="move_line.lot_id.supplier_id.name"></span>
 						</t>
@@ -81,7 +88,7 @@
 						</t>
 					</td>			
 					<t t-if="move_line.product_id.tracking != 'none'">
-						<td style='width:100px;height:61px;line-height: 1;' class="text-center align-middle" colspan="2">
+						<td style='width:100px;height:61px;line-height: 1;' class="text-center align-middle" colspan="1">
 							<t t-if="move_line.lot_id.name">
 								<div class='padding-top-bot-8' style='height:57px'>
 									<img
@@ -99,7 +106,7 @@
 				
 					<t t-if="move_line.product_id.tracking == 'none'">
 				
-						<td class="text-center align-middle" colspan="2" style='line-height: 1;'>
+						<td class="text-center align-middle" colspan="1" style='line-height: 1;'>
 							<t t-if="move_line.product_id.barcode">
 								<div class='padding-top-bot-8'>
 									<img
