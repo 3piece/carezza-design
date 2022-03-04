@@ -1,8 +1,38 @@
 @media print {body { zoom: 300%; }}
 
 .td-div {
-    max-height: 95px;
+    height: 95px;
+}
 
+.row {
+    display: -webkit-box; /* wkhtmltopdf uses this one */
+    display: flex;
+    -webkit-box-pack: center; /* wkhtmltopdf uses this one */
+    -webkit-box-align: center; /* wkhtmltopdf uses this one to align vertically*/
+    justify-content: center;
+    align-items: center;
+    padding: 0px 20px 0px 20px;
+/*     max-width: 90%; */
+}
+
+.row > div {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: hidden;
+/*     align-self: center; */
+/*     max-width: 80%; */
+/*     display: table;
+    vertical-align: middle; */
+}
+
+/* .row > div:last-child {
+    margin-right: 0;
+}
+ */
+
+.thick-border {
+    border: 10px solid black !important;
 }
 
 span.line {

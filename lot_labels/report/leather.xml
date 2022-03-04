@@ -4,15 +4,24 @@
 		<template id="leather">
 
 			<table class="table-bordered table-format" t-if="picking.move_lines" >
+				<colgroup>
+					<col style="width: 13%;" span="1"></col>
+					<col style="width: 20%;" span="1"></col>
+					<col style="width: 13%;" span="1"></col>
+					<col style="width: 20%;" span="1"></col>
+					<col style="width: 13%;" span="1"></col>
+					<col style="width: 20%;" span="1"></col>
+				</colgroup>
 				<tr>
-					<th colspan="6" class=" header-595 text-center align-middle height-95 font-header">
-						<span class="span-95"></span>
-						<div class="td-div">
-							<span class="line"><strong t-esc="move.product_id.name" /></span>
-							<span>-</span>
-							<span class="line"><strong t-esc="move.product_id.attribute_value" /></span>
+					<td colspan="6" class="height-95 font-header thick-border">
+						<div class="row td-div text-center">
+                            <div>
+								<span class="line"><strong t-esc="move.product_id.name" /></span>
+								<span>-</span>
+								<span class="line"><strong t-esc="move.product_id.attribute_value" /></span>
+							</div>
 						</div>
-					</th>
+					</td>
 				</tr>
 
 				<tr class='height-60'>
@@ -34,10 +43,10 @@
 				</tr>
 
 				<tr class='height-60'>
-					<td class="text-left align-middle  border-right-0 label-leather">
+					<td colspan="1" class="text-left align-middle  border-right-0 label-leather">
 						<strong>Quantity: </strong>
 					</td>
-					<td  class="text-right align-middle font-size-24 border-left-0 border-right-0">
+					<td colspan="2" class="text-right align-middle font-size-24 border-left-0 border-right-0">
 						<t t-if="move_line.qty_done >0">
 							<span t-field="move_line.qty_done"></span>
 						</t>
@@ -46,15 +55,15 @@
 						</t>
 						
 					</td>
-					<td  class=" text-left align-middle font-size-24 border-right-black border-left-0">
+					<td colspan="1" class=" text-left align-middle font-size-24 border-right-black border-left-0">
 						<span class='mg-left-5' t-field="move_line.product_uom_id"></span>
 					</td>
-					<td class="text-right align-middle font-size-24 border-right-0" style='width:51px'>
+					<td colspan="1" class="text-right align-middle font-size-24 border-right-0" style='width:51px'>
 						
 						<span t-if='move_line.hides > 0' t-field="move_line.hides"></span>
 
 					</td>
-					<td colspan="2" class="text-right align-middle  border-left-0 label-leather">
+					<td colspan="1" class="text-right align-middle  border-left-0 label-leather">
 						<strong style='margin-right:10px'>Hides</strong>
 					</td>
 				</tr>

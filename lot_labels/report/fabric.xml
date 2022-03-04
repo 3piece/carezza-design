@@ -10,10 +10,9 @@
 					<col style="width: 15%;" span="1"></col>
 					<col style="width: 35%;" span="1"></col>
 				</colgroup>
-				<tr class='font-header' >
-					<td class=" height-95 text-center align-middle header-595" colspan="4">
-						<span class="span-95"></span>
-						<div class="td-div">
+				<tr>
+					<td class="height-95 font-header thick-border" colspan="4">
+						<div class="row td-div text-center">
 							<span class="line"><strong t-esc="move.product_id.name" /></span>
 							<span>-</span>
 							<span class="line"><strong t-esc="move.product_id.attribute_value" /></span>
@@ -30,7 +29,6 @@
 						<span t-field="move_line.lot_id.po_id.name"></span>
 					</td>
 				</tr>
-
 				<tr class='height-60'>
 					<td class="text-left align-middle font-label-fabric">
 						<strong>Code: </strong>
