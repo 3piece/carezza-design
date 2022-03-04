@@ -12,15 +12,16 @@
 					<col style="width: 13%;" span="1"></col>
 					<col style="width: 20%;" span="1"></col>
 				</colgroup>
+
 				<tr>
 					<td colspan="6" class="height-95 font-header thick-border">
 						<div class="row td-div text-center">
                             <div>
-								<span class="line"><strong t-esc="move.product_id.name" /></span>
-								<span>-</span>
-								<span class="line"><strong t-esc="move.product_id.attribute_value" /></span>
-							</div>
-						</div>
+                                <span class="line"><strong t-esc="move.product_id.name" /></span>
+                                <span>-</span>
+                                <span class="line"><strong t-esc="move.product_id.attribute_value" /></span>
+                            </div>
+                        </div>
 					</td>
 				</tr>
 
@@ -53,13 +54,13 @@
 						<t t-else="">
 							<span t-field="move_line.product_uom_qty"></span>
 						</t>
-						
+
 					</td>
 					<td colspan="1" class=" text-left align-middle font-size-24 border-right-black border-left-0">
 						<span class='mg-left-5' t-field="move_line.product_uom_id"></span>
 					</td>
 					<td colspan="1" class="text-right align-middle font-size-24 border-right-0" style='width:51px'>
-						
+
 						<span t-if='move_line.hides > 0' t-field="move_line.hides"></span>
 
 					</td>
@@ -72,7 +73,7 @@
 					<td colspan="2" class="text-left align-middle">
 						<strong class='label-leather'>Ship Date: </strong>
 						<t t-if='move_line.lot_id.ship_date'>
-							<span t-field="move_line.lot_id.ship_date"
+							<span class='font-size-24' t-field="move_line.lot_id.ship_date"
 							t-options='{"format": "dd MMM yyyy"}'></span>
 						</t>
 						<t t-else="">
@@ -141,4 +142,3 @@
 
 	</data>
 </odoo>
-
