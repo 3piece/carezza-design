@@ -1,8 +1,51 @@
 @media print {body { zoom: 300%; }}
 
 .td-div {
-    max-height: 95px;
+    height: 95px;
+/*     min-height: 95px;
+    max-height: 95px; */
+}
 
+.max-width-595 {
+/*     width: 595px; */
+/*     max-width: 90%; */
+/*     overflow: hidden; */
+}
+
+.inner-595 {
+/*     width: 550px; */
+}
+
+.row {
+    display: -webkit-box; /* wkhtmltopdf uses this one */
+    display: flex;
+    -webkit-box-pack: center; /* wkhtmltopdf uses this one */
+    -webkit-box-align: center; /* wkhtmltopdf uses this one to align vertically */
+    justify-content: center;
+    align-items: center;
+    padding: 0px 20px 0px 20px;
+/*     max-width: 90%; */
+}
+
+.row > div {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+/*     margin: 0px 30px 0px 15px; */
+    overflow: hidden;
+/*     align-self: center; */
+/*     max-width: 80%; */
+/*     display: table;
+    vertical-align: middle; */
+}
+
+/* .row > div:last-child {
+    margin-right: 0;
+}
+ */
+
+.thick-border {
+    border: 10px solid black !important;
 }
 
 span.line {
@@ -22,16 +65,18 @@ span.line {
 }
 
 .height-95 {
-    border: 10px solid black !important;
     min-height: 95px;
 }
 
+
 .height-160 {
-    min-hieght: 160px;
-    height: 160px;
-    width:338px;
-    border: 10px solid black !important;
+    min-hieght: 158px;
+    height: 158px;
+    max-hieght: 158px;
+/*     width:338px;
+    border: 10px solid black !important; */
 }
+
 .line-height-35{
     line-height: 40px;
     max-width: 180px;
@@ -50,14 +95,18 @@ span.line {
 
 }
 
+.height-70 {
+    height: 60px;
+}
+
 .height-60 {
     height: 60px;
-   
+
 }
 
 .height-59 {
     height: 59px;
-   
+
 }
 
 .height-40 {
@@ -68,7 +117,7 @@ span.line {
 
 .height-50 {
     height: 50px;
-   
+
 }
 
 .width-42{
@@ -79,7 +128,6 @@ span.line {
  width:78%
 }
 
-.re
 
 .font-label-leather{
  font-size:12px;
@@ -123,7 +171,7 @@ span.line {
 
 .font-size-24{
    font-size:20px  !important;
-   height: 20px;
+/*    height: 20px; */
    font-weight: 900;
 }
 
@@ -179,9 +227,13 @@ border-left: 0px !important;
     height: 300px;
 }
 
+.row-div-cont {
+/*     max-height: 95px; */
+}
+
 .two-line-div {
-    line-height: 1.5em;
-    max-height: 3em;
+    line-height: 1.2em;
+    max-height: 2.4em;
     overflow: hidden;
 }
 
@@ -191,7 +243,7 @@ border-left: 0px !important;
 
 .img-barcode{
  width: 95%  !important;
- height: 30px  !important;
+ height: 45px  !important;
 }
 
 .label-barcode{
@@ -199,7 +251,7 @@ border-left: 0px !important;
    font-variant-caps: all-petite-caps;
    font-weight: lighter;
    display: block;
-   
+
 }
 
 
@@ -210,7 +262,7 @@ border-left: 0px !important;
 }
 
 .table-format {
-    width: 595px;
+    width: 600px;
     font-weight: bold !important;
     aspect-ratio: 138/100;
     border: 4px solid black !important;
@@ -233,7 +285,8 @@ border-left: 0px !important;
 }
 
 .padding-top-bot-8{
- padding:8px 0px 8px 0px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
 }
 
 .padding-top-5{
@@ -255,6 +308,11 @@ border-left: 0px !important;
 
 .mg-bot-32{
 	margin-bottom:32px
+}
+
+.acc-title-top-margin-div {
+    height: 32px;
+    min-height: 10px;
 }
 
 .table-bordered td{
@@ -288,9 +346,11 @@ border: 2px solid black;
 }
 
 .label-leather{
-padding-left:15px;
-color: gray;font-size:14px;
+    padding-left:10px;
+    color: gray;
+    font-size:14px;
 }
+
 .border-left-0{
 border-left: 0px !important
 }
@@ -305,14 +365,16 @@ border-right: 0px !important
 .padding-0{
     padding: 0px !important;
 }
-.west_spo{
-font-size: 24px !important;
- font-weight: bolder !important;
- color: white !important;
- background: black !important;
 
-width: max-content;
+.west_spo{
+    font-size: 24px !important;
+    font-weight: bolder !important;
+    color: white !important;
+    background: black !important;
+    width: max-content;
+    padding: 8px;
 }
+
 
 .mg-left-5{
 margin-left:5px}
