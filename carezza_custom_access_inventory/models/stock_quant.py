@@ -7,6 +7,7 @@ class StockQuant(models.Model):
 
     _inherit = 'stock.quant'
 
+    value = fields.Monetary(groups='stock.group_stock_manager,carezza_custom_access_inventory.carezza_group_stock_checker')
     
     def write(self,vals):
         return super().write(vals)
