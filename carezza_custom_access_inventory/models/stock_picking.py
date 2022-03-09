@@ -24,7 +24,7 @@ class StockPicking(models.Model):
                                'initial demand. When the picking is done this allows '
                                'changing the done quantities.')
     excel_template = fields.Binary()
-    excel_template_name = fields.Char("Filename")
+    excel_template_name = fields.Char("Template")
     upload_excel_file = fields.Binary(tracking=True)
     upload_excel_name = fields.Char("Filename")
     is_upload = fields.Boolean()
@@ -208,7 +208,7 @@ class StockPicking(models.Model):
                 color = ' (%s)'%df['Color'][index]
             full_name = code+ df['Product Name'][index]+ color
 
-            product_id = self.env['product.product'].search(
+            product_id = self.env['product.product'].sudo().search(
                 [('name', '=', df['Product Name'][index]),
                  ('attribute_value', '=', df['Color'][index])])[0].id
             # product_id = self.get_id_by_value(self.env['stock.move.line'],'product_id',full_name)
