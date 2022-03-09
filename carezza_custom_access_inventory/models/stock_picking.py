@@ -24,7 +24,7 @@ class StockPicking(models.Model):
                                'initial demand. When the picking is done this allows '
                                'changing the done quantities.')
     excel_template = fields.Binary()
-    excel_template_name = fields.Char("Filename")
+    excel_template_name = fields.Char("Template")
     upload_excel_file = fields.Binary(tracking=True)
     upload_excel_name = fields.Char("Filename")
     is_upload = fields.Boolean()
