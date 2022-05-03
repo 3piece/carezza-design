@@ -138,17 +138,18 @@ class StockMoveLine(models.Model):
     def check_available_quantity(self, product_id, location_id, quantity, lot_id=None):
         # TODO: Fix number of
         available_quantity = 0
-        rounding = product_id.uom_id.rounding if product_id.uom_id.rounding else 0
+        rounding = product_id.uom_id.rounding if product_id.uom_id.rounding else 0.0001
         quants = self.env['stock.quant'].sudo()._gather(product_id, location_id, lot_id=lot_id)
         origin_reserved = self._origin.product_uom_qty if self._origin and \
                                                           self._origin.lot_id == lot_id and \
                                                           self._origin.location_id == location_id and \
                                                           self._origin.product_id == product_id else 0
-        if float_compare(quantity, 0, precision_rounding=rounding) > 0:
+        comparison = float_compare(quantity, 0, precision_rounding=rounding)
+        if comparison > 0:
             # if we want to reserve
             available_quantity = sum(quants.filtered(lambda q: float_compare(q.quantity, 0, precision_rounding=rounding) > 0).mapped('quantity')) - sum(
                 quants.mapped('reserved_quantity')) + origin_reserved
-        elif float_compare(quantity, 0, precision_rounding=rounding) < 0:
+        elif comparison < 0:
             # if we want to unreserve
             available_quantity = sum(quants.mapped('reserved_quantity'))
         return available_quantity
