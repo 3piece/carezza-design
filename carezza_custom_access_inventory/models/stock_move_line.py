@@ -18,26 +18,32 @@ class StockMoveLine(models.Model):
 
     @api.onchange('lot_id')
     def onchange_lot_id(self):
-        origin_reserved = 0
-        if self._origin:
-            origin_reserved = self._origin.product_uom_qty
-            # orig_quants = self.env['stock.quant'].sudo()._update_reserved_quantity(self, self.product_id, self.location_id, 0, self._origin.lot_id)
-            # orig_quants = self.env['stock.quant'].sudo()._gather(self.product_id, self.location_id, self._origin.lot_id)
-        self.pallet_number = self.lot_id.pallet_number
-        self.hides = self.lot_id.hides
-        self.position = self.lot_id.position
-        context = self.env.context
-        if 'default_picking_id' in context:
-            picking_id = context['default_picking_id']
-        else:
-            # TODO: Review, this added as previous code had no provision for picking_id in case default_picking_id not found.
-            _logger.warning(f"No default_picking_id found")
-        move_id = self.env['stock.move'].search([('product_id', '=', self.product_id.id),
-                                                 ('picking_id', '=', picking_id)])
-        qty_need = move_id.product_uom_qty - move_id.reserved_availability + origin_reserved
-        # quants = self.env['stock.quant'].sudo()._gather(self.product_id, self.location_id, self.lot_id)  # TODO: Remove
-        available_quantity = self.check_available_quantity(self.product_id, self.location_id, qty_need, self.lot_id)
-        self.product_uom_qty = qty_need if available_quantity > qty_need else available_quantity
+        if self.lot_id:
+            origin_reserved = 0
+            if self._origin:
+                origin_reserved = self._origin.product_uom_qty
+                # orig_quants = self.env['stock.quant'].sudo()._update_reserved_quantity(self, self.product_id, self.location_id, 0, self._origin.lot_id)
+                # orig_quants = self.env['stock.quant'].sudo()._gather(self.product_id, self.location_id, self._origin.lot_id)
+            self.pallet_number = self.lot_id.pallet_number
+            self.hides = self.lot_id.hides
+            self.position = self.lot_id.position
+            context = self.env.context
+            if 'default_picking_id' in context:
+                if context['default_picking_id']:
+                    picking_id = context['default_picking_id']
+                    move_id = self.env['stock.move'].search([('product_id', '=', self.product_id.id),
+                                                             ('picking_id', '=', picking_id)])
+                    qty_need = move_id.product_uom_qty - move_id.reserved_availability + origin_reserved
+                    # quants = self.env['stock.quant'].sudo()._gather(self.product_id, self.location_id, self.lot_id)  # TODO: Remove
+                    available_quantity = self.check_available_quantity(self.product_id, self.location_id, qty_need,
+                                                                       self.lot_id)
+                    self.product_uom_qty = qty_need if available_quantity > qty_need else available_quantity
+                else:
+                    _logger.debug(f"New stock.picking - No default_picking_id set")
+            else:
+                # TODO: Review, this added as previous code had no provision for picking_id in case default_picking_id not found.
+                _logger.warning(f"No default_picking_id found")
+
 
 
     @api.model
@@ -151,4 +157,5 @@ class StockMoveLine(models.Model):
         elif comparison < 0:
             # if we want to unreserve
             available_quantity = sum(quants.mapped('reserved_quantity'))
+        _logger.debug(f'Available Qauntity: {available_quantity}')
         return available_quantity

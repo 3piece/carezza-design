@@ -18,22 +18,9 @@
 
     'summary': """
 
-        During a transfer, if using lot number, press the button to set reserved quantities to the maximum for that 
-        all lots in the transfer.""",
+    During a transfer, if using lot number, press the button to set reserved quantities to the maximum for that 
+    all lots in the transfer.""",
 
-    'description': """
-        Strategic AI Stock Maximize Lot Qaunts
-        ==========================
-
-       During a transfer, if using lot number, press the button to set reserved quantities to the maximum for that
-       all lots in the transfer
-
-
-        You can manage:
-        ---------------
-        lots
-
-    """,
 
     'author': "Strategic A.I.",
     'website': "https://strai.co",
