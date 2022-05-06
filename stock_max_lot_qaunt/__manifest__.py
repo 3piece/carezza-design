@@ -42,6 +42,9 @@
         'views/stock_picking_views.xml',
         # 'views/templates.xml',
     ],
+    'qweb': [
+        'static/src/xml/qweb_templates.xml',
+    ],
 
     # only loaded in demonstration mode
     'demo': [
