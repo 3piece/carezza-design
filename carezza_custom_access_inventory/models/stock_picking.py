@@ -24,7 +24,7 @@ class StockPicking(models.Model):
                                'initial demand. When the picking is done this allows '
                                'changing the done quantities.')
     excel_template = fields.Binary()
-    excel_template_name = fields.Char("Filename")
+    excel_template_name = fields.Char("Template")
     upload_excel_file = fields.Binary(tracking=True)
     upload_excel_name = fields.Char("Filename")
     is_upload = fields.Boolean()
@@ -175,7 +175,6 @@ class StockPicking(models.Model):
         fp.seek(0)
         df = pd.read_excel(fp.name, engine='openpyxl')
         df = df.to_dict()
-        print(df)
         count_lop = len(df['Hides'])
         list_move_line_id = []
         list_obj = []
@@ -185,6 +184,22 @@ class StockPicking(models.Model):
                 break;          
             #product_name = "[%s] "%df['Code'][index] + "%s "%df['Product Name'][index]+ "[%s]"+ df['Color'][index]
             #full_name = df['Display Name'][index]
+            
+            if  math.isnan(df['Box / Roll / Pallet No'][index]):
+                box = 0
+            else:
+                box = df['Box / Roll / Pallet No'][index]
+
+            if  math.isnan(df['Hides'][index]):
+                hides = 0
+            else:
+                hides = df['Hides'][index]
+            
+            if  math.isnan(df['Quantity'][index]):
+                quantity = 0
+            else:
+                quantity = df['Quantity'][index]
+                       
             code=""
             if isinstance(df['Code'][index], str):
                 code = '[%s] '%df['Code'][index]
@@ -192,8 +207,11 @@ class StockPicking(models.Model):
             if isinstance(df['Color'][index], str):
                 color = ' (%s)'%df['Color'][index]
             full_name = code+ df['Product Name'][index]+ color
-            
-            product_id = self.get_id_by_value(self.env['stock.move.line'],'product_id',full_name)
+
+            product_id = self.env['product.product'].sudo().search(
+                [('name', '=', df['Product Name'][index]),
+                 ('attribute_value', '=', df['Color'][index])])[0].id
+            # product_id = self.get_id_by_value(self.env['stock.move.line'],'product_id',full_name)
             #picking_name = self.get_id_by_value(self.env['stock.move.line'],'picking_id',obj[0])
             
             purchase_id = self.env['purchase.order'].search([('name','=',df['PO'][index])])
@@ -207,9 +225,9 @@ class StockPicking(models.Model):
             'picking_name' : self.name,
             'purchase_id': purchase_id,
             'product_id': product_id,
-            'qty_done': df['Quantity'][index],
-            'pallet_number': df['Box / Roll / Pallet No'][index],
-            'hides': df['Hides'][index],
+            'qty_done': quantity,
+            'pallet_number': box,
+            'hides': hides,
             'move_line_id': int(df['Move line id'][index]) if math.isnan(df['Move line id'][index])!= True else False }
             list_obj.append(dict_val)
             if not math.isnan(df['Move line id'][index]):
