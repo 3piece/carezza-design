@@ -33,7 +33,7 @@ class StockMoveLine(models.Model):
                     picking_id = context['default_picking_id']
                     move_id = self.env['stock.move'].search([('product_id', '=', self.product_id.id),
                                                              ('picking_id', '=', picking_id)])
-                    qty_need = move_id.product_uom_qty - move_id.reserved_availability + origin_reserved
+                    qty_need = move_id.product_uom_qty - move_id.reserved_availability + origin_reserved - move_id.quantity_done
                     # quants = self.env['stock.quant'].sudo()._gather(self.product_id, self.location_id, self.lot_id)  # TODO: Remove
                     available_quantity = self.check_available_quantity(self.product_id, self.location_id, qty_need,
                                                                        self.lot_id)
