@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <template id="assets_backend" name="stock_barcode_max_quants assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+            	<script type="text/javascript" src="/stock_max_lot_quant/static/src/js/client_action/lines_widget.js"/>
+             </xpath>
+        </template>
+    </data>
+</odoo>

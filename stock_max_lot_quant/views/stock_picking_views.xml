@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+            <record id="view_picking_max_lots_form" model="ir.ui.view">
+            <field name="name">max.lots.stock.picking.form.view</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+              <xpath expr="//button[@name='button_validate']"  position="before">
+                      <button name="button_max_lots" string="Max Lots" type="object" groups="stock.group_stock_user" class="o_btn_validate"/>
+              </xpath>
+            </field>
+            </record>
+  </data>
+</odoo>

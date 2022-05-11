@@ -1,5 +1,5 @@
 =========================
-Stock Maximize Lot Qaunts
+Stock Maximize Lot Quants
 =========================
 
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
