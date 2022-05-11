@@ -19,6 +19,10 @@ class StockPicking(models.Model):
                     _logger.debug(f'Move Line: {move_line.id} | product: {move_line.product_id.name} | lot: {move_line.lot_id} | set qty_done : {max_qty}')
         _logger.info(f'Max Lot Quants - Maximizing..............')
 
+#   TODO: Split code into 2 modules, 1 for stock, 1 for stock Barcode.
+#   TODO: Review, clean-up and migrate check_available_quantity code to this stock module.
+#    - hint: code follows Odoo method.
+
 
 # Clean-up the context key at validation to avoid forcing the creation of immediate
 # transfers.

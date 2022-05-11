@@ -28,14 +28,15 @@ var MaxLotQuantWidget = LinesWidget.include({
      */
      _onClickMaxLots: function (ev) {
         ev.stopPropagation();
-        this._maxlots();
+        var self_id = this.__parentedParent.actionParams.id;  // stock_picking.id = self.id
+        this._maxlots(self_id);
     },
 
-    _maxlots: function () {
+    _maxlots: function (id) {
         return rpc.query({
             model: 'stock.picking',
             method: 'button_max_lots',
-            args: [[this.__parentedParent.actionParams.id]]
+            args: [[id]]
         }).then(data => {
             this.trigger_up('reload');
         });
