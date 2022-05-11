@@ -14,7 +14,7 @@
 # If not, see <https://store.strai.co/license.html/>
 #################################################################################
 {
-    'name': "Stock Maximize Lot Qaunts",
+    'name': "Stock Maximize Lot Quants",
 
     'summary': """
 
@@ -35,11 +35,12 @@
     'sequence': 40,
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
 
-    'depends': ['base', 'stock'],
+    'depends': ['base', 'stock_barcode'],
 
     'data': [
          # 'security/ir.model.access.csv',
         'views/stock_picking_views.xml',
+        'views/stock_barcode_templates.xml'
         # 'views/templates.xml',
     ],
     'qweb': [
