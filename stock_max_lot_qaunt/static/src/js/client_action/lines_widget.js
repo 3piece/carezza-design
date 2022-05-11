@@ -49,9 +49,9 @@ var MrpSubcontractingLinesWidget = LinesWidget.include({
 //        /*ev.stopPropagation();*/
         var id = $(ev.target).parents('.o_barcode_line').data('id');
         return rpc.query({
-                model: 'stock.move.line',
-                method: 'unbuild_unit',
-                kwargs: { 'sku_size' : 'inner','move_line_id':id},
+                model: 'stock.picking',
+                method: 'button_max_lots',
+//                kwargs: { 'sku_size' : 'inner','move_line_id':id},
             }).then(function (){console.log("TEST3")});
     }
 
