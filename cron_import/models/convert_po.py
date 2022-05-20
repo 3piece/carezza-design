@@ -48,10 +48,11 @@ state_map = {
 }
 
 # Alvin notes all names will be updated into Odoo to align with Aspiring.
-# user_map = {
-#     '': '',
-#     '': ''
-# }
+# Update - 20 May 2022 - Jenny Cresswell departed Carezza
+user_map = {
+    'Jenny Cresswell': 'Benny Kong',
+    'Benny Kong': 'Benny Kong'
+}
 
 # 'new': 'Draft',
 # 'confirmed': 'To Approve',
@@ -168,7 +169,7 @@ def convert_data(import_file, output_folder='./', encoding='UTF-8', delimiter=',
         'incoterm_id': mapper.val('Inco Term  (PO)'),
         'state': mapper.map_val('Status  (PO)', state_map),
         'notes': mapper.val('Remarks  (PO)'),
-        'user_id': mapper.val('Resp. By  (PO)'),
+        'user_id': mapper.map_val('Resp. By  (PO)', user_map),
         'po_date': mapper.val('PO Date', postprocess=lambda x: datetime.strptime(x, "%d/%b/%Y").strftime("%Y-%m-%d " + local_time)),
         'material_type': mapper.val('MPO/APO No.', postprocess=lambda x: get_po_type(x)),
         'status_switch': mapper.val('Status  (PO)')
