@@ -1,4 +1,5 @@
 #! /bin/bash
+#import_path='/home/pi3ce/03_DevProjects/carezza_dev/import_files/'
 import_path="/home/odoo/imports/"
 working_path=${import_path}'origin/working/'
 processed_path=${import_path}'origin/source_files/processed/'

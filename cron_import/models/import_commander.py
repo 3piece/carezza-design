@@ -24,16 +24,18 @@ from . import upload_to_box
 # python ./import_commander.py -i ../origin/source_files/ -o ../output_3/
 
 def run_stack():
-    processor = process_records.OdooProcessor()
+    # processor = process_records.OdooProcessor()
     po_suffix = 'po'
-    receipts_suffix = 'rcpt'
+    # receipts_suffix = 'rcpt'
     timestamp = datetime.now().strftime("%y%m%d-%H%M")
     export_list = []
+    # root_path = '/home/pi3ce/03_DevProjects/carezza_dev/import_files/'
     root_path = '/home/odoo/imports/'
     # lib_path = f'{root_path}lib/'
     input_path = f'{root_path}origin/source_files/'
     processed_dir = f'{input_path}processed/'
     working_path = f'{root_path}origin/working/'
+    # module_path = '/home/pi3ce/00_x_to_Sync/11_gitlab/carezza/carezza-design/cron_import/'
     module_path = '/home/odoo/src/user/cron_import/'
     script_path = f'{module_path}static/sh/'
     export_path = f'{root_path}origin/exports/'

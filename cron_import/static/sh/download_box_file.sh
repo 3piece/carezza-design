@@ -1,5 +1,6 @@
 #! /bin/bash
-
+#source ./../conf/connection.conf
+#printf ''
 #  TODO: Check box for a. latest version and compare to local log.
 #  TODO: Create a local log file, probably CSV format as follows (or key/value)
 #  CSV file header :  version_no, md5_hash, timestamp
@@ -13,6 +14,7 @@ filepoint_po='zhtc87rpyrraj4gc3v9jg3xtcy7u96vf'  # PO - Added on 10 Feb 2022 |
 #https://app.box.com/s/drvyqoce396m39eqj2nhhqdcpxq9fuz6  # Odoo 1.1 PO only. MPO_APO Data_Import (65&co.).csv
 #https://app.box.com/s/xkepsq6cixu3f934ltvbprsxexrl4k7o # Odoo 1.2 PO Receipt. MPO_APO Data_Import (65&co.).csv
 timestamp=$(date +'%y%m%d-%H%M')
+#root_path='/home/pi3ce/03_DevProjects/carezza_dev/import_files/'
 root_path='/home/odoo/imports/'  #"../"
 output_path=${root_path}'origin/source_files/'
 proc_path=${output_path}'processed/'
