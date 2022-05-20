@@ -196,7 +196,7 @@ def convert_data(import_file, output_folder='./', encoding='UTF-8', delimiter=',
         # 'date_planned': mapper.val_fallback('Delivery Date (PO)', 'PO Date', postprocess=lambda x: datetime.strptime(x, "%d/%b/%Y").strftime("%Y-%m-%d " + GMT_TIME) if x else ''),
         'product_qty': mapper.val('PO Qty'),
         # 'price_unit': mapper.val('Purchase Price  (Orig. Currency)'),
-        'price_unit': mapper.val('unit  (Orig. Currency)'),
+        'price_unit': mapper.val('Unit Price  (Orig. Currency)'),
         # 'move_dest_ids':
     }
 

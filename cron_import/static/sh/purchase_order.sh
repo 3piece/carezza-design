@@ -1,5 +1,7 @@
 #! /bin/bash
+#module_path="/home/pi3ce/00_x_to_Sync/11_gitlab/carezza/carezza-design/cron_import"
 module_path="/home/odoo/src/user/cron_import/"
+#import_path='/home/pi3ce/03_DevProjects/carezza_dev/import_files/'
 conf_path=${module_path}'static/conf/'
 import_path="/home/odoo/imports/"
 working_path=${import_path}'origin/working/'
