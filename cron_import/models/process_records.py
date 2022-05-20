@@ -12,7 +12,8 @@ class OdooProcessor(object):
         # host = '127.0.0.1'
         # port = '8014'
         # server_url = 'http://localhost:8014'
-        # db_name = 'car_210621_01'
+        # host = 'carezza-design.odoo.com'
+        # db_name = 'car_22_S09_01'
         # username = 'admin'
         # password = 'admin'
 
