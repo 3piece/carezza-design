@@ -136,12 +136,12 @@ class DelayExport(models.Model):
                 "reply_to": email_from if params['enable_reply'] else self.sudo().env.ref("base.partner_root").email,
                 "email_to": params['email_to'] or False,
                 "recipient_ids": params['partner_ids'] or False if params['email_to'] else [user.id],
-                "subject": _("Export {} {}").format(
-                    model_description, fields.Date.to_string(fields.Date.today())
+                "subject": _("{} {}").format(
+                    params['subject'] if params['subject'] else f"Export {model_description}", fields.Date.to_string(fields.Date.today())
                 ),
                 "body_html": _(
                     """
-                <p>Your export is available in the attachment.</p>
+                <p>Your export is available in the attachment.</p>  
                 {}
                 """
                 ).format(auto_mail),
