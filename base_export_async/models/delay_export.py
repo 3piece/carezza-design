@@ -117,14 +117,21 @@ class DelayExport(models.Model):
         )
 
         # TODO : move to email template
-        odoo_bot = self.sudo().env.ref("base.partner_root")
-        email_from = odoo_bot.email
+        email_from = params['email_from'] or self.sudo().env.ref("base.partner_root").email
         model_description = self.env[model_name]._description
+        # email_to_list = []
+        # if params['user_ids'] :
+        #     for user in self.env["res.users"].browse(params['user_ids']):
+        #         email_to_list.append(user.email)
+        # else:
+        #     email_to_list.append(user.email)
+        # [tools.formataddr((partner.name or 'False', partner.email or 'False'))]
         self.env["mail.mail"].create(
             {
                 "email_from": email_from,
-                "reply_to": email_from,
-                "email_to": user.email,
+                "reply_to": email_from if params['enable_reply'] else self.sudo().env.ref("base.partner_root").email,
+                "email_to": params['email_to'] or False,
+                "recipient_ids": params['partner_ids'] or False if params['email_to'] else [user.id],
                 "subject": _("Export {} {}").format(
                     model_description, fields.Date.to_string(fields.Date.today())
                 ),

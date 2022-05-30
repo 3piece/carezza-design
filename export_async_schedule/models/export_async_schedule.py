@@ -24,9 +24,15 @@ class ExportAsyncSchedule(models.Model):
         comodel_name="ir.model", required=True, ondelete="cascade"
     )
     model_name = fields.Char(related="model_id.model", string="Model Name")
-    user_ids = fields.Many2many(
-        string="Recipients", comodel_name="res.users", required=True
+    # user_ids = fields.Many2many(
+    #     string="Recipients", comodel_name="res.users", required=True, help="Users (in addition to email_to addresses"
+    # )
+    email_from = fields.Many2one("res.users", help="If left blank will send email from OdooBot service")
+    enable_reply = fields.Boolean(help="Allow reply's to Email From address")
+    partner_ids = fields.Many2many(
+        string="Recipients", comodel_name="res.partner", help="Partners (in addition to email_to addresses"
     )
+    email_to = fields.Char(help="Comma separated list of email address")
     domain = fields.Char(string="Export Domain", default=[])
     ir_export_id = fields.Many2one(
         comodel_name="ir.exports",
@@ -141,7 +147,11 @@ class ExportAsyncSchedule(models.Model):
             "domain": safe_eval(self.domain),
             "context": self.env.context,
             "import_compat": self.import_compat,
-            "user_ids": self.user_ids.ids,
+            # "user_ids": self.user_ids.ids,
+            "partner_ids": self.partner_ids.ids,
+            "email_from": self.email_from.email or False,
+            "enable_reply": self.enable_reply,
+            "email_to": self.email_to
         }
 
     def action_export(self):
