@@ -69,6 +69,7 @@ class ExportAsyncSchedule(models.Model):
         required=True,
     )
     end_of_month = fields.Boolean()
+    subject = fields.Char(help="Overrides: Export {model.name}")
 
     def name_get(self):
         result = []
@@ -151,7 +152,8 @@ class ExportAsyncSchedule(models.Model):
             "partner_ids": self.partner_ids.ids,
             "email_from": self.email_from.email or False,
             "enable_reply": self.enable_reply,
-            "email_to": self.email_to
+            "email_to": self.email_to,
+            "subject": self.subject
         }
 
     def action_export(self):

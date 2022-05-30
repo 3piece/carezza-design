@@ -44,19 +44,6 @@
                             options="{'no_open': True, 'no_create_edit': True}"
                         />
                         <field name="model_name" invisible="1" />
-                        <field name="email_from"/>
-                        <field name="enable_reply"/>
-<!--                        <field-->
-<!--                            name="user_ids"-->
-<!--                            widget="many2many_tags"-->
-<!--                            options="{'no_open': True, 'no_create_edit': True}"-->
-<!--                        />-->
-                        <field
-                            name="partner_ids"
-                            widget="many2many_tags"
-                            options="{'no_open': True, 'no_create_edit': True}"
-                        />
-                        <field name="email_to" placeholder="bob@example.com, jane@example.com"/>
                         <field name="lang" />
                         <field
                             name="domain"
@@ -69,6 +56,17 @@
                         />
                         <field name="export_format" />
                         <field name="import_compat" />
+                    </group>
+                    <group name="email" string="Email Configuration">
+                        <field name="email_from"/>
+                        <field name="enable_reply"/>
+                        <field
+                            name="partner_ids"
+                            widget="many2many_tags"
+                            options="{'no_open': True, 'no_create_edit': True}"
+                        />
+                        <field name="email_to" placeholder="bob@example.com, jane@example.com"/>
+                        <field name="subject" placeholder="Replace: Export {model.name}"/>
                     </group>
                     <group name="scheduling" string="Scheduling">
                         <field name="next_execution" />
