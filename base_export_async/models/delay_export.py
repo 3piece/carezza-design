@@ -89,8 +89,7 @@ class DelayExport(models.Model):
         user = self.env["res.users"].browse([context.get("uid")])
 
         export_record = self.sudo().create({"user_id": user.id})
-
-        name = "{}.{}".format(model_name, export_format)
+        name = "{}.{}".format(model_name, export_format.replace('excel', 'xlsx'))
         attachment = self.env["ir.attachment"].create(
             {
                 "name": name,
@@ -126,6 +125,11 @@ class DelayExport(models.Model):
         # else:
         #     email_to_list.append(user.email)
         # [tools.formataddr((partner.name or 'False', partner.email or 'False'))]
+        auto_mail = "" if params['enable_reply'] else """
+                <p>&nbsp;</p>
+                <p><span style="color: #808080;">
+                This is an automated message please do not reply.
+                </span></p>"""
         self.env["mail.mail"].create(
             {
                 "email_from": email_from,
@@ -137,14 +141,10 @@ class DelayExport(models.Model):
                 ),
                 "body_html": _(
                     """
-                <p>Your export is available <a href="{}">here</a>.</p>
-                <p>It will be automatically deleted the {}.</p>
-                <p>&nbsp;</p>
-                <p><span style="color: #808080;">
-                This is an automated message please do not reply.
-                </span></p>
+                <p>Your export is available in the attachment.</p>
+                {}
                 """
-                ).format(url, expiration_date),
+                ).format(auto_mail),
                 "attachment_ids": [attachment.id],
                 "auto_delete": True,
             }
