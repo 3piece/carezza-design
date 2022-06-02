@@ -48,14 +48,6 @@ class DelayExport(models.Model):
         domain = params['domain']
         import_compat = params['import_compat']
         context = params['context']
-        user = self.env["res.users"].browse([context.get("uid")])
-        _logger.info(f'de Env UID: {self.env.uid}')
-        if not user or not user.email:
-            if user:
-                _logger.warning(f'User email not found: {user} | {context}')
-                raise UserError(_("The user doesn't have an email address: %s") % user)
-            else:
-                raise UserError(_("The user doesn't have an email address."))
 
         model = self.env[model_name].with_context(
             import_compat=import_compat, **context
@@ -88,12 +80,14 @@ class DelayExport(models.Model):
     def export(self, params):
         content = self._get_file_content(params)
 
-        model_name, context, export_format = operator.itemgetter(
-            "model", "context", "format"
+        uid, model_name, context, export_format = operator.itemgetter(
+            "uid", "model", "context", "format"
         )(params)
-        user = self.env["res.users"].browse([context.get("uid")])
+        # user = self.env["res.users"].browse([context.get("uid")])
 
-        export_record = self.sudo().create({"user_id": user.id})
+        if not uid:
+            raise UserError(_("No UID available. Cannot create export record."))
+        export_record = self.sudo().create({"user_id": uid})
         name = "{}.{}".format(model_name, export_format.replace('excel', 'xlsx'))
         attachment = self.env["ir.attachment"].create(
             {
@@ -106,11 +100,11 @@ class DelayExport(models.Model):
             }
         )
 
-        url = "{}/web/content/ir.attachment/{}/datas/{}?download=true".format(
-            self.env["ir.config_parameter"].sudo().get_param("web.base.url"),
-            attachment.id,
-            attachment.name,
-        )
+        # url = "{}/web/content/ir.attachment/{}/datas/{}?download=true".format(
+        #     self.env["ir.config_parameter"].sudo().get_param("web.base.url"),
+        #     attachment.id,
+        #     attachment.name,
+        # )
 
         time_to_live = (
             self.env["ir.config_parameter"].sudo().get_param("attachment.ttl", 7)
@@ -140,7 +134,7 @@ class DelayExport(models.Model):
                 "email_from": email_from,
                 "reply_to": email_from if params['enable_reply'] else self.sudo().env.ref("base.partner_root").email,
                 "email_to": params['email_to'] or False,
-                "recipient_ids": params['partner_ids'] or False if params['email_to'] else [user.id],
+                "recipient_ids": params['partner_ids'] or False,
                 "subject": _("{} {}").format(
                     params['subject'] if params['subject'] else f"Export {model_description}", fields.Date.to_string(fields.Date.today())
                 ),
