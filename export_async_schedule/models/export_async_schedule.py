@@ -151,7 +151,7 @@ class ExportAsyncSchedule(models.Model):
             "domain": safe_eval(self.domain),
             "context": self.env.context,
             "import_compat": self.import_compat,
-            # "user_ids": self.user_ids.ids,
+            "uid": self.env.id,
             "partner_ids": self.partner_ids.ids,
             "email_from": self.email_from.email or False,
             "enable_reply": self.enable_reply,
@@ -167,6 +167,6 @@ class ExportAsyncSchedule(models.Model):
             _logger.info(f'Env UID: {self.env.uid}')
             _logger.info(f'Context Env: {self.env.context}')
             _logger.info(f'Context prepared: {params["context"]}')
-            _logger.info(f'Params prepared: {params}')
+            # _logger.info(f'Params prepared: {params}')
             record.env["delay.export"].export(params)
             # record.env["delay.export"].with_delay().export(params)
