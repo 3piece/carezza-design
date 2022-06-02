@@ -151,7 +151,7 @@ class ExportAsyncSchedule(models.Model):
             "domain": safe_eval(self.domain),
             "context": self.env.context,
             "import_compat": self.import_compat,
-            "uid": self.env.id,
+            "uid": self.env.uid,
             "partner_ids": self.partner_ids.ids,
             "email_from": self.email_from.email or False,
             "enable_reply": self.enable_reply,
