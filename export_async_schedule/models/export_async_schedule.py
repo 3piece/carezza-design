@@ -9,8 +9,11 @@ from odoo import api, fields, models
 from odoo.tools.safe_eval import safe_eval
 
 from odoo.addons.base.models.res_partner import _lang_get
+import logging
 
 import operator
+
+_logger = logging.getLogger(__name__)
 
 
 class ExportAsyncSchedule(models.Model):
@@ -161,5 +164,8 @@ class ExportAsyncSchedule(models.Model):
             record = record.with_context(lang=record.lang)
             params = record._prepare_export_params()
             # record.export(params)
+            _logger.info(f'Context prepared: {context}')
+            _logger.info(f'Context Env: {self.env.context}')
+            _logger.info(f'Params prepared: {params}')
             record.env["delay.export"].export(params)
             # record.env["delay.export"].with_delay().export(params)
