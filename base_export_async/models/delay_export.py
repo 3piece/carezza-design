@@ -51,7 +51,7 @@ class DelayExport(models.Model):
         user = self.env["res.users"].browse([context.get("uid")])
         if not user or not user.email:
             if user:
-                _logger.warning(f'User email not found: {user}')
+                _logger.warning(f'User email not found: {user} | {context}')
                 raise UserError(_("The user doesn't have an email address: %s") % user)
             else:
                 raise UserError(_("The user doesn't have an email address."))
