@@ -80,13 +80,14 @@ class DelayExport(models.Model):
     def export(self, params):
         content = self._get_file_content(params)
 
-        uid, model_name, context, export_format = operator.itemgetter(
-            "uid", "model", "context", "format"
+        model_name, context, export_format = operator.itemgetter(
+            "model", "context", "format"
         )(params)
-        # user = self.env["res.users"].browse([context.get("uid")])
-
+        uid = context.get("uid") or params['uid'] or self.env.uid
         if not uid:
             raise UserError(_("No UID available. Cannot create export record."))
+        # user = self.env["res.users"].browse([uid])
+
         export_record = self.sudo().create({"user_id": uid})
         name = "{}.{}".format(model_name, export_format.replace('excel', 'xlsx'))
         attachment = self.env["ir.attachment"].create(
