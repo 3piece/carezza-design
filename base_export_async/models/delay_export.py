@@ -50,7 +50,10 @@ class DelayExport(models.Model):
         context = params['context']
         user = self.env["res.users"].browse([context.get("uid")])
         if not user or not user.email:
-            raise UserError(_("The user doesn't have an email address."))
+            if user:
+                raise UserError(_(f"The user doesn't have an email address: {user}"))
+            else:
+                raise UserError(_("The user doesn't have an email address."))
 
         model = self.env[model_name].with_context(
             import_compat=import_compat, **context
