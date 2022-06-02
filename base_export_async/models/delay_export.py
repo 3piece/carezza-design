@@ -49,6 +49,7 @@ class DelayExport(models.Model):
         import_compat = params['import_compat']
         context = params['context']
         user = self.env["res.users"].browse([context.get("uid")])
+        _logger.info(f'de Env UID: {self.env.uid}')
         if not user or not user.email:
             if user:
                 _logger.warning(f'User email not found: {user} | {context}')
