@@ -164,6 +164,7 @@ class ExportAsyncSchedule(models.Model):
             record = record.with_context(lang=record.lang)
             params = record._prepare_export_params()
             # record.export(params)
+            _logger.info(f'Env UID: {self.env.uid}')
             _logger.info(f'Context Env: {self.env.context}')
             _logger.info(f'Context prepared: {params["context"]}')
             _logger.info(f'Params prepared: {params}')
