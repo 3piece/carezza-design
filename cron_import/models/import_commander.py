@@ -34,15 +34,22 @@ def run_stack():
     # lib_path = f'{root_path}lib/'
     input_path = f'{root_path}origin/source_files/'
     processed_dir = f'{input_path}processed/'
+    not_processed_dir = f'{input_path}not_processed/'
     working_path = f'{root_path}origin/working/'
     # module_path = '/home/pi3ce/00_x_to_Sync/11_gitlab/carezza/carezza-design/cron_import/'
     module_path = '/home/odoo/src/user/cron_import/'
     script_path = f'{module_path}static/sh/'
     export_path = f'{root_path}origin/exports/'
 
+    #  Pre Download - Shift all stagnant files to not_processed:
+    for file_path in Path(input_path).glob(f'{po_suffix}*.csv'):
+        print(f'Moving Non-processed Files from path: {file_path.parent} | file: {file_path.name}')
+        f_input = Path(f'{input_path}{file_path.name}')
+        f_output = Path(f'{not_processed_dir}{file_path.name}')
+        print(f'Moving Archives - input: {f_input} | output: {f_output}')
+        move(f_input, f_output)
 
     run(f'{script_path}download_box_file.sh')
-
 
     # get filename(s)
     proc_pos = False
