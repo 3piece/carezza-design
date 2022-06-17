@@ -48,9 +48,6 @@ class DelayExport(models.Model):
         domain = params['domain']
         import_compat = params['import_compat']
         context = params['context']
-        user = self.env["res.users"].browse([context.get("uid")])
-        if not user or not user.email:
-            raise UserError(_("The user doesn't have an email address."))
 
         model = self.env[model_name].with_context(
             import_compat=import_compat, **context
@@ -86,11 +83,13 @@ class DelayExport(models.Model):
         model_name, context, export_format = operator.itemgetter(
             "model", "context", "format"
         )(params)
-        user = self.env["res.users"].browse([context.get("uid")])
+        uid = context.get("uid") or params['uid'] or self.env.uid
+        if not uid:
+            raise UserError(_("No UID available. Cannot create export record."))
+        # user = self.env["res.users"].browse([uid])
 
-        export_record = self.sudo().create({"user_id": user.id})
-
-        name = "{}.{}".format(model_name, export_format)
+        export_record = self.sudo().create({"user_id": uid})
+        name = "{}.{}".format(model_name, export_format.replace('excel', 'xlsx'))
         attachment = self.env["ir.attachment"].create(
             {
                 "name": name,
@@ -102,11 +101,11 @@ class DelayExport(models.Model):
             }
         )
 
-        url = "{}/web/content/ir.attachment/{}/datas/{}?download=true".format(
-            self.env["ir.config_parameter"].sudo().get_param("web.base.url"),
-            attachment.id,
-            attachment.name,
-        )
+        # url = "{}/web/content/ir.attachment/{}/datas/{}?download=true".format(
+        #     self.env["ir.config_parameter"].sudo().get_param("web.base.url"),
+        #     attachment.id,
+        #     attachment.name,
+        # )
 
         time_to_live = (
             self.env["ir.config_parameter"].sudo().get_param("attachment.ttl", 7)
@@ -117,27 +116,35 @@ class DelayExport(models.Model):
         )
 
         # TODO : move to email template
-        odoo_bot = self.sudo().env.ref("base.partner_root")
-        email_from = odoo_bot.email
+        email_from = params['email_from'] or self.sudo().env.ref("base.partner_root").email
         model_description = self.env[model_name]._description
-        self.env["mail.mail"].create(
-            {
-                "email_from": email_from,
-                "reply_to": email_from,
-                "email_to": user.email,
-                "subject": _("Export {} {}").format(
-                    model_description, fields.Date.to_string(fields.Date.today())
-                ),
-                "body_html": _(
-                    """
-                <p>Your export is available <a href="{}">here</a>.</p>
-                <p>It will be automatically deleted the {}.</p>
+        # email_to_list = []
+        # if params['user_ids'] :
+        #     for user in self.env["res.users"].browse(params['user_ids']):
+        #         email_to_list.append(user.email)
+        # else:
+        #     email_to_list.append(user.email)
+        # [tools.formataddr((partner.name or 'False', partner.email or 'False'))]
+        auto_mail = "" if params['enable_reply'] else """
                 <p>&nbsp;</p>
                 <p><span style="color: #808080;">
                 This is an automated message please do not reply.
-                </span></p>
+                </span></p>"""
+        self.env["mail.mail"].create(
+            {
+                "email_from": email_from,
+                "reply_to": email_from if params['enable_reply'] else self.sudo().env.ref("base.partner_root").email,
+                "email_to": params['email_to'] or False,
+                "recipient_ids": params['partner_ids'] or False,
+                "subject": _("{} {}").format(
+                    params['subject'] if params['subject'] else f"Export {model_description}", fields.Date.to_string(fields.Date.today())
+                ),
+                "body_html": _(
+                    """
+                <p>Your export is available in the attachment.</p>  
+                {}
                 """
-                ).format(url, expiration_date),
+                ).format(auto_mail),
                 "attachment_ids": [attachment.id],
                 "auto_delete": True,
             }

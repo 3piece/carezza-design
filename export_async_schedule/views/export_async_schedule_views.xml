@@ -44,11 +44,6 @@
                             options="{'no_open': True, 'no_create_edit': True}"
                         />
                         <field name="model_name" invisible="1" />
-                        <field
-                            name="user_ids"
-                            widget="many2many_tags"
-                            options="{'no_open': True, 'no_create_edit': True}"
-                        />
                         <field name="lang" />
                         <field
                             name="domain"
@@ -61,6 +56,17 @@
                         />
                         <field name="export_format" />
                         <field name="import_compat" />
+                    </group>
+                    <group name="email" string="Email Configuration">
+                        <field name="email_from"/>
+                        <field name="enable_reply"/>
+                        <field
+                            name="partner_ids"
+                            widget="many2many_tags"
+                            options="{'no_open': True, 'no_create_edit': True}"
+                        />
+                        <field name="email_to" placeholder="bob@example.com, jane@example.com"/>
+                        <field name="subject" placeholder="Replace: Export {model.name}"/>
                     </group>
                     <group name="scheduling" string="Scheduling">
                         <field name="next_execution" />
@@ -83,7 +89,8 @@
             <search string="Scheduled Exports">
                 <field name="model_id" />
                 <field name="ir_export_id" />
-                <field name="user_ids" />
+<!--                <field name="user_ids" />-->
+                <field name="partner_ids" />
                 <field name="next_execution" />
                 <field name="interval_unit" />
                 <field name="active" />

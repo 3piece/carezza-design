@@ -49,9 +49,11 @@ state_map = {
 
 # Alvin notes all names will be updated into Odoo to align with Aspiring.
 # Update - 20 May 2022 - Jenny Cresswell departed Carezza
+
 user_map = {
-    'Jenny Cresswell': 'Benny Kong',
-    'Benny Kong': 'Benny Kong'
+    'Jenny Cresswell': 'Cox Chan',
+    'Benny Kong': 'Benny Kong',
+    'Cox Chan': 'Cox Chan'
 }
 
 # 'new': 'Draft',

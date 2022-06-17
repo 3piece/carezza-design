@@ -9,8 +9,11 @@ from odoo import api, fields, models
 from odoo.tools.safe_eval import safe_eval
 
 from odoo.addons.base.models.res_partner import _lang_get
+import logging
 
 import operator
+
+_logger = logging.getLogger(__name__)
 
 
 class ExportAsyncSchedule(models.Model):
@@ -24,9 +27,15 @@ class ExportAsyncSchedule(models.Model):
         comodel_name="ir.model", required=True, ondelete="cascade"
     )
     model_name = fields.Char(related="model_id.model", string="Model Name")
-    user_ids = fields.Many2many(
-        string="Recipients", comodel_name="res.users", required=True
+    # user_ids = fields.Many2many(
+    #     string="Recipients", comodel_name="res.users", required=True, help="Users (in addition to email_to addresses"
+    # )
+    email_from = fields.Many2one("res.users", help="If left blank will send email from OdooBot service")
+    enable_reply = fields.Boolean(help="Allow reply's to Email From address")
+    partner_ids = fields.Many2many(
+        string="Recipients", comodel_name="res.partner", help="Partners (in addition to email_to addresses"
     )
+    email_to = fields.Char(help="Comma separated list of email address")
     domain = fields.Char(string="Export Domain", default=[])
     ir_export_id = fields.Many2one(
         comodel_name="ir.exports",
@@ -63,6 +72,7 @@ class ExportAsyncSchedule(models.Model):
         required=True,
     )
     end_of_month = fields.Boolean()
+    subject = fields.Char(help="Overrides: Export {model.name}")
 
     def name_get(self):
         result = []
@@ -141,7 +151,12 @@ class ExportAsyncSchedule(models.Model):
             "domain": safe_eval(self.domain),
             "context": self.env.context,
             "import_compat": self.import_compat,
-            "user_ids": self.user_ids.ids,
+            "uid": self.env.uid,
+            "partner_ids": self.partner_ids.ids,
+            "email_from": self.email_from.email or False,
+            "enable_reply": self.enable_reply,
+            "email_to": self.email_to,
+            "subject": self.subject
         }
 
     def action_export(self):
@@ -149,5 +164,9 @@ class ExportAsyncSchedule(models.Model):
             record = record.with_context(lang=record.lang)
             params = record._prepare_export_params()
             # record.export(params)
+            _logger.info(f'Env UID: {self.env.uid}')
+            _logger.info(f'Context Env: {self.env.context}')
+            _logger.info(f'Context prepared: {params["context"]}')
+            # _logger.info(f'Params prepared: {params}')
             record.env["delay.export"].export(params)
             # record.env["delay.export"].with_delay().export(params)
