@@ -69,7 +69,7 @@
 
 					</td>
 
-					<td colspan="1" class=" align-middle font-size-24 border-left-0" style='width: 119px;'>
+					<td colspan="1" class="no-ellipsis align-middle font-size-24 border-left-0" style='width: 119px;'>
 						<span t-field="move_line.lot_id.ship_date"
 							t-options='{"format": "dd MMM yyyy"}'></span>
 
