@@ -375,6 +375,9 @@ border-right: 0px !important
     padding: 8px;
 }
 
+.no-ellipsis {
+    text-overflow: clip;
+}
 
 .mg-left-5{
 margin-left:5px}
