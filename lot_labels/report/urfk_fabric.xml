@@ -75,10 +75,12 @@
 
 					</td>
 					<td colspan="1" class=" align-middle font-label-urfk border-right-0 " >
-						<strong>Supplier</strong>
+						<strong>Roll/Box #</strong>
 					</td>
 					<td colspan="1" class="align-middle font-size-24  border-left-0" style='width: 119px; border-right: 2px solid black !important;'>
-						<span t-field="move_line.lot_id.supplier_id.name"></span>
+						<t t-if="move_line.lot_id.pallet_number">
+							<span t-field="move_line.lot_id.pallet_number"></span>
+						</t>
 					</td>
 
 				</tr>
