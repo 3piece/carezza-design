@@ -82,7 +82,7 @@
 
 					</td>
 					<td class='border-left-0 font-size-24 align-middle ' style='width:36%'>
-						<<t t-if="move_line.lot_id.pallet_number">
+						<t t-if="move_line.lot_id.pallet_number">
 							<span t-field="move_line.lot_id.pallet_number"></span>
 						</t>
 						<t t-else="">
