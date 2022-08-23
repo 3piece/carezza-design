@@ -73,7 +73,7 @@
 					<td colspan="1" class="text-left align-middle border-right-0 label-leather">
 						<strong>Ship Date: </strong>
 					</td>
-					<td colspan="2" class="text-right align-middle font-size-24 border-left-0 border-right-0">
+					<td colspan="3" class="text-center align-middle font-size-24 border-right-black border-left-0">
 						<t t-if='move_line.lot_id.ship_date'>
 							<span t-field="move_line.lot_id.ship_date"	t-options='{"format": "dd MMM yyyy"}'></span>
 						</t>
