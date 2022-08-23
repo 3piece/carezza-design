@@ -48,10 +48,13 @@ state_map = {
 }
 
 # Alvin notes all names will be updated into Odoo to align with Aspiring.
-# user_map = {
-#     '': '',
-#     '': ''
-# }
+# Update - 20 May 2022 - Jenny Cresswell departed Carezza
+
+user_map = {
+    'Jenny Cresswell': 'Cox Chan',
+    'Benny Kong': 'Benny Kong',
+    'Cox Chan': 'Cox Chan'
+}
 
 # 'new': 'Draft',
 # 'confirmed': 'To Approve',
@@ -168,7 +171,7 @@ def convert_data(import_file, output_folder='./', encoding='UTF-8', delimiter=',
         'incoterm_id': mapper.val('Inco Term  (PO)'),
         'state': mapper.map_val('Status  (PO)', state_map),
         'notes': mapper.val('Remarks  (PO)'),
-        'user_id': mapper.val('Resp. By  (PO)'),
+        'user_id': mapper.map_val('Resp. By  (PO)', user_map),
         'po_date': mapper.val('PO Date', postprocess=lambda x: datetime.strptime(x, "%d/%b/%Y").strftime("%Y-%m-%d " + local_time)),
         'material_type': mapper.val('MPO/APO No.', postprocess=lambda x: get_po_type(x)),
         'status_switch': mapper.val('Status  (PO)')
@@ -196,7 +199,7 @@ def convert_data(import_file, output_folder='./', encoding='UTF-8', delimiter=',
         # 'date_planned': mapper.val_fallback('Delivery Date (PO)', 'PO Date', postprocess=lambda x: datetime.strptime(x, "%d/%b/%Y").strftime("%Y-%m-%d " + GMT_TIME) if x else ''),
         'product_qty': mapper.val('PO Qty'),
         # 'price_unit': mapper.val('Purchase Price  (Orig. Currency)'),
-        'price_unit': mapper.val('unit  (Orig. Currency)'),
+        'price_unit': mapper.val('Unit Price  (Orig. Currency)'),
         # 'move_dest_ids':
     }
 

@@ -100,11 +100,11 @@
 
 				<tr class='height-60 border-bottom-10'>
 					<td  class="align-middle  align-middle font-label-accessory" >
-						<strong>Supplier:</strong>
+						<strong>Roll/Box #</strong>
 					</td>
 					<td colspan="2" class="border-left-0 text-center align-middle font-size-24" >
-						<t t-if="move_line.lot_id.supplier_id.name">
-							<span t-field="move_line.lot_id.supplier_id.name"></span>
+						<t t-if="move_line.lot_id.pallet_number">
+							<span t-field="move_line.lot_id.pallet_number"></span>
 						</t>
 						<t t-else="">
 								<span>  </span>

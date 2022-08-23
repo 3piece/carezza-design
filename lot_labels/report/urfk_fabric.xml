@@ -4,8 +4,8 @@
 		<template id="ukfr_fabric">
 			<table class="table-bordered table-format" t-if="picking.move_lines" >
 				<colgroup>
-					<col style="width: 13%;" span="1"></col>
-					<col style="width: 20%;" span="1"></col>
+					<col style="width: 12%;" span="1"></col>
+					<col style="width: 21%;" span="1"></col>
 					<col style="width: 13%;" span="1"></col>
 					<col style="width: 20%;" span="1"></col>
 					<col style="width: 34%;" span="1"></col>
@@ -69,16 +69,18 @@
 
 					</td>
 
-					<td colspan="1" class=" align-middle font-size-24 border-left-0" style='width: 119px;'>
+					<td colspan="1" class="no-ellipsis align-middle font-size-24 border-left-0" style='width: 119px;'>
 						<span t-field="move_line.lot_id.ship_date"
 							t-options='{"format": "dd MMM yyyy"}'></span>
 
 					</td>
 					<td colspan="1" class=" align-middle font-label-urfk border-right-0 " >
-						<strong>Supplier</strong>
+						<strong>Roll/Box #</strong>
 					</td>
 					<td colspan="1" class="align-middle font-size-24  border-left-0" style='width: 119px; border-right: 2px solid black !important;'>
-						<span t-field="move_line.lot_id.supplier_id.name"></span>
+						<t t-if="move_line.lot_id.pallet_number">
+							<span t-field="move_line.lot_id.pallet_number"></span>
+						</t>
 					</td>
 
 				</tr>

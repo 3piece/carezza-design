@@ -11,8 +11,10 @@ _logger = logging.getLogger(__name__)
 class UploadToBox:
     # folder_id = '139438417628'  # back_ups
     folder_id = '139440183208'  # errors
-    client_id = 'cem6bou667aiamfgtrgcrsutho7nt9hf'
-    client_secret = 'Zx4dTFRyJH15RjoNntC1I1LAa7AG0BKx'
+    # client_id = 'cem6bou667aiamfgtrgcrsutho7nt9hf'
+    # client_secret = 'Zx4dTFRyJH15RjoNntC1I1LAa7AG0BKx'
+    client_id = 'zkgle87b3t12me2xnfwnd23zykum00da'
+    client_secret = '3BPALkIVT1cXlTzjuznndhNfKrP5Yije'
 
     module_path = '/home/odoo/src/user/cron_import/'
     script_path = f'{module_path}static/sh/'

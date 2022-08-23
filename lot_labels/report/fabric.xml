@@ -78,12 +78,12 @@
 
 					<td
 						class="text-left align-middle border-right-0 font-size-24 width-13-percent">
-						<strong class='font-label-fabric'>Supplier:</strong>
+						<strong class='font-label-fabric'>Roll/Box #</strong>
 
 					</td>
 					<td class='border-left-0 font-size-24 align-middle ' style='width:36%'>
-						<t t-if="move_line.lot_id.supplier_id.name">
-							<span t-field="move_line.lot_id.supplier_id.name"></span>
+						<t t-if="move_line.lot_id.pallet_number">
+							<span t-field="move_line.lot_id.pallet_number"></span>
 						</t>
 						<t t-else="">
 							<span>  </span>
