@@ -70,11 +70,12 @@
 				</tr>
 
 				<tr class='height-60'>
-					<td colspan="4" class="text-left align-middle">
-						<strong class='label-leather'>Ship Date: </strong>
+					<td colspan="1" class="text-left align-middle border-right-0 label-leather">
+						<strong>Ship Date: </strong>
+					</td>
+					<td colspan="2" class="text-right align-middle font-size-24 border-left-0 border-right-0">
 						<t t-if='move_line.lot_id.ship_date'>
-							<span class='font-size-24' t-field="move_line.lot_id.ship_date"
-							t-options='{"format": "dd MMM yyyy"}'></span>
+							<span t-field="move_line.lot_id.ship_date"	t-options='{"format": "dd MMM yyyy"}'></span>
 						</t>
 						<t t-else="">
 							<span> </span>
