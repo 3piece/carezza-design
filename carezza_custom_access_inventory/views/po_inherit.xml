@@ -91,7 +91,7 @@
                 <xpath expr="//filter[@name='order_date']" position="after">
                 	<separator/>
                     <filter name="material_type_material" string="Material" domain="[('material_type','=','material')]"/>
-                    <filter name="material_type_accessory" string="Accessory" domain="[('material_type','=','Accessory')]"/>
+                    <filter name="material_type_accessory" string="Accessory" domain="[('material_type','=','accessory')]"/>
                 </xpath>
             </field>
         </record>
@@ -104,7 +104,7 @@
                 <xpath expr="//filter[@name='order_date']" position="after">
                 	<separator/>
                     <filter name="material_type_material" string="Material" domain="[('material_type','=','material')]"/>
-                    <filter name="material_type_accessory" string="Accessory" domain="[('material_type','=','Accessory')]"/>
+                    <filter name="material_type_accessory" string="Accessory" domain="[('material_type','=','accessory')]"/>
                 	<separator/>
                 </xpath>
             </field>
