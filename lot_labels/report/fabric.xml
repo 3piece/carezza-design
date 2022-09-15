@@ -85,6 +85,9 @@
 						<t t-if="move_line.lot_id.pallet_number">
 							<span t-field="move_line.lot_id.pallet_number"></span>
 						</t>
+						<t t-elif="move_line.pallet_number">
+							<span t-field="move_line.pallet_number"></span>
+						</t>
 						<t t-else="">
 							<span>  </span>
 						</t>
