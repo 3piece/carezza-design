@@ -7,7 +7,7 @@
 		<field name="inherit_id" ref="purchase.purchase_order_form" />
 		<field name="arch" type="xml">
 
-			<xpath expr="//field[@name='currency_id']" position="before">
+			<xpath expr="//page[@name='sales']/group[@name='sale']`" position="before">
 				<field name='material_type'></field>
 			</xpath>
 					
