@@ -4,3 +4,4 @@ odoo-client-lib>=1.2.2
 odoo-import-export-client>=3.0.0
 boxsdk>=2.12.1
 pandas>=2.0.1
+numexpr>=2.7.3
