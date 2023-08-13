@@ -65,7 +65,7 @@
 		</field>
 	</record>
 
-	<record id="sotck_purchase_order_view_form_inherit"
+	<record id="stock_purchase_order_view_form_inherit"
 		model="ir.ui.view">
 		<field name="name">purchase.order.search.inherit</field>
 		<field name="model">purchase.order</field>
