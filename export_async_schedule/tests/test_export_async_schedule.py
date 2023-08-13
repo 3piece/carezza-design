@@ -36,7 +36,7 @@ class TestExportAsyncSchedule(common.SavepointCase):
         cls.schedule = cls.Schedule.create(
             {
                 "model_id": model.id,
-                "user_ids": [(4, user.id)],
+                "email_from": user.id,
                 "domain": '[("is_company", "=", True)]',
                 "ir_export_id": cls.ir_export.id,
                 "export_format": "csv",
@@ -90,7 +90,7 @@ class TestExportAsyncSchedule(common.SavepointCase):
             "ids": False,
             "import_compat": True,
             "model": "res.partner",
-            "user_ids": [self.env.ref("base.user_admin").id],
+            "email_from": self.env.ref("base.user_admin").id,
         }
         self.assertDictEqual(prepared, expected)
 
@@ -112,7 +112,7 @@ class TestExportAsyncSchedule(common.SavepointCase):
             "ids": False,
             "import_compat": False,
             "model": "res.partner",
-            "user_ids": [self.env.ref("base.user_admin").id],
+            "email_from": self.env.ref("base.user_admin").id,
         }
         self.assertDictEqual(prepared, expected)
 
@@ -187,7 +187,7 @@ class TestExportAsyncSchedule(common.SavepointCase):
                     "ids": False,
                     "import_compat": True,
                     "model": "res.partner",
-                    "user_ids": [2],
+                    "email_from": [2],
                 },
             )
 
