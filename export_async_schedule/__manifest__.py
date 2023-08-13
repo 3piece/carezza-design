@@ -11,6 +11,7 @@
     "category": "Generic Modules",
     "depends": [
         "base_export_async",
+        "mail"
         # "queue_job",
     ],
     "data": [
