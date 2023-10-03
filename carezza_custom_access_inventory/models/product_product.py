@@ -73,13 +73,10 @@ class ProductProduct(models.Model):
                 name = "0"
             res.barcode = name + str(res.id)
         return res
-    
 
     def unlink(self):
-        xml_id = self.env['ir.model.data'].search([('model', '=', 'product.product'), ('res_id', '=', self.id)])
-        res = super().unlink()
-        xml_id.unlink()
-        return res
-        
-        
-        
+        for record in self:
+            xml_id = self.env['ir.model.data'].search([('model', '=', 'product.product'), ('res_id', '=', record.id)])
+            if xml_id:
+                xml_id.unlink()
+        return super().unlink()
