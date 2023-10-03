@@ -75,6 +75,19 @@ class ProductTemplate(models.Model):
                                                                   ('model','=','product.product')])
                 
                 ir_model_data.sudo().name =  external_id
-                
-                
-    
+
+    def unlink(self):
+        product_product_env = self.env['product.product']
+        ir_model_data_env = self.env['ir.model.data']
+
+        for template in self:
+            # Get related product.product records
+            product_ids = product_product_env.search([('product_tmpl_id', '=', template.id)])
+
+            for product in product_ids:
+                # Delete corresponding ir_model_data record
+                xml_id = ir_model_data_env.search([('model', '=', 'product.product'), ('res_id', '=', product.id)])
+                if xml_id:
+                    xml_id.unlink()
+
+        return super(ProductTemplate, self).unlink()
