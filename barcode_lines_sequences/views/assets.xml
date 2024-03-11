@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="barcode_lines_sequences assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/barcode_lines_sequences/static/src/js/lines_widge.js"></script>
+        </xpath>
+    </template>
+</odoo>
