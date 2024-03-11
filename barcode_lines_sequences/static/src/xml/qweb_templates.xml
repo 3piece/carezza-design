@@ -2,11 +2,11 @@
 <templates xml:space="preserve">
     <t t-extend="stock_barcode_lines_template">
         <t t-jquery="t[t-if='lines']" t-operation="before">
-            <t t-set="lineCount" t-value="0"/>
+            <t t-set="lineCount" t-value="lines.length + 1"/>
         </t>
 
         <t t-jquery="div.o_barcode_line" t-operation="before">
-            <t t-set="lineCount" t-value="lineCount + 1"/>
+            <t t-set="lineCount" t-value="lineCount - 1"/>
         </t>
 
         <t t-jquery="div.o_barcode_line_details" t-operation="before">
