@@ -10,7 +10,7 @@
         </t>
 
         <t t-jquery="div.o_barcode_line_details" t-operation="before">
-            <div t-esc="lineCount + '.'" class="m-auto pr-3 font-weight-normal h4"/>
+            <div t-esc="lineCount + '.'" class="line_sequence m-auto pr-3 font-weight-normal h4"/>
         </t>
     </t>
 </templates>

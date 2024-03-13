@@ -19,5 +19,11 @@ odoo.define('barcode_lines_sequencesLinesWidget', function (require) {
                 return b.id - a.id
             });
         },
+
+        addProduct: function (lineDescription, model, doNotClearLineHighlight) {
+            this._super.apply(this, arguments);
+            var $line = $(".o_barcode_line:first")
+            $line.find('.line_sequence').text(this.page.lines.length + '.')
+        },
     })
 })
