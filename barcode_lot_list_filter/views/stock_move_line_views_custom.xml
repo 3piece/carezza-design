@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="view_stock_move_line_form_custom" model="ir.ui.view">
+            <field name="name">stock.move.line.form.custom</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock_barcode.stock_move_line_product_selector"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='lot_id']" position="replace">
+                    <field name="lot_id" placeholder="Serial/Lot Number" options="{'no_open': True}"
+                           context="{'default_product_id': product_id, 'default_company_id': company_id, 'default_location_id': picking_location_id}"
+                           domain="[('product_id', '=', product_id), 
+                                    ('quant_ids.location_id', '=', picking_location_id), 
+                                    ('quant_ids.quantity', '>', 0)]"
+                           attrs="{'invisible': ['|', ('tracking', '=', 'none'), ('picking_type_use_existing_lots', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
