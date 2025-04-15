@@ -11,8 +11,17 @@
 					<col style="width: 35%;" span="1"></col>
 				</colgroup>
 
-				<tr>
-					<td colspan="4" class="height-95 font-header thick-border">
+				<tr class="thick-border">
+					<td colspan="1" class="text-center align-middle border-right-0">
+                        <div class="row text-center">
+                            <div></div>
+                            <div class='west_spo'>
+                                    SPO
+                            </div>
+                            <div></div>
+                        </div>
+                    </td>
+                    <td colspan="4" class="height-95 font-header border-left-0">
 						<div class="row td-div text-center">
                             <div>
                                 <span class="line"><strong t-esc="move.product_id.name" /></span>
@@ -22,32 +31,44 @@
                         </div>
 					</td>
 				</tr>
-				<tr class='height-60'>
+				<tr class='height-59'>
 					<td class="width-81 text-left align-middle font-label-fabric">
-						<strong>MPO :</strong>
+						<strong>MPO: </strong>
 					</td>
-					<td colspan='3'
-						class="text-center align-middle font-size-24 border-left-0">
-						<span t-field="move_line.lot_id.po_id.name"></span>
+					<td colspan='1'
+						class="text-left align-middle font-size-24 border-left-0">
+						<span t-field="move_line.formatted_po_id_name"></span>
 					</td>
+					<td class="width-81 text-left align-middle font-label-fabric border-right-0">
+						<strong>Supplier: </strong>
+					</td>
+					<td colspan='1'
+						class="text-left align-middle font-header-16 border-left-0">
+						<span t-field="move_line.supplier" style="white-space: normal;"></span>
+					</td> 
 				</tr>
-
-				<tr class='height-60'>
+				<tr class='height-59'>
 					<td class="text-left align-middle font-label-fabric">
 						<strong>Code: </strong>
 					</td>
-					<td colspan='3'
-						class="text-center align-middle font-size-24 border-left-0">
+					<td colspan='1'
+						class="text-left align-middle font-size-24 border-left-0">
 						<span t-field="move_line.product_id.default_code"></span>
 					</td>
+					<td class="text-left align-middle font-label-fabric border-right-0">
+						<strong>Description: </strong>
+					</td>
+					<td colspan='1'
+						class="text-left align-middle font-header-16 border-left-0">
+						<span t-field="move_line.material_desc" style="white-space: normal;"></span>
+					</td>
 				</tr>
-
-				<tr class='height-60'>
+				<tr class='height-59'>
 					<td class="text-left align-middle font-label-fabric">
 						<strong>Quantity: </strong>
 					</td>
-					<td colspan='3'
-						class="text-center align-middle font-size-24 border-left-0">
+					<td colspan='1'
+						class="text-left align-middle font-size-24 border-left-0">
 
 						<t t-if="move_line.qty_done >0">
 							<span t-field="move_line.qty_done"></span>
@@ -55,31 +76,11 @@
 						<t t-else="">
 							<span t-field="move_line.product_uom_qty"></span>
 						</t>
-
-						<span t-field="move_line.product_uom_id"></span>
+    						<span t-field="move_line.product_uom_id"></span>
 					</td>
-				</tr>
-
-				<tr class='height-60'>
-					<td
-						class="text-left align-middle width-13-percent border-right-0">
-						<strong class='font-label-fabric'>Ship Date: </strong>
-
-					</td>
-					<td class='border-left-0 font-size-24  align-middle ' style='width:36%'>
-						<t t-if='move_line.lot_id.ship_date'>
-							<span t-field="move_line.lot_id.ship_date"
-								t-options='{"format": "dd MMM yyyy"}'></span>
-						</t>
-						<t t-else="">
-							<span>  </span>
-						</t>
-					</td>
-
-					<td
-						class="text-left align-middle border-right-0 font-size-24 width-13-percent">
-						<strong class='font-label-fabric'>Roll/Box #</strong>
-
+                    <td
+						class="text-left align-middle border-right-0 font-label-fabric width-13-percent">
+						<strong>Roll/Box #: </strong>
 					</td>
 					<td class='border-left-0 font-size-24 align-middle ' style='width:36%'>
 						<t t-if="move_line.lot_id.pallet_number">
@@ -94,16 +95,35 @@
 					</td>
 				</tr>
 
+				<tr class='height-59'>
+					<td
+						class="text-left align-middle font-label-fabric width-13-percent border-right-0">
+						<strong>Ship Date: </strong>
+					</td>
+					<td class='border-left-0 font-size-24  align-middle ' style='width:36%'>
+						<t t-if='move_line.lot_id.ship_date'>
+							<span t-field="move_line.lot_id.ship_date"
+								t-options='{"format": "dd MMM yyyy"}'></span>
+						</t>
+						<t t-else="">
+							<span>  </span>
+						</t>
+					</td>
+					<td colspan="1"
+						class="text-left align-middle font-label-fabric border-right-0">
+						<strong>Country of Origin: </strong>
+					</td>
+                    <td
+						class="text-left align-middle font-header-16 border-left-0">
+						<span t-field="move_line.coo" style="white-space: normal;"></span>
+					</td>
+				</tr>
+
 				<tr class='height-70 border-bottom-10'>
-                    <td colspan="2" class="text-center align-middle border-right-0">
-                        <div class="row text-center">
-                            <div></div>
-                            <div class='west_spo'>
-                                    SPO
-                            </div>
-                            <div></div>
-                        </div>
-                    </td>
+                    <td colspan="2"
+						class="text-center align-middle width-13-percent border-right-0">
+						<span t-field="move_line.remark" style="white-space: normal;"></span>
+					</td>
 					<t t-if="move_line.product_id.tracking != 'none'">
 						<td colspan="2" class="text-center align-middle">
 							<t t-if="move_line.lot_id.name">

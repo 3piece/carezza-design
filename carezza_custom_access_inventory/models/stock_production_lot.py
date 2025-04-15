@@ -16,7 +16,12 @@ class StockProductionLot(models.Model):
     position = fields.Char('Position')
     #remove later
     number_of_skins = fields.Integer()
-    
+
+    supplier = fields.Char() #Added by Raymond
+    material_desc = fields.Char() #Added by Raymond
+    remark = fields.Char() #Added by Raymond
+    coo = fields.Char() #Added by Raymond
+
 #     def _compute_qty(self):
 #         for record in self:
 #             qty = 0
@@ -31,7 +36,15 @@ class StockProductionLot(models.Model):
         if 'move_id' in context:
             move_id = self.env['stock.move'].browse([context['move_id']])
             if move_id:
-                vals['po_id'] = move_id.purchase_line_id.order_id.id     
+                vals['po_id'] = move_id.purchase_line_id.order_id.id
+
+                #Added by Raymond
+                vals['supplier'] = move_id.supplier
+                vals['remark'] = move_id.remark
+                vals['material_desc'] = move_id.material_desc
+                vals['coo'] = move_id.coo
+                #===========================
+        
         res = super().create(vals)
         return res
     

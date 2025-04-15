@@ -5,10 +5,10 @@
 			<table class="table-bordered table-format" t-if="picking.move_lines" >
 				<colgroup>
 					<col style="width: 12%;" span="1"></col>
+					<col style="width: 23%;" span="1"></col>
+					<col style="width: 14%;" span="1"></col>
+					<col style="width: 30%;" span="1"></col>
 					<col style="width: 21%;" span="1"></col>
-					<col style="width: 13%;" span="1"></col>
-					<col style="width: 20%;" span="1"></col>
-					<col style="width: 34%;" span="1"></col>
 				</colgroup>
 
 				<tr>
@@ -22,62 +22,57 @@
                         </div>
 					</td>
 				</tr>
-				<tr class='height-60'>
-						<td colspan="1" class=" align-middle font-label-urfk" >
-							<strong>MPO</strong>
-						</td>
-						<td colspan="3" style='width:238px'  class="text-center align-middle font-size-24  border-left-0" >
-							<span t-field="move_line.lot_id.po_id.name"></span>
-						</td>
-					<td rowspan="4" colspan="1" class="text-center align-middle td-img-accessory">
-						<img
-							t-attf-src="/lot_labels/static/img/UKFR.png"
-							class="img img-fluid" style="width: 95%;height: auto;" alt="Product image" />
-					</td>
-
+				<tr class='height-59'>
+                    <td colspan="1" class=" align-middle font-label-urfk" >
+                        <strong>MPO</strong>
+                    </td>
+                    <td colspan="1" style='width:238px'  class="text-left align-middle font-size-24  border-left-0" >
+                        <span t-field="move_line.formatted_po_id_name"></span>
+                    </td>
+                    <td colspan="1" class=" align-middle font-label-urfk" >
+                        <strong>Supplier</strong>
+                    </td>
+                    <td colspan="1" style='width:238px'  class="text-left align-middle font-header-16  border-left-0" >
+                        <span t-field="move_line.supplier" style="white-space: normal;"></span>
+                    </td>
+                    <td rowspan="4" colspan="1" class="text-center align-middle td-img-accessory">
+                        <img
+                        t-attf-src="/lot_labels/static/img/UKFR.png"
+                        class="img img-fluid" style="width: 95%;height: auto;" alt="Product image" />
+                    </td>
 				</tr>
 
-				<tr class='height-60'>
-						<td colspan="1" class=" align-middle font-label-urfk" >
-							<strong>Code</strong>
-						</td>
-						<td colspan="3" style='width:238px'  class="text-center align-middle font-size-24  border-left-0" >
-							<span t-field="move_line.product_id.default_code"></span>
-						</td>
+				<tr class='height-59'>
+                    <td colspan="1" class=" align-middle font-label-urfk" >
+                        <strong>Code</strong>
+                    </td>
+                    <td colspan="1" style='width:238px'  class="text-left align-middle font-size-24  border-left-0" >
+                        <span t-field="move_line.product_id.default_code"></span>
+                    </td>
+                    <td colspan="1" class=" align-middle font-label-urfk" >
+                        <strong>Description</strong>
+                    </td>
+                    <td colspan="1" style='width:238px'  class="text-left align-middle font-header-16  border-left-0" >
+                        <span t-field="move_line.material_desc" style="white-space: normal;"></span>
+                    </td>
 				</tr>
-				<tr class='height-60'>
+				<tr class='height-59'>
 					<td colspan="1" class="align-middle font-label-urfk">
 						<strong>Quantity</strong>
 					</td>
-					<td colspan="3" class=" text-center align-middle font-size-24 border-left-0" >
+					<td colspan="1" class=" text-left align-middle font-size-24 border-left-0" >
 						<t t-if="move_line.qty_done >0">
 							<span t-field="move_line.qty_done"></span>
 						</t>
 						<t t-else="">
 							<span t-field="move_line.product_uom_qty"></span>
 						</t>
-
 						<span t-field="move_line.product_uom_id"></span>
 					</td>
-
-				</tr>
-
-
-				<tr class='height-60'>
-					<td colspan="1" class=" align-middle font-label-urfk border-right-0" >
-						<strong>Ship Date</strong>
-
-					</td>
-
-					<td colspan="1" class="no-ellipsis align-middle font-size-24 border-left-0" style='width: 119px;'>
-						<span t-field="move_line.lot_id.ship_date"
-							t-options='{"format": "dd MMM yyyy"}'></span>
-
-					</td>
-					<td colspan="1" class=" align-middle font-label-urfk border-right-0 " >
+                    <td colspan="1" class=" align-middle font-label-urfk border-right-0 " >
 						<strong>Roll/Box #</strong>
 					</td>
-					<td colspan="1" class="align-middle font-size-24  border-left-0" style='width: 119px; border-right: 2px solid black !important;'>
+					<td colspan="1" class="text-left align-middle font-size-24  border-left-0" style='width: 119px; border-right: 2px solid black !important;'>
 						<t t-if="move_line.lot_id.pallet_number">
 							<span t-field="move_line.lot_id.pallet_number"></span>
 						</t>
@@ -85,12 +80,29 @@
 							<span t-field="move_line.pallet_number"></span>
 						</t>
 					</td>
-
+				</tr>
+				<tr class='height-59'>
+					<td colspan="1" class=" align-middle font-label-urfk border-right-0" >
+						<strong>Ship Date</strong>
+					</td>
+					<td colspan="1" class="no-ellipsis align-middle font-size-24 border-left-0" style='width: 119px;'>
+						<span t-field="move_line.lot_id.ship_date"
+							t-options='{"format": "dd MMM yyyy"}'></span>
+					</td>
+                    <td colspan="1" class=" align-middle font-label-urfk" >
+                        <strong>Country of Origin</strong>
+                    </td>
+                    <td colspan="1" style='width:238px'  class="text-left align-middle font-header-16  border-left-0" >
+                        <span t-field="move_line.coo" style="white-space: normal;"></span>
+                    </td>
 				</tr>
 
 				<tr class='height-70 border-bottom-10'>
-					<t t-if="move_line.product_id.tracking != 'none'">
-						<td colspan="5" class="text-center align-middle">
+                    <td colspan="2" style='width:238px'  class="text-center align-middle font-header-16  border-left-0" >
+                        <span t-field="move_line.remark" style="white-space: normal;"></span>
+                    </td>
+                    <t t-if="move_line.product_id.tracking != 'none'">
+						<td colspan="3" class="text-center align-middle">
 							<t t-if="move_line.lot_id.name">
 								<div class='padding-top-bot-8'>
 									<img
@@ -107,7 +119,7 @@
 					</t>
 
 					<t t-if="move_line.product_id.tracking == 'none'">
-						<td colspan="5" class="text-center align-middle">
+						<td colspan="3" class="text-center align-middle">
 							<t t-if="move_line.product_id.barcode">
 								<div class='padding-top-bot-8'>
 									<img
@@ -120,9 +132,9 @@
 								<span class="text-muted">No barcode available</span>
 							</t>
 						</td>
-					
 					</t>
-				</tr>				
+
+                </tr>				
 				
 			</table>
 		</template>

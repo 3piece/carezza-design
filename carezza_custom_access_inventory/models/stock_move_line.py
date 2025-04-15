@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
 from odoo.exceptions import AccessError, UserError
+
 from collections import OrderedDict, defaultdict
 from odoo.tools.float_utils import float_compare, float_is_zero, float_round
 import logging
@@ -15,7 +16,24 @@ class StockMoveLine(models.Model):
     hides = fields.Integer()
     create_auto = fields.Boolean()
     position = fields.Char()
+    supplier = fields.Char() #Added by Raymond
+    material_desc = fields.Char() #Added by Raymond
+    remark = fields.Char() #Added by Raymond
+    coo = fields.Char() #Added by Raymond
 
+    #Change PO No Format (Added by Raymond)
+    formatted_po_id_name = fields.Char(compute='_compute_formatted_po_id_name')
+    
+    @api.depends('lot_id.po_id.name')
+    def _compute_formatted_po_id_name(self):
+        for record in self:
+            if record.lot_id.po_id.name:
+                original_value = record.lot_id.po_id.name
+                year_month, running_number = original_value.split('-')
+                new_running_number = '00' + running_number  # Adding '00' as the prefix
+                record.formatted_po_id_name = f"{year_month}-{new_running_number}"
+    #=================================================================================
+    
     @api.onchange('lot_id')
     def onchange_lot_id(self):
         if self.lot_id:
@@ -27,6 +45,11 @@ class StockMoveLine(models.Model):
             self.pallet_number = self.lot_id.pallet_number
             self.hides = self.lot_id.hides
             self.position = self.lot_id.position
+            self.supplier = self.lot_id.supplier #Added by Raymond
+            self.remark = self.lot_id.remark #Added by Raymond
+            self.material_desc = self.lot_id.material_desc #Added by Raymond
+            self.coo = self.lot_id.coo #Added by Raymond
+            
             context = self.env.context
             if 'default_picking_id' in context:
                 if context['default_picking_id']:
@@ -98,6 +121,18 @@ class StockMoveLine(models.Model):
                     res.hides = res.lot_id.hides
                 if res.hides == 0 :
                     res.position = res.lot_id.position
+
+                #Added by Raymond
+                if not res.supplier :
+                    res.supplier = res.lot_id.supplier
+                if not res.remark :
+                    res.remark = res.lot_id.remark
+                if not res.material_desc :
+                    res.material_desc = res.lot_id.material_desc
+                if not res.coo :
+                    res.coo = res.lot_id.coo
+                #=====================
+                
         return res    
     
     def write(self,vals):
@@ -114,8 +149,23 @@ class StockMoveLine(models.Model):
                 record.lot_id.hides = hides  
             if 'position' in vals:
                 position = record.position
-                record.lot_id.position = position      
-                                                            
+                record.lot_id.position = position
+
+            #Added by Raymond
+            if 'supplier' in vals:
+                supplier = record.supplier
+                record.lot_id.supplier = supplier     
+            if 'remark' in vals:
+                remark = record.remark
+                record.lot_id.remark = remark     
+            if 'material_desc' in vals:
+                material_desc = record.material_desc
+                record.lot_id.material_desc = material_desc     
+            if 'coo' in vals:
+                coo = record.coo
+                record.lot_id.coo = coo
+            #==========================
+            
             return res               
         
     def _create_and_assign_production_lot(self):
@@ -135,7 +185,13 @@ class StockMoveLine(models.Model):
                     'name': ml.lot_name,
                     'product_id': ml.product_id.id,
                     'supplier_id': ml.move_id.purchase_line_id.order_id.partner_id.id,
-                    'po_id': ml.move_id.purchase_line_id.order_id.id
+                    'po_id': ml.move_id.purchase_line_id.order_id.id,
+                    #Added by Raymond
+                    'supplier': ml.move_id.supplier,
+                    'remark': ml.move_id.remark,
+                    'material_desc': ml.move_id.material_desc,
+                    'coo': ml.move_id.coo
+                    #===========================
                 })
         lots = self.env['stock.production.lot'].create(lot_vals)
         for key, mls in key_to_mls.items():
