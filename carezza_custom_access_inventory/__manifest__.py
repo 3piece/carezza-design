@@ -30,7 +30,7 @@
     'website': "https://strai.co",
 
     'category': 'Inventory',
-    'version': '14.0.3.0.1',
+    'version': '14.0.3.0.2',
     'application':  True,
     'installable':  True,
     'auto_install':  False,

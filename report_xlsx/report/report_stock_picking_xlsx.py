@@ -33,8 +33,11 @@ class PartnerXlsx(models.AbstractModel):
         sheet.write(0, 5, "Quantity", bold)
         sheet.write(0, 6, "Box / Roll / Pallet No", bold)
         sheet.write(0, 7, "Hides", bold)
-        sheet.write(0, 8, "Move line id", bold)
-
+        sheet.write(0, 8, "Supplier", bold) #Added by Raymond
+        sheet.write(0, 9, "Description", bold) #Added by Raymond
+        sheet.write(0,10, "Origin", bold) #Added by Raymond
+        sheet.write(0,11, "Remark", bold) #Added by Raymond
+        sheet.write(0,12, "Move line id", bold)
         
         
         for obj in pickings:
@@ -58,8 +61,30 @@ class PartnerXlsx(models.AbstractModel):
                 col += 1
                 sheet.write(row, col, move_line.hides)
                 col += 1
+                #Added by Raymond
+                if move_line.supplier:
+                    sheet.write(row, col, move_line.supplier.upper())
+                else:
+                    sheet.write(row, col, obj.partner_id.company_name.upper())
+                col += 1
+                if move_line.material_desc:
+                    sheet.write(row, col, move_line.material_desc.upper())
+                else:
+                    stored_value = move_line.product_id.product_tmpl_id.label_type
+                    display_value = move_line.product_id.product_tmpl_id.get_display_value(stored_value)
+                    sheet.write(row, col, display_value.upper())
+                col += 1
+                if move_line.coo:
+                    sheet.write(row, col, move_line.coo.upper())
+                else:
+                    sheet.write(row, col, obj.partner_id.country_id.name.upper())
+                col += 1
+                if move_line.remark:
+                    sheet.write(row, col, move_line.remark)
+                col += 1                
+                #===================
                 sheet.write(row, col, move_line.id)
-                row +=1
-        sheet.set_column('I:I', None, None, {'hidden': True})
+                row += 1
+        sheet.set_column('M:M', None, None, {'hidden': True}) #Updated by Raymond
 
     

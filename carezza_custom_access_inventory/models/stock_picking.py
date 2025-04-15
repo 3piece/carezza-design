@@ -41,6 +41,14 @@ class StockPicking(models.Model):
             value['pallet_number'] = move_line_id.pallet_number
             value['hides'] = move_line_id.hides
             value['move_line_id'] = move_line_id.id
+
+            #Added by Raymond
+            value['supplier'] = move_line_id.supplier
+            value['remark'] = move_line_id.remark
+            value['material_desc'] = move_line_id.material_desc
+            value['coo'] = move_line_id.coo
+            #==============================
+            
             list.append(value)
         return list
 
@@ -52,7 +60,13 @@ class StockPicking(models.Model):
                 move_line_id.lot_id.pallet_number = move_line_id.pallet_number
                 move_line_id.lot_id.hides = move_line_id.hides
                 move_line_id.lot_id.position = move_line_id.position
-                
+
+                #Added by Raymond
+                move_line_id.lot_id.supplier = move_line_id.supplier
+                move_line_id.lot_id.remark = move_line_id.remark
+                move_line_id.lot_id.material_desc = move_line_id.material_desc
+                move_line_id.lot_id.coo = move_line_id.coo
+                #============================
         return res
 
     @api.onchange('move_ids_without_package')
@@ -86,7 +100,14 @@ class StockPicking(models.Model):
             if move_line:
                 move_line.write({'qty_done': detail['qty_done'],
                                  'pallet_number': detail['pallet_number'],
-                                 'hides': detail['hides'],})
+                                 'hides': detail['hides'],
+                                 
+                                 #Added by Raymond
+                                 'supplier': detail['supplier'],
+                                 'remark': detail['remark'],
+                                 'material_desc': detail['material_desc'],
+                                 'coo': detail['coo'],})
+                                 #=========================
                 return move_line.id
             else:
                 return False                    
@@ -104,7 +125,11 @@ class StockPicking(models.Model):
                            'location_dest_id': transfer.location_dest_id.id,
                            'state': 'assigned',
                            'pallet_number': detail['pallet_number'],
-                           'hides': detail['hides']
+                           'hides': detail['hides'],
+                           'supplier': detail['supplier'], #Added by Raymond
+                           'remark': detail['remark'], #Added by Raymond
+                           'material_desc': detail['material_desc'], #Added by Raymond
+                           'coo': detail['coo'] #Added by Raymond
                            }
                     move_line = self.env['stock.move.line'].create(vals)  
             else:
@@ -118,7 +143,11 @@ class StockPicking(models.Model):
                                'location_dest_id': transfer.location_dest_id.id,
                                'state': 'assigned',
                                'pallet_number': detail['pallet_number'],
-                               'hides': detail['hides']
+                               'hides': detail['hides'],
+                               'supplier': detail['supplier'], #Added by Raymond
+                               'remark': detail['remark'], #Added by Raymond
+                               'material_desc': detail['material_desc'], #Added by Raymond
+                               'coo': detail['coo'] #Added by Raymond                           
                                }
                     move_line = self.env['stock.move.line'].create(vals)                                  
             
@@ -194,12 +223,27 @@ class StockPicking(models.Model):
                 hides = 0
             else:
                 hides = df['Hides'][index]
-            
+
             if  math.isnan(df['Quantity'][index]):
                 quantity = 0
             else:
                 quantity = df['Quantity'][index]
                        
+            #Added by Raymond
+            supplier=""
+            if isinstance(df['Supplier'][index], str):
+                supplier = df['Supplier'][index]
+            remark=""
+            if isinstance(df['Remark'][index], str):
+                remark = df['Remark'][index]
+            material_desc=""
+            if isinstance(df['Description'][index], str):
+                material_desc = df['Description'][index]
+            coo=""
+            if isinstance(df['Origin'][index], str):
+                coo = df['Origin'][index]
+            #=====================================
+            
             code=""
             if isinstance(df['Code'][index], str):
                 code = '[%s] '%df['Code'][index]
@@ -228,6 +272,10 @@ class StockPicking(models.Model):
             'qty_done': quantity,
             'pallet_number': box,
             'hides': hides,
+            'supplier': supplier, #Added by Raymond
+            'remark': remark, #Added by Raymond
+            'material_desc': material_desc, #Added by Raymond
+            'coo': coo, #Added by Raymond
             'move_line_id': int(df['Move line id'][index]) if math.isnan(df['Move line id'][index])!= True else False }
             list_obj.append(dict_val)
             if not math.isnan(df['Move line id'][index]):

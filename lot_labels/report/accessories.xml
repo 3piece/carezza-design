@@ -4,34 +4,23 @@
 		<template id="accessories_label">
 			<table class="table-bordered table-format" t-if="picking.move_lines" >
 				<colgroup>
-					<col style="width: 15%;" span="1"></col>
-					<col style="width: 40%;" span="1"></col>
-					<col style="width: 1%;" span="1"></col>
-					<col style="width: 44%;" span="1"></col>
+					<col style="width: 12%;" span="1"></col>
+					<col style="width: 23%;" span="1"></col>
+                    <col style="width: 14%;" span="1"></col>
+                    <col style="width: 30%;" span="1"></col>
+					<col style="width: 21%;" span="1"></col>
 				</colgroup>
-
-
 				<tr>
-					<td colspan="2" class="height-160 font-header thick-border">
-                        <div class="height-160">
-                            <div class="row td-div text-center">
-                                <div>
-                                    <div class="two-line-div">
-                                        <strong t-esc="move.product_id.name" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row text-center">
-                                <div>
-                                    <div class='two-line-div font-size-24'>
-                                            <strong t-esc="move.product_id.attribute_value" />
-                                    </div>
-                                </div>
+                    <td colspan="5" class="height-95 font-header thick-border">
+						<div class="row td-div text-center">
+                            <div>
+                                <span class="line"><strong t-esc="move.product_id.name" /></span>
+                                <span>-</span>
+                                <span class="line"><strong t-esc="move.product_id.attribute_value" /></span>
                             </div>
                         </div>
 					</td>
 <!-- 				</tr>
-
 				<tr >
 					<td class="text-center height-160" colspan="2">
 						<div class="acc-title-top-margin-div"></div>
@@ -48,61 +37,31 @@
 							</div>
 						</div>
 					</td> -->
-					<td></td>
-					<td colspan="1" rowspan="4" class="text-center align-middle td-img-accessory">
-						<div class="img-acc-div">
+				</tr>
+				<tr class='height-59'>
+					<td class=" align-middle font-label-accessory" >
+                        <strong>APO</strong>
+                    </td>
+                    <td colspan="1" style='width:238px'  class="text-left align-middle font-size-24  border-left-0" >
+                        <span t-field="move_line.formatted_po_id_name"></span>
+                    </td>
+                    <td class=" align-middle font-label-accessory" >
+                        <strong>Code</strong>
+                    </td>
+                    <td colspan="1" style='width:238px'  class="text-left align-middle font-header-16 border-left-0" >
+                        <span class="line" style="white-space: normal;"><span t-esc="move.product_id.name" /> - <span t-esc="move.product_id.attribute_value" /></span>
+                    </td>
+                    <td colspan="1" rowspan="4" class="text-center align-middle td-img-accessory">
 						<img
-							t-attf-src="/web/image/product.product/#{move_line.product_id.id}/image_256"
-							class="img img-fluid img-acc" style="width: 95%;height: auto;" alt="Product image" />
-						</div>
+						t-attf-src="/web/image/product.product/#{move_line.product_id.id}/image_256"
+						class="img img-fluid img-acc" style="width: 95%;height: auto;" alt="Product image" />
 					</td>
-				</tr>
-				<tr class='height-60'>
-						<td class=" align-middle font-label-accessory" >
-							<strong>APO :</strong>
-						</td>
-						<td colspan="2" style='width:238px'  class="text-center align-middle font-size-24  border-left-0" >
-							<span t-field="move_line.lot_id.po_id.name"></span>
-						</td>
-				</tr>
-
-				<tr class='height-60'>
-					<td class="align-middle font-label-accessory">
-						<strong>Quantity: </strong>
+  				</tr>
+				<tr class='height-59'>
+                    <td  class="align-middle  font-label-accessory" >
+						<strong>Box #</strong>
 					</td>
-					<td colspan="2" class=" text-center align-middle font-size-24 border-left-0" >
-						<t t-if="move_line.qty_done >0">
-							<span t-field="move_line.qty_done"></span>
-						</t>
-						<t t-else="">
-							<span t-field="move_line.product_uom_qty"></span>
-						</t>
-
-						<span t-field="move_line.product_uom_id"></span>
-					</td>
-
-				</tr>
-
-				<tr class='height-60'>
-					<td class=" align-middle font-label-accessory">
-						<strong>Ship Date: </strong>
-					</td>
-					<td colspan="2" class="font-size-24 text-center align-middle border-left-0">
-						<t t-if='move_line.lot_id.ship_date'>
-							<span t-field="move_line.lot_id.ship_date"
-							t-options='{"format": "dd MMM yyyy"}'></span>
-						</t>
-						<t t-else="">
-							<span>   </span>
-						</t>
-					</td>
-				</tr>
-
-				<tr class='height-60 border-bottom-10'>
-					<td  class="align-middle  align-middle font-label-accessory" >
-						<strong>Roll/Box #</strong>
-					</td>
-					<td colspan="2" class="border-left-0 text-center align-middle font-size-24" >
+					<td colspan="1" class="border-left-0 text-left align-middle font-size-24" >
 						<t t-if="move_line.lot_id.pallet_number">
 							<span t-field="move_line.lot_id.pallet_number"></span>
 						</t>
@@ -113,8 +72,61 @@
 								<span>  </span>
 						</t>
 					</td>
+					<td class="align-middle font-label-accessory">
+						<strong>Description</strong>
+					</td>
+					<td colspan="1" class=" text-left align-middle font-header-16 border-left-0" >
+						<span t-field="move_line.material_desc" style="white-space: normal;"></span>
+                    </td>
+                </tr>
+                <tr class='height-59'>   
+                    <td class="align-middle font-label-accessory">
+						<strong>Quantity</strong>
+					</td>
+					<td colspan="1" class=" text-left align-middle font-size-24 border-left-0" >
+						<t t-if="move_line.qty_done >0">
+							<span t-esc="int(move_line.qty_done)"></span>
+						</t>
+						<t t-else="">
+							<span t-esc="int(move_line.product_uom_qty)"></span>
+						</t>
+
+						<span t-field="move_line.product_uom_id"></span>
+					</td>
+                    <td class=" align-middle font-label-accessory" >
+                        <strong>Supplier</strong>
+                    </td>
+                    <td colspan="1" style='width:238px'  class="text-left align-middle font-header-14  border-left-0" >
+                        <span t-field="move_line.supplier" style="white-space: normal;"></span>
+                    </td>                   
+				</tr>
+				<tr class='height-59'>
+					<td class=" align-middle font-label-accessory">
+						<strong>Ship Date</strong>
+					</td>
+					<td colspan="1" class="font-size-24 text-left align-middle border-left-0">
+						<t t-if='move_line.lot_id.ship_date'>
+							<span t-field="move_line.lot_id.ship_date"
+							t-options='{"format": "dd MMM yyyy"}'></span>
+						</t>
+						<t t-else="">
+							<span>   </span>
+						</t>
+					</td>
+                    <td class="align-middle font-label-accessory">
+						<strong>Country of Origin</strong>
+					</td>
+                    <td colspan="1" class=" text-left align-middle font-header-16 border-left-0" >
+						<span t-field="move_line.coo" style="white-space: normal;"></span>
+                    </td>
+				</tr>
+
+				<tr class='height-70 border-bottom-10'>
+                    <td colspan="2" class=" text-center align-middle font-header-16 border-left-0" >
+						<span t-field="move_line.remark" style="white-space: normal;"></span>
+                    </td>
 					<t t-if="move_line.product_id.tracking != 'none'">
-						<td class="text-center align-middle" colspan="1">
+						<td class="text-center align-middle" colspan="3">
 							<t t-if="move_line.lot_id.name">
 								<div class='padding-top-bot-8'>
 									<img
@@ -131,7 +143,7 @@
 					</t>
 
 					<t t-if="move_line.product_id.tracking == 'none'">
-						<td class="text-center align-middle" colspan="1">
+						<td class="text-center align-middle" colspan="3">
 							<t t-if="move_line.product_id.barcode">
 								<div class='padding-top-bot-8'>
 									<img

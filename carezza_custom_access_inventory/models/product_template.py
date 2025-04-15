@@ -16,13 +16,27 @@ class ProductTemplate(models.Model):
     
     material_type = fields.Char()
     label_type = fields.Selection([('accessories_small','Accessories small'),('fabric','Fabric'),('spo_fabric','SPO Fabric'),('leather','Leather'),('ukfr_fabric','UKFR Fabric'),('accessories','Accessories')], string='Label Type', store=True)
- 
+      
     def copy(self, default=None):
         # TDE FIXME: should probably be copy_data
         #default['generate_id'] = False
         res = super(ProductTemplate, self).copy(default=default) 
         return res
-       
+
+    #Added by Raymond
+    @api.model
+    def get_display_value(self, stored_value):
+        # Get the selection field definition
+        field = self._fields['label_type']
+        selection = dict(field.selection)
+
+        # Retrieve the display value based on the stored value
+        display_value = selection.get(stored_value, 'Unknown')
+        if display_value == 'SPO Fabric' :
+            display_value = 'Fabric'
+        return display_value
+    #=====================================
+        
     @api.onchange('categ_id')
     def compute_material_type(self):
         for record in self:
