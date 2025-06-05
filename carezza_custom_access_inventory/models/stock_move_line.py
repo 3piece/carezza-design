@@ -27,11 +27,16 @@ class StockMoveLine(models.Model):
     @api.depends('lot_id.po_id.name')
     def _compute_formatted_po_id_name(self):
         for record in self:
-            if record.lot_id.po_id.name:
-                original_value = record.lot_id.po_id.name
-                year_month, running_number = original_value.split('-')
-                new_running_number = '00' + running_number  # Adding '00' as the prefix
-                record.formatted_po_id_name = f"{year_month}-{new_running_number}"
+            po_name = record.lot_id.po_id.name if record.lot_id and record.lot_id.po_id else False
+            if po_name and '-' in po_name:
+                try:
+                    year_month, running_number = po_name.split('-')
+                    new_running_number = '00' + running_number   # Adding '00' as the prefix
+                    record.formatted_po_id_name = f"{year_month}-{new_running_number}"
+                except ValueError:
+                    record.formatted_po_id_name = po_name   # fallback to original if split fails
+            else:
+                record.formatted_po_id_name = ''
     #=================================================================================
     
     @api.onchange('lot_id')
